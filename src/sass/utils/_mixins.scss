@@ -1,0 +1,86 @@
+@function makeTransition($transitionList, $delay: 0) {
+  $list: ();
+  @each $transition in $transitionList {
+    $list: append(
+      $list,
+      $transition
+        $transition-duration
+        $transition-function
+        if($delay != 0, $delay, null),
+      comma
+    );
+  }
+  @return $list;
+}
+
+@mixin breakpointTo($point) {
+  @if $point==mobile {
+    @media only screen and (max-width: 319.98px) {
+      @content;
+    }
+  }
+  @if $point==tablet {
+    @media only screen and (max-width: 767.98px) {
+      @content;
+    }
+  }
+  @if $point==desktop {
+    @media only screen and (max-width: 1279.98px) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpointFrom($point) {
+  @if $point==mobile {
+    @media only screen and (min-width: 320px) {
+      @content;
+    }
+  }
+  @if $point==tablet {
+    @media only screen and (min-width: 768px) {
+      @content;
+    }
+  }
+  @if $point==desktop {
+    @media only screen and (min-width: 1280px) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpointBetween($pointFrom, $pointTo) {
+  @if $pointFrom==mobile {
+    @if $pointTo==tablet {
+      @media only screen and (min-width: 320px) and (max-width: 767.98px) {
+        @content;
+      }
+    } @else if $pointTo==desktop {
+      @media only screen and (min-width: 320px) and (max-width: 1279.98px) {
+        @content;
+      }
+    } @else {
+      @error 'wrong range';
+    }
+  }
+  @if $pointFrom==tablet {
+    @if $pointTo==desktop {
+      @media only screen and (min-width: 768px) and (max-width: 1279.98px) {
+        @content;
+      }
+    } @else {
+      @error 'wrong range';
+    }
+  }
+  @if $pointFrom==desktop {
+    @error 'wrong range';
+  }
+}
+
+@mixin breakpointDPR($dpr) {
+  @media screen and (min-device-pixel-ratio: $dpr),
+    screen and (min-resolution: #{$dpr*96}dpi),
+    screen and (min-resolution: #{$dpr}dppx) {
+    @content;
+  }
+}

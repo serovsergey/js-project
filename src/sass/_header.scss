@@ -90,7 +90,7 @@ transition: makeTransition((color));
   }
   &:hover,
   &:focus {
-    color: var(--btn-color);
+    color: var(--current-link-color);
 transition: makeTransition((color));
   }
 }

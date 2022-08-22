@@ -13,7 +13,7 @@
 .theme-light {
   --color-primary: #e5e5e5;
   --color-secondary: #f7f7f7;
-  --color-accent: btn: #ff6b01;
+  --color-accent: #ff6b01;
   --font-color: #000000;
 }
 .theme-dark {
@@ -71,7 +71,7 @@
 }
 
 input:checked + .theme-switcher__slider {
-  background-color:var(--bg-color);
+  background-color: var(--bg-color);
 }
 
 input:focus + .theme-switcher__slider {

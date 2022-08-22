@@ -3,24 +3,21 @@ export default class MoviewApi {
   static API_KEY = 'd211d18bbdd8eeb23b9914a8b27a6ac5';
   static BASE_URL = 'https://api.themoviedb.org/3';
   static GENRES_CACHE_KEY = 'genres_cache';
-  static TRENDING_PAGE_KEY = 'trending_current_page';
-  static SEARCH_PAGE_KEY = 'search_current_page';
-  static SEARCH_QUERY_KEY = 'search_query';
+  // static TRENDING_PAGE_KEY = 'trending_current_page';
+  // static SEARCH_PAGE_KEY = 'search_current_page';
+  // static SEARCH_QUERY_KEY = 'search_query';
   static GENRES_VALID_TIME = 1000 * 60 * 60 * 24 * 30;
 
   constructor() {
 
   }
 
-  async fetchTrending(next = true, reset = false) {
-    if (reset)
-      this.trendingPage = 1;
-    else {
-      if (next)
-        this.trendingPage += 1;
-      else
-        this.trendingPage = sessionStorage.getItem(TRENDING_PAGE_KEY) || 1;
-    }
+  async fetchNextTrending(page = -1) {
+    if (~page)
+      this.trendingPage = page;
+    else
+      this.trendingPage += 1;
+
     const params = new URLSearchParams({
       api_key: MoviewApi.API_KEY,
       page: this.trendingPage,
@@ -61,7 +58,7 @@ export default class MoviewApi {
     catch
     { genres_cache = null }
     if (forceUpdate || !genres_cache || !genres_cache.expires || genres_cache.expires < Date.now()) {
-      console.log('reload')
+      // console.log('reload')
       const params = new URLSearchParams({
         api_key: MoviewApi.API_KEY,
       }).toString();

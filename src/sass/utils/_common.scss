@@ -37,11 +37,11 @@ ol {
   margin-left: auto;
   margin-right: auto;
 
-  @include breakpointFrom(tablet){
+  @include breakpointFrom(tablet) {
     width: 744px;
   }
 
-  @include breakpointFrom(desktop){
+  @include breakpointFrom(desktop) {
     width: 1256px;
   }
 }

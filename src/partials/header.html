@@ -1,6 +1,23 @@
-<label id="switch" class="theme-switcher__switch">
-  <input type="checkbox" id="slider" />
-  <span class="theme-switcher__slider theme-switcher__slider--round"></span>
-</label>
-<a href="./index.html">HOME</a>
-<a href="./my-library.html">MY LIBRARY</a>
+
+
+<section class="hero-home">
+  <div class="hero-home__container">
+    <form class="hero-home__form" name="hero-home">
+      <input
+        class="form_input"
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Movie search"
+      />
+      <button class="form_search-button" type="submit">
+        <svg class="form_search-icon" width="12" height="12">
+          <use href="./images/symbol-sprite.svg#search"></use>
+        </svg>
+      </button>
+    </form>
+    <p class="notification notify-is-hidden">
+      Something is going wrong... Enter the correct movie name and try again
+    </p>
+  </div>
+</section>

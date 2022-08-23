@@ -1,3 +1,4 @@
+
 @function makeTransition($transitionList, $delay: 0) {
   $list: ();
   @each $transition in $transitionList {

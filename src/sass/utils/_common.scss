@@ -30,3 +30,18 @@ ul,
 ol {
   list-style: none;
 }
+.container {
+  width: 320px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include breakpointFrom(tablet) {
+    width: 744px;
+  }
+
+  @include breakpointFrom(desktop) {
+    width: 1256px;
+  }
+}

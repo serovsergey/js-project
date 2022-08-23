@@ -1,9 +1,23 @@
+:root {
+  --primary-text-color: #000000;
+  --secondary-text-color: #ffffff;
+  --bg-color: #ffffff;
+  --dark-bg-color: #242424;
+  --text-color: #ffffff;
+  --current-link-color: #ff001b;
+  --bkg-color: rgba(0, 0, 0, 0.56);
+  --btn-color: #ff6b08;
+  --btn-footer-color: #545454;
+  --input-hover: #bbbbbb;
+}
+
 .theme-light {
   --color-primary: #e5e5e5;
   --color-secondary: #f7f7f7;
-  --color-accent: btn: #ff6b01;
+  --color-accent: #ff6b01;
   --font-color: #000000;
 }
+
 .theme-dark {
   --color-primary: #17ed90;
   --color-secondary: #2a2c2d;
@@ -33,7 +47,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--dark-bg-color);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -58,15 +72,15 @@
   background-position: center;
 }
 
-input:checked + .theme-switcher__slider {
-  background-color: #2196f3;
+input:checked+.theme-switcher__slider {
+  background-color: var(--bg-color);
 }
 
-input:focus + .theme-switcher__slider {
-  box-shadow: 0 0 1px #2196f3;
+input:focus+.theme-switcher__slider {
+  box-shadow: 0 0 1px var(--font-color);
 }
 
-input:checked + .theme-switcher__slider:before {
+input:checked+.theme-switcher__slider:before {
   -webkit-transform: translateX(34px);
   -ms-transform: translateX(34px);
   transform: translateX(34px);

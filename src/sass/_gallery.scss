@@ -1,0 +1,14 @@
+li {
+    list-style-type: none;
+}
+
+.gallery {
+    padding-top: 20px;
+    padding-bottom: 40px;
+
+    @include breakpointFrom(tablet) {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+}
+

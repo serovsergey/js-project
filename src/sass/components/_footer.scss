@@ -1,0 +1,206 @@
+footer {
+    position: relative;
+    bottom: 0px;
+    background-color: var(--color-secondary);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--footer-color);
+
+    width: 100%;
+
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.14;
+
+    @include breakpointFrom(tablet) {
+        font-size: 16px;
+        line-height: 1.19;
+    }
+}
+
+
+.footer__div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include breakpointFrom(tablet) {
+        flex-direction: row;
+    }
+}
+
+.footer__list {
+    display: flex;
+    margin-top: 10px;
+
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.14;
+    color: var(--footer-color);
+
+    @include breakpointFrom(tablet) {
+        font-size: 16px;
+        line-height: 1.17;
+        margin-top: 0;
+    }
+}
+
+
+.footer__list-icon {
+    width: 14px;
+    height: 13px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 3px;
+    fill: var(--color-accent);
+}
+
+.open-team-modal {
+    border-color: transparent;
+    text-decoration: underline var(--footer-color);
+    background-color: var(--color-secondary);
+    margin-left: 5px;
+
+}
+
+.open-team-modal:hover,
+:focus {
+
+    color: var(--btn-color);
+    text-decoration: underline 2px var(--btn-color);
+}
+
+.open-team-modal:hover .footer__list-icon {
+    width: 200px;
+    height: 200px;
+}
+
+//MODAL
+.modal {
+    background-color: var(--color-primary);
+    position: absolute;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: initial;
+    padding: 10px 30px;
+    width: 450px;
+    height: 450px;
+    justify-content: center;
+
+
+    &__wrapper {
+        position: relative;
+        display: flex;
+        padding: 10px;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+
+}
+
+.modal__title {
+    justify-content: center;
+}
+
+.team-member {
+
+    font-size: 24px;
+    line-height: 1.2;
+    text-align: center;
+    // min-width: 270px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.close-icon {
+    cursor: pointer;
+    fill: white;
+    width: 15px;
+    height: 15px;
+}
+
+.team-member-text {
+    font-size: 20px;
+    line-height: 1.2;
+    text-align: center;
+    // min-width: 270px;
+    margin-bottom: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+
+}
+
+.member-description {
+    background-color: var(--color-primary);
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+
+}
+
+.team-pics {
+    display: inline-flex;
+}
+
+.team-image {
+    display: block;
+    width: 270px;
+}
+
+.button {
+    width: 30px;
+    height: 30px;
+
+}
+
+.btn-close {
+
+    padding: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    background-color: var(--color-accent);
+    border-radius: 50;
+    border-color: transparent;
+}
+
+.box {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%), 0px 2px 1px rgb(0 0 0 / 20%);
+    border-radius: 0px 0px 4px 4px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(100%);
+    background-color: var(--color-accent);
+
+    // transition: transform 250ms var(--timng-function);
+}
+
+
+.team-item:hover .overlay,
+.team-item:focus .overlay {
+    transform: translateY(0);
+}
+
+.overlay__text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.6;
+    color: black;
+    padding: 63px 24px;
+}

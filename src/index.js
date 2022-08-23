@@ -1,6 +1,7 @@
 // import './js/theme-switcher';
 import ThemeSwitcher from "./js/theme-switcher";
 import MovieApi from "./js/api/movieApi";
+import testHbs from './templates/test.hbs';
 
 const ts = new ThemeSwitcher('#slider');
 const TRENDING_PAGE_KEY = 'trending_current_page';
@@ -19,7 +20,7 @@ testFormRef.addEventListener('submit', async evt => {
   const data = await mApi.fetchNextSearch(searchQuery);
   sessionStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
   renderSearch(data);
-  console.log('start search', data)
+  console.log('start search', data);
 })
 
 async function start() {

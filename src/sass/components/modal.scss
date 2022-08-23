@@ -68,18 +68,20 @@ margin-bottom: 0;
   margin-bottom: 20px;
   text-transform: uppercase;
 }
-.modal__list {
+.modal__table {
   margin-bottom: 12px;
   margin-right: 25px;
+  min-width: 100%;
+
 }
-.modal__item {
+.modal__tr {
   font-size: 12px;
   line-height: 16px;
   color: #8c8c8c;
   display: flex;
   margin-bottom: 8px;
 }
-.modal__lable {
+.modal__td-lable {
   min-width: 108px;
   @include breakpointFrom(tablet) {
     min-width: 152px;
@@ -89,7 +91,7 @@ margin-bottom: 0;
 
   }
 }
-.modal__item-accent {
+.modal__td-text--accent {
   width: 36px;
   height: 16px;
   padding: 1px 9px;
@@ -97,16 +99,16 @@ margin-bottom: 0;
   border-radius: 5px;
   color: #fff;
 }
-.modal__item-slash {
+.modal__td-text--slash {
   color: #8c8c8c;
 }
-.modal__item-text {
+.modal__td-text {
   font-size: 12px;
   line-height: 14px;
   color: #000;
-  // margin-left: ;
+
 }
-.modal__item-all {
+.modal__td-text--all {
   padding: 1px 4px;
   background-color: #f7f7f7;
   color: #000;

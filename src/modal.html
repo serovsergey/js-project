@@ -1,25 +1,25 @@
 <section class="section">
-<div class="modal">
-  <button class="modal__close"></button>
+<div class=" container modal">
+  <button type="button" class="modal__btn-close"></button>
   <img class="modal__img" src="./images/modal.png" alt="image-film" />
-  <h2 class="modal__title">A FISTFUL OF LEAD</h2>
+  <div class="modal__description"> <h2 class="modal__title">A FISTFUL OF LEAD</h2>
   <ul class="modal__list">
-    <li>
+    <li class="modal__item">
       Vote / Votes
-      <p><span>7.3</span> / <span>1260</span></p>
+      <p class="modal__item-text"><span class="modal__item-accent">7.3</span> / <span class="modal__item-all">1260</span></p>
     </li>
-    <li>
+    <li class="modal__item">
       Popularity
       <p>100.2</p>
     </li>
-    <li><p>A FISTFUL OF LEAD</p></li>
-    <li>
+    <li class="modal__item">Original Title<p class="modal__item-text">A FISTFUL OF LEAD</p></li>
+    <li class="modal__item">
       Genre
-      <p>Western</p>
+      <p class="modal__item-text">Western</p>
     </li>
   </ul>
-  <h2>About</h2>
-  <p>
+  <h2 class="modal__subtitle">About</h2>
+  <p class="modal__text">
     Four of the Wests most infamous outlaws assemble to steal a huge stash of
     gold from the most corrupt settlement of the gold rush towns. But not all
     goes to plan one is killed and the other three escapes with bags of gold
@@ -28,9 +28,14 @@
     rise, things go from bad to worse as they realise the bags of gold are
     filled with lead... theyve been double crossed – but by who and how?
   </p>
-  <div>
-    <button>add to Watched</button>
-    <button>add to queue</button>
-  </div>
+  <ul class="button__list">
+    <li class="buttom__item">
+    <button class="buttom__item-accent" type="button">add to queue</button>
+    </li>
+    <li>
+    <button class="buttom__item-usual" type="button">add to queue</button>
+    </li>
+  </ul>
+</div>
 </div>
 </section>

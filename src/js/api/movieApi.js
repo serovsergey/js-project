@@ -3,9 +3,7 @@ export default class MoviewApi {
   static API_KEY = 'd211d18bbdd8eeb23b9914a8b27a6ac5';
   static BASE_URL = 'https://api.themoviedb.org/3';
   static GENRES_CACHE_KEY = 'genres_cache';
-  // static TRENDING_PAGE_KEY = 'trending_current_page';
-  // static SEARCH_PAGE_KEY = 'search_current_page';
-  // static SEARCH_QUERY_KEY = 'search_query';
+
   static GENRES_VALID_TIME = 1000 * 60 * 60 * 24 * 30;
 
   constructor() {

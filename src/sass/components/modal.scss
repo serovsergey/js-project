@@ -10,17 +10,20 @@
     width: 704px;
     padding: 38px 104px 42px 4px;
     display: flex;
-  }
+
   @include breakpointFrom (desktop) {
     width: 806px;
     padding: 40px 12px ;
+
   }
 }
 
 .modal__btn-close {
   background-image: url(../images/btn-close.svg);
+
   background-position: center;
   padding: 0;
+
   top: 8px;
   right: 8px;
   position: absolute;
@@ -28,6 +31,7 @@
   border: none;
   width: 30px;
   height: 30px;
+
   @include breakpointFrom(tablet) {
     top: 6px;
     right: 40px;
@@ -36,6 +40,7 @@
     top: 8px;
     right: 8px;
 }
+
 }
 .modal__img {
   height: 357px;
@@ -74,6 +79,7 @@ margin-bottom: 0;
   min-width: 100%;
 
 }
+
 .modal__tr {
   font-size: 12px;
   line-height: 16px;
@@ -105,9 +111,11 @@ margin-bottom: 0;
 .modal__td-text {
   font-size: 12px;
   line-height: 14px;
+
   color: #000;
 
 }
+
 .modal__td-text--all {
   padding: 1px 4px;
   background-color: #f7f7f7;

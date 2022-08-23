@@ -1,7 +1,7 @@
 // import './js/theme-switcher';
 import ThemeSwitcher from "./js/theme-switcher";
 import MovieApi from "./js/api/movieApi";
-import testHbs from './templates/test.hbs';
+import homeCardsHbs from './templates/home-cards.hbs';
 
 const ts = new ThemeSwitcher('#slider');
 const TRENDING_PAGE_KEY = 'trending_current_page';
@@ -10,18 +10,22 @@ const SEARCH_QUERY_KEY = 'search_query';
 
 const mApi = new MovieApi();
 
-const testListRef = document.querySelector("#test_list");
+const refs = {
+  cardsUl: document.querySelector(".gallery__list"),
+  pagination: document.querySelector(".gallery__pagination"),
+}
+// const testListRef = document.querySelector("#test_list");
 const testFormRef = document.querySelector("#test_form");
-const pagRef = document.querySelector("#pag");
-testFormRef.addEventListener('submit', async evt => {
-  evt.preventDefault();
-  // console.dir(evt.target);
-  const searchQuery = evt.target.elements.search.value;
-  const data = await mApi.fetchNextSearch(searchQuery);
-  sessionStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
-  renderSearch(data);
-  console.log('start search', data);
-})
+// const pagRef = document.querySelector("#pag");
+// testFormRef.addEventListener('submit', async evt => {
+//   evt.preventDefault();
+//   // console.dir(evt.target);
+//   const searchQuery = evt.target.elements.search.value;
+//   const data = await mApi.fetchNextSearch(searchQuery);
+//   sessionStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
+//   renderSearch(data);
+//   console.log('start search', data);
+// })
 
 async function start() {
   const searchQuery = sessionStorage.getItem(SEARCH_QUERY_KEY);
@@ -30,14 +34,14 @@ async function start() {
     const searchPage = sessionStorage.getItem(SEARCH_PAGE_KEY);
     const data = await mApi.fetchNextSearch(searchQuery, searchPage || 1);
     renderSearch(data);
-    console.log('search', data)
+    // console.log('search', data)
   }
   else {
     const trendingPage = sessionStorage.getItem(TRENDING_PAGE_KEY);
-    console.log(trendingPage)
+    // console.log(trendingPage)
     const data = await mApi.fetchNextTrending(trendingPage || 1);
-    renderTrending(data);
-    console.log('trending', data)
+    renderTrending(data, await mApi.getCachedGenres());
+    // console.log('trending', data)
   }
 }
 
@@ -76,13 +80,22 @@ function makePagination(data) {
   return pagination;
 }
 
-function renderTrending(data) {
-
-  const markup = data.data.results.reduce((acc, el) => acc + `
-  <li>${el.title}</li>
-  `, '');
-  testListRef.innerHTML = markup;
-  pagRef.innerHTML = makePagination(data);
+function renderTrending(data, genresList) {
+  const res = data.data.results.map(el => {
+    const genres = el.genre_ids.map(genreId => genresList.find(el => el.id === genreId).name);
+    if (genres.length > 2)
+      genres.splice(2, genres.length - 2, 'Other');
+    return {
+      ...el,
+      poster_path: 'https://image.tmdb.org/t/p/w400/' + el.poster_path,
+      title_: el.title,
+      year: new Date(el.release_date).getFullYear(),
+      genres: genres.join(', ')
+    }
+  });
+  const markup = homeCardsHbs(res);
+  refs.cardsUl.innerHTML = markup;
+  refs.pagination.innerHTML = makePagination(data);
 }
 
 function renderSearch(data) {
@@ -91,10 +104,10 @@ function renderSearch(data) {
   <li>${el.title}</li>
   `, '');
   testListRef.innerHTML = markup;
-  pagRef.innerHTML = makePagination(data);
+  refs.pagination.innerHTML = makePagination(data);
 }
 
-pagRef.addEventListener('click', async evt => {
+refs.pagination.addEventListener('click', async evt => {
   const page = evt.target.dataset.page;
   let data;
   if (page) {
@@ -106,27 +119,7 @@ pagRef.addEventListener('click', async evt => {
     else {
       data = await mApi.fetchNextTrending(page);
       sessionStorage.setItem(TRENDING_PAGE_KEY, data.data.page)
-      renderTrending(data);
+      renderTrending(data, await mApi.getCachedGenres());
     }
-
   }
 })
-
-// const fn = async () => {
-//   const mApi = new MovieApi();
-//   console.log(await mApi.fetchNextTrending(1));
-//   console.log(await mApi.fetchNextTrending());
-//   console.log(await mApi.fetchNextTrending());
-//   console.log(await mApi.fetchNextTrending());
-//   console.log('---')
-//   console.log(await mApi.fetchNextSearch('car', 4));
-//   console.log(await mApi.fetchNextSearch());
-//   console.log(await mApi.fetchNextSearch('cat', 55));
-//   console.log(await mApi.fetchNextSearch('', 23));
-//   console.log('---')
-
-//   console.log(await mApi.fetchMovieDetails(176431));
-
-//   console.log(await mApi.getCachedGenres());
-// }
-// fn();

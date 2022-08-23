@@ -4,18 +4,16 @@
   width: 100%;
   @media screen and (min-width: 768px) {
     display: flex;
-
   }
 }
 .modal__btn-close {
-  background-image: url(.../images/btn-close.svg);
+  background-image: url(../images/btn-close.svg);
   position: relative;
   top: 8px;
   right: 8px;
   width: 30px;
   height: 30px;
   margin-bottom: 10px;
-
 }
 .modal__img {
   height: 357px;
@@ -24,7 +22,6 @@
   margin-bottom: 20px;
   @media screen and (min-width: 768px) {
   }
-
 }
 .modal__title {
   font-size: 20px;
@@ -36,27 +33,25 @@
 .modal__list {
   margin-bottom: 20px;
   margin-right: 25px;
-  
 }
 .modal__item {
-   color:#8C8C8C
+  color: #8c8c8c;
 }
 .modal__item-accent {
-//   width: 36px;
-//   height: 16px;
+  //   width: 36px;
+  //   height: 16px;
   background-color: #ff6b01;
-  border-radius:5px;
+  border-radius: 5px;
   color: #fff;
-
 }
 .modal__item-text {
-    color: #000;
-// margin-left: ;
+  color: #000;
+  // margin-left: ;
 }
 .modal__item-all {
-background-color: #F7F7F7;
-color: #000;
-border-radius: 5px;
+  background-color: #f7f7f7;
+  color: #000;
+  border-radius: 5px;
 }
 
 .modal__subtitle {

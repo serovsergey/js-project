@@ -3,8 +3,9 @@
 @import './utils/mixins';
 @import './utils/common';
 
-@import './components/modal.scss';
 @import './components/main';
-@import './header';
-@import './gallery';
+@import './components/header';
+@import './components/gallery';
+@import './components/header-library';
+
 @import './utils/footer';

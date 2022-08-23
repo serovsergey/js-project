@@ -7,7 +7,8 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--btn-footer-color);
+    color: var(--footer-color);
+
 
     width: 100%;
 
@@ -36,27 +37,18 @@ footer {
     display: flex;
     margin-top: 10px;
 
-    @include breakpointFrom(tablet) {
-        margin-top: 0;
-    }
-}
-
-.foter__list-item,
-.footer__button {
     font-weight: 400;
     font-size: 14px;
     line-height: 1.14;
-    color: var(--btn-footer-color);
+    color: var(--footer-color);
 
     @include breakpointFrom(tablet) {
         font-size: 16px;
         line-height: 1.17;
+        margin-top: 0;
     }
 }
 
-.foter__list-item:not(:last-child) {
-    margin-right: 5px;
-}
 
 .footer__list-icon {
     width: 14px;
@@ -66,21 +58,22 @@ footer {
     margin-top: 3px;
 }
 
-.footer__button {
+.btn {
     border-color: transparent;
-    text-decoration: underline var(--btn-footer-color);
+    text-decoration: underline var(--footer-color);
     background-color: var(--color-secondary);
+    margin-left: 5px;
 
 }
 
-.footer__button:hover,
+.btn:hover,
 :focus {
-    font-weight: 700;
+
     color: var(--btn-color);
     text-decoration: underline 2px var(--btn-color);
 }
 
-.footer__button:hover .footer__list-icon {
+.btn:hover .footer__list-icon {
     width: 200px;
     height: 200px;
 }

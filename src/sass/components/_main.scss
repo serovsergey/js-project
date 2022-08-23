@@ -1,0 +1,31 @@
+.gallery {
+  &__list {
+    @include breakpointFrom(tablet) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+    @include breakpointFrom(desktop) {
+      gap: 16px;
+    }
+  }
+
+  &__item {
+    @include breakpointFrom(tablet) {
+      --width: calc((100% - 32px) / 2);
+      width: var(--width);
+      height: calc(var(--width) / 2 * 3);
+    }
+    @include breakpointFrom(desktop) {
+      --width: calc((100% - 32px) / 3);
+      width: var(--width);
+      height: calc(var(--width) / 2 * 3);
+    }
+  }
+}
+
+.film-card {
+  &__image {
+    width: 100%;
+  }
+}

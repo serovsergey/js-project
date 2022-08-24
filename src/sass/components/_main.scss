@@ -22,12 +22,12 @@ background-color: var(--bg-modal-color);
     @include breakpointFrom(tablet) {
       --width: calc((100% - 32px) / 2);
       width: var(--width);
-      height: calc(var(--width) / 2 * 3);
+      // height: calc(var(--width) / 2 * 3);
     }
     @include breakpointFrom(desktop) {
       --width: calc((100% - 32px) / 3);
       width: var(--width);
-      height: calc(var(--width) / 2 * 3);
+      // height: calc(var(--width) / 2 * 3);
     }
   }
 
@@ -101,10 +101,23 @@ background-color: var(--bg-modal-color);
     overflow: hidden;
     box-shadow: 1px 1px 4px -1px var(--footer-color);
     width: 100%;
-    // height: 100%;
+    height: 402px;
     &:hover,
     &:focus {
       transform: scale(1.01);
+    }
+    @include breakpointFrom(tablet) {
+      height: 455px;
+    }
+    @include breakpointFrom(desktop) {
+      height: 574px;
+    }
+
+    &--no-image {
+      background-image: url('../images/no-image.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   }
   &__title {

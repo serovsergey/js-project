@@ -48,12 +48,14 @@ refs.searchForm.addEventListener('submit', async evt => {
   const oldFailRef = document.querySelector(".search-fail");
   if (oldFailRef)
     oldFailRef.remove();
-  const searchQuery = evt.target.elements.searchQuery.value;
+  const searchQuery = evt.target.elements.searchQuery.value.trim().toLowerCase();
+  evt.target.elements.searchQuery.value = searchQuery;
   // refs.cardsUl.innerHTML = '';
   refs.loader.classList.remove('is-hidden');
   let data;
   try {
     data = await mApi.fetchNextSearch(searchQuery);
+    sessionStorage.setItem(SEARCH_PAGE_KEY, 1)
   }
   catch (e) {
     console.error(e.message);
@@ -72,7 +74,8 @@ refs.searchForm.addEventListener('submit', async evt => {
   }
   sessionStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
 
-  renderSearch(data, await mApi.getCachedGenres());
+  // renderSearch(data, await mApi.getCachedGenres());
+  renderCards(data, await mApi.getCachedGenres());
 })
 
 
@@ -87,6 +90,7 @@ async function start() {
     refs.loader.classList.remove('is-hidden');
     let data;
     try {
+      console.log(searchQuery, searchPage)
       data = await mApi.fetchNextSearch(searchQuery, searchPage || 1);
     }
     catch (e) {
@@ -94,7 +98,9 @@ async function start() {
     } finally {
       refs.loader.classList.add('is-hidden');
     }
-    renderSearch(data, genres);
+    // console.log(data)
+    renderCards(data, genres);
+    // renderSearch(data, genres);
     // console.log('search', data)
   }
 
@@ -116,7 +122,8 @@ async function start() {
       refs.cardsUl.innerHTML = '<li>There is no trending movies.</li>';
       return;
     }
-    renderTrending(data, genres);
+    renderCards(data, genres);
+    // renderTrending(data, genres);
   }
 }
 
@@ -154,42 +161,30 @@ function makePagination(data) {
   return pagination;
 }
 
-function renderTrending(data, genresList) {
+function renderCards(data, genresList) {
   const movies = data.data.results.map(el => {
     const genres = el.genre_ids.map(genreId => genresList.find(el => el.id === genreId).name);
     if (genres.length > 2)
       genres.splice(2, genres.length - 2, 'Other');
-    if (genres.length === 0)
-      genres.push('Other');
+    // if (genres.length === 0)
+    //   genres.push('No info');
+    const strGenres = genres.join(', ');
+    const info = [];
+    if (strGenres)
+      info.push(strGenres);
     const releaseDate = el.release_date || el.first_air_date;
+    if (releaseDate)
+      info.push(new Date(releaseDate).getFullYear());
+    const strInfo = info.join(' | ') || 'No info';
+    // console.log(el);
     return {
       ...el,
       title: el.title || el.name,
-      year: new Date(releaseDate).getFullYear(),
+      info: strInfo,
       genres: genres.join(', ')
     }
   });
-  const markup = homeCardsHbs({ movies, base_path: MovieApi.IMAGES_BASE_URL });
-  refs.cardsUl.innerHTML = markup;
-  refs.pagination.innerHTML = makePagination(data);
-}
-
-function renderSearch(data, genresList) {
-  // console.log(genresList)
-  const movies = data.data.results.map(el => {
-    const genres = el.genre_ids.map(genreId => genresList.find(el => el.id === genreId).name);
-    if (genres.length > 2)
-      genres.splice(2, genres.length - 2, 'Other');
-    if (genres.length === 0)
-      genres.push('Other');
-    const releaseDate = el.release_date || el.first_air_date;
-    return {
-      ...el,
-      title: el.title || el.name,
-      year: new Date(releaseDate).getFullYear(),
-      genres: genres.join(', ')
-    }
-  });
+  // console.log(movies)
   const markup = homeCardsHbs({ movies, base_path: MovieApi.IMAGES_BASE_URL });
   refs.cardsUl.innerHTML = markup;
   refs.pagination.innerHTML = makePagination(data);
@@ -197,13 +192,20 @@ function renderSearch(data, genresList) {
 
 async function gotoPage(page) {
   let data;
-  if (sessionStorage.getItem(SEARCH_QUERY_KEY)) {
+  const oldFailRef = document.querySelector(".search-fail");
+  if (oldFailRef)
+    oldFailRef.remove();
+  const q = sessionStorage.getItem(SEARCH_QUERY_KEY);
+  if (q) {
+    refs.searchForm.elements.searchQuery.value = q;
     // refs.cardsUl.innerHTML = '';
     refs.loader.classList.remove('is-hidden');
     try {
       data = await mApi.fetchNextSearch('', page);
+      // console.log(data)
       sessionStorage.setItem(SEARCH_PAGE_KEY, data.data.page)
-      renderSearch(data, await mApi.getCachedGenres());
+      renderCards(data, await mApi.getCachedGenres());
+      // renderSearch(data, await mApi.getCachedGenres());
     }
     catch (e) {
       console.log(e.message)
@@ -213,11 +215,14 @@ async function gotoPage(page) {
   }
   else {
     // refs.cardsUl.innerHTML = '';
+    refs.searchForm.elements.searchQuery.value = '';
+
     refs.loader.classList.remove('is-hidden');
     try {
       data = await mApi.fetchNextTrending(page);
       sessionStorage.setItem(TRENDING_PAGE_KEY, data.data.page)
-      renderTrending(data, await mApi.getCachedGenres());
+      // renderTrending(data, await mApi.getCachedGenres());
+      renderCards(data, await mApi.getCachedGenres());
     }
     catch (e) {
       console.log(e.message)

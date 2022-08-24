@@ -46,7 +46,6 @@ export default class MoviewApi {
 
   async fetchNextSearch(query = '', page = -1) {
     if (query) {
-      this.query = query;
       this.searchPage = 1;
     }
     else
@@ -57,9 +56,12 @@ export default class MoviewApi {
     const params = new URLSearchParams({
       api_key: MoviewApi.API_KEY,
       page: this.searchPage,
-      query: this.query,
+      query: query || this.query,
     }).toString();
     const data = await axios.get(`${MoviewApi.BASE_URL}/search/movie?${params}`);
+    if (query && data.data.results.length) {
+      this.query = query;
+    }
     this.cache = data.data.results;
     return data;
   }

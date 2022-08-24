@@ -10,6 +10,32 @@ export default class MovieApi {
   // constructor() {
 
   // }
+  async getProcessedResult(data) {
+    const genresList = await this.getCachedGenres();
+    return {
+      page: data.data.page,
+      total_pages: data.data.total_pages,
+      results: data.data.results.map(el => {
+        const genres = el.genre_ids.map(genreId => genresList.find(el => el.id === genreId).name);
+        if (genres.length > 2)
+          genres.splice(2, genres.length - 2, 'Other');
+        const strGenres = genres.join(', ');
+        const info = [];
+        if (strGenres)
+          info.push(strGenres);
+        const releaseDate = el.release_date || el.first_air_date;
+        if (releaseDate)
+          info.push(new Date(releaseDate).getFullYear());
+        const strInfo = info.join(' | ') || 'No info';
+        return {
+          ...el,
+          title: el.title || el.name,
+          info: strInfo,
+          vote_average: Number(el.vote_average).toFixed(1),
+        }
+      })
+    };
+  }
 
   async fetchNextTrending(page = -1) {
     if (~page)
@@ -22,10 +48,8 @@ export default class MovieApi {
       page: this.trendingPage,
     }).toString();
 
-    const data = await axios.get(`${MovieApi.BASE_URL}/trending/movie/day?${params}`);
-    this.cache = data.data.results;
-    return data;
-    // return { ...data, data: { ...data.data, results: [] } }; //force empty answer
+    const data = await this.getProcessedResult(await axios.get(`${MovieApi.BASE_URL}/trending/movie/day?${params}`));
+    return this.cache = data;
   }
 
   getCachedMovieById(id) {
@@ -33,7 +57,7 @@ export default class MovieApi {
       console.error('No cache!');
       return;
     }
-    return this.cache.find(el => el.id === Number(id));
+    return this.cache.results.find(el => el.id === Number(id));
   }
 
   getCache() {
@@ -58,12 +82,12 @@ export default class MovieApi {
       page: this.searchPage,
       query: query || this.query,
     }).toString();
-    const data = await axios.get(`${MovieApi.BASE_URL}/search/movie?${params}`);
-    if (query && data.data.results.length) {
+    const data = await this.getProcessedResult(await axios.get(`${MovieApi.BASE_URL}/search/movie?${params}`));
+    console.log(data)
+    if (query && data.results.length) {
       this.query = query;
     }
-    this.cache = data.data.results;
-    return data;
+    return this.cache = data;
   }
 
   async fetchMovieDetails(movie_id) {

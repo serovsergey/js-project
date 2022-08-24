@@ -1,10 +1,10 @@
 export default function makePagination(data) {
   let pagination = '';
-  if (!data.data.results.length)
+  if (!data.results.length)
     return pagination;
-  const page = data.data.page;
-  const totalPages = data.data.total_pages;
-
+  const page = data.page;
+  const totalPages = data.total_pages;
+  console.log(page, totalPages)
   pagination += `<li><button class="gallery__pag-button gallery__pag-button--arrow-left${page === 1 ? ' gallery__pag-button--disabled' : ''}" ${page === 1 ? '' : `data-page="${page - 1}"`}></button></li>`;
   if (page > 1)
     pagination += `<li><button class="gallery__pag-button${page === 1 ? ' current' : ''}" data-page="${1}">1</button></li>`;

@@ -2,8 +2,9 @@ import throttle from "lodash.throttle";
 
 import ThemeSwitcher from "./js/theme-switcher";
 import MovieApi from "./js/api/movieApi";
+import StorageListApi from "./js/api/storageListApi";
 import makePagination from "./js/pagination";
-import makeCardsMarkup from "./js/makeCardsMarkup";
+import cardsHbs from './templates/cards.hbs';
 
 const TRENDING_PAGE_KEY = 'trending_current_page';
 const SEARCH_PAGE_KEY = 'search_current_page';
@@ -12,6 +13,7 @@ const THROTTLE_DELAY = 250;
 
 const ts = new ThemeSwitcher('#slider');
 const mApi = new MovieApi();
+const queueList = new StorageListApi('queue');
 
 document.querySelectorAll(".modal").forEach(el => el.style.display = 'none');
 
@@ -38,7 +40,10 @@ refs.cardsUl.addEventListener('click', evt => {
   const card = evt.target.closest('LI');
   if (!card)
     return;
-
+  if (queueList.inList(card.dataset.id))
+    queueList.removeFromList(card.dataset.id);
+  else
+    queueList.addToList(mApi.getCachedMovieById(card.dataset.id));
   console.log(mApi.getCachedMovieById(card.dataset.id));
 })
 
@@ -64,7 +69,7 @@ refs.searchForm.addEventListener('submit', async evt => {
     refs.loader.classList.add('is-hidden');
   }
 
-  if (!data.data.results.length) {
+  if (!data.results.length) {
     const failRef = document.createElement('DIV');
     failRef.textContent = "Search result not successful. Enter the correct movie name and try again.";
     failRef.classList.add('search-fail');
@@ -73,7 +78,7 @@ refs.searchForm.addEventListener('submit', async evt => {
     return;
   }
   sessionStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
-  renderCards(data, await mApi.getCachedGenres());
+  renderCards(data);
 })
 
 refs.pagination.addEventListener('click', async evt => {
@@ -100,9 +105,10 @@ refs.pagination.addEventListener('click', async evt => {
   }
 });
 
-function renderCards(data, genresList) {
-  refs.cardsUl.innerHTML = makeCardsMarkup(data, genresList);
+function renderCards(data) {
+  refs.cardsUl.innerHTML = cardsHbs({ results: data.results, base_path: MovieApi.IMAGES_BASE_URL }); //makeCardsMarkup(data);
   refs.pagination.innerHTML = makePagination(data);
+  // console.log(queueList.getList());
 }
 
 async function gotoPage(page) {
@@ -118,9 +124,8 @@ async function gotoPage(page) {
     try {
       data = await mApi.fetchNextSearch('', page);
       // console.log(data)
-      sessionStorage.setItem(SEARCH_PAGE_KEY, data.data.page)
-      renderCards(data, await mApi.getCachedGenres());
-      // renderSearch(data, await mApi.getCachedGenres());
+      sessionStorage.setItem(SEARCH_PAGE_KEY, data.page)
+      renderCards(data);
     }
     catch (e) {
       console.log(e.message)
@@ -135,9 +140,9 @@ async function gotoPage(page) {
     refs.loader.classList.remove('is-hidden');
     try {
       data = await mApi.fetchNextTrending(page);
-      sessionStorage.setItem(TRENDING_PAGE_KEY, data.data.page)
+      sessionStorage.setItem(TRENDING_PAGE_KEY, data.page)
       // renderTrending(data, await mApi.getCachedGenres());
-      renderCards(data, await mApi.getCachedGenres());
+      renderCards(data);
     }
     catch (e) {
       console.log(e.message)
@@ -148,7 +153,6 @@ async function gotoPage(page) {
 }
 
 (async () => {
-  const genres = await mApi.getCachedGenres();
   const searchQuery = sessionStorage.getItem(SEARCH_QUERY_KEY);
   if (searchQuery) {
     refs.searchForm.elements.searchQuery.value = searchQuery;
@@ -157,7 +161,7 @@ async function gotoPage(page) {
     refs.loader.classList.remove('is-hidden');
     let data;
     try {
-      console.log(searchQuery, searchPage)
+      // console.log(searchQuery, searchPage)
       data = await mApi.fetchNextSearch(searchQuery, searchPage || 1);
     }
     catch (e) {
@@ -165,7 +169,7 @@ async function gotoPage(page) {
     } finally {
       refs.loader.classList.add('is-hidden');
     }
-    renderCards(data, genres);
+    renderCards(data);
   }
   else {
     const trendingPage = sessionStorage.getItem(TRENDING_PAGE_KEY);
@@ -181,10 +185,10 @@ async function gotoPage(page) {
     } finally {
       refs.loader.classList.add('is-hidden');
     }
-    if (!data.data.results.length) {
+    if (!data.results.length) {
       refs.cardsUl.innerHTML = '<li>There is no trending movies.</li>';
       return;
     }
-    renderCards(data, genres);
+    renderCards(data);
   }
 })();

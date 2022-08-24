@@ -6,7 +6,7 @@ const refs = {
   // galleryLink: document.querySelectorAll('.gallery__link'),
   btnModal: document.querySelector('.modal__btn-close'),
   modal: document.querySelector('.modal2'),
-  galleryHome: document.querySelector('.gallery-home'),
+  galleryHome: document.querySelector('.gallery__home'),
   loader: document.querySelector('.loader'),
 };
 
@@ -21,7 +21,7 @@ function openModal() {
 }
 function closeModal() {
   refs.modal.classList.add('is-hidden');
-  document.body.style.overflow = '';
+  document.body.style.overflow = 'initial';
   window.removeEventListener('keydown', onEscKeyPress);
 }
 

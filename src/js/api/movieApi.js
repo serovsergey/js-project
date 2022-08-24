@@ -1,16 +1,15 @@
 import axios from "axios";
-export default class MoviewApi {
+export default class MovieApi {
   static API_KEY = 'd211d18bbdd8eeb23b9914a8b27a6ac5';
   static BASE_URL = 'https://api.themoviedb.org/3';
+  static IMAGES_BASE_URL = 'https://image.tmdb.org/t/p/';
   static GENRES_CACHE_KEY = 'genres_cache';
-  // static TRENDING_PAGE_KEY = 'trending_current_page';
-  // static SEARCH_PAGE_KEY = 'search_current_page';
-  // static SEARCH_QUERY_KEY = 'search_query';
+
   static GENRES_VALID_TIME = 1000 * 60 * 60 * 24 * 30;
+  // https://api.themoviedb.org/3/configuration?api_key=d211d18bbdd8eeb23b9914a8b27a6ac5
+  // constructor() {
 
-  constructor() {
-
-  }
+  // }
 
   async fetchNextTrending(page = -1) {
     if (~page)
@@ -19,15 +18,34 @@ export default class MoviewApi {
       this.trendingPage += 1;
 
     const params = new URLSearchParams({
-      api_key: MoviewApi.API_KEY,
+      api_key: MovieApi.API_KEY,
       page: this.trendingPage,
     }).toString();
-    return axios.get(`${MoviewApi.BASE_URL}/trending/movie/week?${params}`);
+
+    const data = await axios.get(`${MovieApi.BASE_URL}/trending/movie/day?${params}`);
+    this.cache = data.data.results;
+    return data;
+    // return { ...data, data: { ...data.data, results: [] } }; //force empty answer
+  }
+
+  getCachedMovieById(id) {
+    if (!this.cache) {
+      console.error('No cache!');
+      return;
+    }
+    return this.cache.find(el => el.id === Number(id));
+  }
+
+  getCache() {
+    return this.cache;
+  }
+
+  clearCache() {
+    this.cache = null;
   }
 
   async fetchNextSearch(query = '', page = -1) {
     if (query) {
-      this.query = query;
       this.searchPage = 1;
     }
     else
@@ -36,22 +54,27 @@ export default class MoviewApi {
       this.searchPage = page;
 
     const params = new URLSearchParams({
-      api_key: MoviewApi.API_KEY,
+      api_key: MovieApi.API_KEY,
       page: this.searchPage,
-      query: this.query,
+      query: query || this.query,
     }).toString();
-    return axios.get(`${MoviewApi.BASE_URL}/search/movie?${params}`);
+    const data = await axios.get(`${MovieApi.BASE_URL}/search/movie?${params}`);
+    if (query && data.data.results.length) {
+      this.query = query;
+    }
+    this.cache = data.data.results;
+    return data;
   }
 
   async fetchMovieDetails(movie_id) {
     const params = new URLSearchParams({
-      api_key: MoviewApi.API_KEY,
+      api_key: MovieApi.API_KEY,
     }).toString();
-    return axios.get(`${MoviewApi.BASE_URL}/movie/${movie_id}?${params}`);
+    return axios.get(`${MovieApi.BASE_URL}/movie/${movie_id}?${params}`);
   }
 
   async getCachedGenres(forceUpdate = false) {
-    let genres_cache = localStorage.getItem(MoviewApi.GENRES_CACHE_KEY);
+    let genres_cache = localStorage.getItem(MovieApi.GENRES_CACHE_KEY);
     try {
       genres_cache = JSON.parse(genres_cache);
     }
@@ -60,11 +83,11 @@ export default class MoviewApi {
     if (forceUpdate || !genres_cache || !genres_cache.expires || genres_cache.expires < Date.now()) {
       // console.log('reload')
       const params = new URLSearchParams({
-        api_key: MoviewApi.API_KEY,
+        api_key: MovieApi.API_KEY,
       }).toString();
-      genres_cache = (await axios.get(`${MoviewApi.BASE_URL}/genre/movie/list?${params}`)).data.genres;
-      genres_cache = { genres: genres_cache, expires: Date.now() + MoviewApi.GENRES_VALID_TIME };
-      localStorage.setItem(MoviewApi.GENRES_CACHE_KEY, JSON.stringify(genres_cache));
+      genres_cache = (await axios.get(`${MovieApi.BASE_URL}/genre/movie/list?${params}`)).data.genres;
+      genres_cache = { genres: genres_cache, expires: Date.now() + MovieApi.GENRES_VALID_TIME };
+      localStorage.setItem(MovieApi.GENRES_CACHE_KEY, JSON.stringify(genres_cache));
     }
     return genres_cache.genres;
   }

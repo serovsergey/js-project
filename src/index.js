@@ -1,125 +1,190 @@
-// import './js/theme-switcher';
+import throttle from "lodash.throttle";
+
 import ThemeSwitcher from "./js/theme-switcher";
 import MovieApi from "./js/api/movieApi";
-import homeCardsHbs from './templates/home-cards.hbs';
+import makePagination from "./js/pagination";
+import makeCardsMarkup from "./js/makeCardsMarkup";
 
-const ts = new ThemeSwitcher('#slider');
 const TRENDING_PAGE_KEY = 'trending_current_page';
 const SEARCH_PAGE_KEY = 'search_current_page';
 const SEARCH_QUERY_KEY = 'search_query';
+const THROTTLE_DELAY = 250;
 
+const ts = new ThemeSwitcher('#slider');
 const mApi = new MovieApi();
+
+document.querySelectorAll(".modal").forEach(el => el.style.display = 'none');
 
 const refs = {
   cardsUl: document.querySelector(".gallery__list"),
   pagination: document.querySelector(".gallery__pagination"),
+  header: document.querySelector("header"),
+  footer: document.querySelector("footer"),
+  main: document.querySelector("main"),
+  searchForm: document.querySelector(".hero-home__form"),
+  loader: document.querySelector(".loader"),
 }
-// const testListRef = document.querySelector("#test_list");
-const testFormRef = document.querySelector("#test_form");
-// const pagRef = document.querySelector("#pag");
-// testFormRef.addEventListener('submit', async evt => {
-//   evt.preventDefault();
-//   // console.dir(evt.target);
-//   const searchQuery = evt.target.elements.search.value;
-//   const data = await mApi.fetchNextSearch(searchQuery);
-//   sessionStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
-//   renderSearch(data);
-//   console.log('start search', data);
-// })
 
-async function start() {
+const clearFailMessage = throttle(() => {
+  const ref = document.querySelector(".search-fail");
+  if (ref) {
+    ref.remove();
+    refs.searchForm.removeEventListener('input', clearFailMessage);
+  }
+}, THROTTLE_DELAY);
+
+refs.cardsUl.addEventListener('click', evt => {
+  evt.preventDefault();
+  const card = evt.target.closest('LI');
+  if (!card)
+    return;
+
+  console.log(mApi.getCachedMovieById(card.dataset.id));
+})
+
+refs.searchForm.addEventListener('submit', async evt => {
+  evt.preventDefault();
+  const oldFailRef = document.querySelector(".search-fail");
+  if (oldFailRef)
+    oldFailRef.remove();
+  const searchQuery = evt.target.elements.searchQuery.value.trim().toLowerCase();
+  if (!searchQuery) return;
+  evt.target.elements.searchQuery.value = searchQuery;
+  // refs.cardsUl.innerHTML = '';
+  refs.loader.classList.remove('is-hidden');
+  let data;
+  try {
+    data = await mApi.fetchNextSearch(searchQuery);
+    sessionStorage.setItem(SEARCH_PAGE_KEY, 1)
+  }
+  catch (e) {
+    console.error(e.message);
+    return;
+  } finally {
+    refs.loader.classList.add('is-hidden');
+  }
+
+  if (!data.data.results.length) {
+    const failRef = document.createElement('DIV');
+    failRef.textContent = "Search result not successful. Enter the correct movie name and try again.";
+    failRef.classList.add('search-fail');
+    evt.target.appendChild(failRef);
+    refs.searchForm.addEventListener('input', clearFailMessage);
+    return;
+  }
+  sessionStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
+  renderCards(data, await mApi.getCachedGenres());
+})
+
+refs.pagination.addEventListener('click', async evt => {
+  if (evt.target.classList.contains('gallery__pag-button--current')) {
+    if (evt.target.dataset.pages === "1") return;
+    const formMarkup = `<form style=""><input type="number" name="page" max="${evt.target.dataset.pages}" min="1" value="${evt.target.textContent}" style="width:100%; height:100%"></form>`;
+    evt.target.innerHTML = formMarkup;
+    const form = evt.target.querySelector("form");
+    form.elements.page.focus();
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      gotoPage(e.target.elements.page.value);
+      evt.target.textContent = evt.target.dataset.curpage;
+    }, { once: true })
+    form.elements.page.addEventListener('blur', e => {
+      form.remove();
+      evt.target.textContent = evt.target.dataset.curpage;
+    }, { once: true })
+    return;
+  }
+  const page = evt.target.dataset.page;
+  if (page) {
+    gotoPage(page);
+  }
+});
+
+function renderCards(data, genresList) {
+  refs.cardsUl.innerHTML = makeCardsMarkup(data, genresList);
+  refs.pagination.innerHTML = makePagination(data);
+}
+
+async function gotoPage(page) {
+  let data;
+  const oldFailRef = document.querySelector(".search-fail");
+  if (oldFailRef)
+    oldFailRef.remove();
+  const q = sessionStorage.getItem(SEARCH_QUERY_KEY);
+  if (q) {
+    refs.searchForm.elements.searchQuery.value = q;
+    // refs.cardsUl.innerHTML = '';
+    refs.loader.classList.remove('is-hidden');
+    try {
+      data = await mApi.fetchNextSearch('', page);
+      // console.log(data)
+      sessionStorage.setItem(SEARCH_PAGE_KEY, data.data.page)
+      renderCards(data, await mApi.getCachedGenres());
+      // renderSearch(data, await mApi.getCachedGenres());
+    }
+    catch (e) {
+      console.log(e.message)
+    } finally {
+      refs.loader.classList.add('is-hidden');
+    }
+  }
+  else {
+    // refs.cardsUl.innerHTML = '';
+    refs.searchForm.elements.searchQuery.value = '';
+
+    refs.loader.classList.remove('is-hidden');
+    try {
+      data = await mApi.fetchNextTrending(page);
+      sessionStorage.setItem(TRENDING_PAGE_KEY, data.data.page)
+      // renderTrending(data, await mApi.getCachedGenres());
+      renderCards(data, await mApi.getCachedGenres());
+    }
+    catch (e) {
+      console.log(e.message)
+    } finally {
+      refs.loader.classList.add('is-hidden');
+    }
+  }
+}
+
+(async () => {
+  const genres = await mApi.getCachedGenres();
   const searchQuery = sessionStorage.getItem(SEARCH_QUERY_KEY);
   if (searchQuery) {
-    testFormRef.elements.search.value = searchQuery;
+    refs.searchForm.elements.searchQuery.value = searchQuery;
     const searchPage = sessionStorage.getItem(SEARCH_PAGE_KEY);
-    const data = await mApi.fetchNextSearch(searchQuery, searchPage || 1);
-    renderSearch(data);
-    // console.log('search', data)
+    // refs.cardsUl.innerHTML = '';
+    refs.loader.classList.remove('is-hidden');
+    let data;
+    try {
+      console.log(searchQuery, searchPage)
+      data = await mApi.fetchNextSearch(searchQuery, searchPage || 1);
+    }
+    catch (e) {
+      console.error(e.message)
+    } finally {
+      refs.loader.classList.add('is-hidden');
+    }
+    renderCards(data, genres);
   }
   else {
     const trendingPage = sessionStorage.getItem(TRENDING_PAGE_KEY);
-    // console.log(trendingPage)
-    const data = await mApi.fetchNextTrending(trendingPage || 1);
-    renderTrending(data, await mApi.getCachedGenres());
-    // console.log('trending', data)
-  }
-}
-
-start();
-
-function makePagination(data) {
-  let pagination = '';
-  const page = data.data.page;
-  const totalPages = data.data.total_pages;
-
-  pagination += `<li ${page === 1 ? 'class="inactive"' : `data-page="${page - 1}"`}>⏪</li>`;
-  if (page > 1) {
-
-    pagination += `<li data-page="${1}" ${page === 1 ? 'current' : ''}>1</li>`;
-  }
-  if (page > 4)
-    pagination += `<span >...</span>`;
-
-  if (page > 3)
-    pagination += `<li data-page="${page - 2}">${page - 2}</li>`;
-  if (page > 2)
-    pagination += `<li data-page="${page - 1}">${page - 1}</li>`;
-
-  pagination += `<li data-page="${page}" style= "font-weight: 900">${page}</li>`;
-
-  if (totalPages - 1 > page)
-    pagination += `<li data-page="${page + 1}">${page + 1}</li>`;
-  if (totalPages - 2 > page)
-    pagination += `<li data-page="${page + 2}">${page + 2}</li>`;
-  if (totalPages - 3 > page)
-    pagination += `<li>...</li>`;
-  if (totalPages > page) {
-    pagination += `<li data-page="${totalPages}">${totalPages}</li>`;
-  }
-  pagination += `<li ${page === totalPages ? 'class="inactive"' : `data-page="${page + 1}"`}>⏩</li>`;
-  return pagination;
-}
-
-function renderTrending(data, genresList) {
-  const res = data.data.results.map(el => {
-    const genres = el.genre_ids.map(genreId => genresList.find(el => el.id === genreId).name);
-    if (genres.length > 2)
-      genres.splice(2, genres.length - 2, 'Other');
-    return {
-      ...el,
-      poster_path: 'https://image.tmdb.org/t/p/w400/' + el.poster_path,
-      title_: el.title,
-      year: new Date(el.release_date).getFullYear(),
-      genres: genres.join(', ')
+    // refs.cardsUl.innerHTML = '';
+    refs.loader.classList.remove('is-hidden');
+    let data;
+    try {
+      data = await mApi.fetchNextTrending(trendingPage || 1);
+      // console.log(data)
     }
-  });
-  const markup = homeCardsHbs(res);
-  refs.cardsUl.innerHTML = markup;
-  refs.pagination.innerHTML = makePagination(data);
-}
-
-function renderSearch(data) {
-
-  const markup = data.data.results.reduce((acc, el) => acc + `
-  <li>${el.title}</li>
-  `, '');
-  testListRef.innerHTML = markup;
-  refs.pagination.innerHTML = makePagination(data);
-}
-
-refs.pagination.addEventListener('click', async evt => {
-  const page = evt.target.dataset.page;
-  let data;
-  if (page) {
-    if (sessionStorage.getItem(SEARCH_QUERY_KEY)) {
-      data = await mApi.fetchNextSearch('', page);
-      sessionStorage.setItem(SEARCH_PAGE_KEY, data.data.page)
-      renderTrending(data);
+    catch (e) {
+      console.error(e.message)
+    } finally {
+      refs.loader.classList.add('is-hidden');
     }
-    else {
-      data = await mApi.fetchNextTrending(page);
-      sessionStorage.setItem(TRENDING_PAGE_KEY, data.data.page)
-      renderTrending(data, await mApi.getCachedGenres());
+    if (!data.data.results.length) {
+      refs.cardsUl.innerHTML = '<li>There is no trending movies.</li>';
+      return;
     }
+    renderCards(data, genres);
   }
-})
+})();

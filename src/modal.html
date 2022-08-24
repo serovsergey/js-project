@@ -1,35 +1,37 @@
 <section class="section">
-  <div class="modal">
+  <div class="modal2">
     <button type="button" class="modal__btn-close"></button>
     <img class="modal__img" src="./images/modal.png" alt="image-film" />
     <div class="modal__description">
       <h2 class="modal__title">A FISTFUL OF LEAD</h2>
-      <ul class="modal__list">
-        <li class="modal__item">
-          <table>
-            
-          </table>
-          <p class="modal__lable">Vote / Votes</p>
-          <p class="modal__item-text">
-            <span class="modal__item-accent">7.3</span>
-            <span class="modal__item-slash">/</span> 
-            <span class="modal__item-all">1260</span>
-          </p>
-        </li>
-        <li class="modal__item">
-          <p class="modal__lable">Popularity</p>
-          <p class="modal__item-text">100.2</p>
-        </li>
-        <li class="modal__item">
-          <p class="modal__lable">Original Title</p>
-          <p class="modal__item-text">A FISTFUL OF LEAD</p>
-        </li>
-        <li class="modal__item">
-          <p class="modal__lable">Genre</p>
-          <p class="modal__item-text">Western</p>
-        </li>
-      </ul>
-      <p class="modal__subtitle">About</p>
+
+      <!-- <ul class="modal__list">
+        <li class="modal__item"> -->
+      <table class="modal__table">
+        <tr class="modal__tr">
+          <td class="modal__td-lable">Vote / Votes</td>
+          <td class="modal__td-text">
+            <span class="modal__td-text--accent">7.3</span>
+            <span class="modal__td-text--slash">/</span>
+            <span class="modal__td-text--all">1260</span>
+          </td>
+        </tr>
+        <tr class="modal__tr">
+          <td class="modal__td-lable">Popularity</td>
+          <td class="modal__td-text">100.2</td>
+        </tr>
+        <tr class="modal__tr">
+          <td class="modal__td-lable">Original Title</td>
+          <td class="modal__td-text">A FISTFUL OF LEAD</td>
+        </tr>
+        <tr class="modal__tr">
+          <td class="modal__td-lable">Genre</td>
+          <td class="modal__td-text">Western</td>
+        </tr>
+      </table>
+
+      <h2 class="modal__subtitle">About</h2>
+
       <p class="modal__text">
         Four of the Wests most infamous outlaws assemble to steal a huge stash
         of gold from the most corrupt settlement of the gold rush towns. But not
@@ -42,12 +44,22 @@
       </p>
       <ul class="modal__button-list">
         <li class="modal__button-item">
-          <button class="modal__button modal__button--accent" type="button">
-            add to  <span> watched</span> 
+          <button
+            class="modal__button modal__button--accent modal__button--watched"
+            type="button"
+            data-action="watched"
+          >
+            add to <span> watched</span>
           </button>
         </li>
         <li>
-          <button class="modal__button" type="button">add to queue</button>
+          <button
+            class="modal__button modal__button--accent modal__button--queued"
+            type="button"
+            data-action="queued"
+          >
+            add to queue
+          </button>
         </li>
       </ul>
     </div>

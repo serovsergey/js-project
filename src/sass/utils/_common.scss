@@ -1,7 +1,7 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
 body {
-  // font-family: $main-font;
+  font-family: $main-font;
   // font-weight: 500;
   color: var(--font-color);
   background-color: var(--color-secondary);
@@ -46,4 +46,38 @@ ol {
   @include breakpointFrom(desktop) {
     width: 1256px;
   }
+}
+
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
+}
+
+.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+// places footer to bottom of page, if there not enougth content
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
+header {
+  width: 100%;
+}
+footer {
+  width: 100%;
+  margin-top: auto;
 }

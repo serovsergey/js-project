@@ -196,6 +196,7 @@ function renderSearch(data, genresList) {
 }
 
 async function gotoPage(page) {
+  let data;
   if (sessionStorage.getItem(SEARCH_QUERY_KEY)) {
     // refs.cardsUl.innerHTML = '';
     refs.loader.classList.remove('is-hidden');
@@ -245,7 +246,6 @@ refs.pagination.addEventListener('click', async evt => {
     return;
   }
   const page = evt.target.dataset.page;
-  let data;
   if (page) {
     gotoPage(page);
   }

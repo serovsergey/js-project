@@ -25,6 +25,7 @@ const refs = {
   main: document.querySelector("main"),
   searchForm: document.querySelector(".hero-home__form"),
   loader: document.querySelector(".loader"),
+  homeLinks: document.querySelectorAll(".js-home"),
 }
 
 const clearFailMessage = throttle(() => {
@@ -35,6 +36,14 @@ const clearFailMessage = throttle(() => {
   }
 }, THROTTLE_DELAY);
 
+refs.homeLinks.forEach(el => {
+  el.addEventListener('click', evt => {
+    sessionStorage.removeItem(SEARCH_PAGE_KEY);
+    sessionStorage.removeItem(SEARCH_QUERY_KEY);
+    sessionStorage.removeItem(TRENDING_PAGE_KEY);
+  })
+})
+
 refs.cardsUl.addEventListener('click', evt => {
   evt.preventDefault();
   const card = evt.target.closest('LI');
@@ -44,7 +53,7 @@ refs.cardsUl.addEventListener('click', evt => {
     queueList.removeFromList(card.dataset.id);
   else
     queueList.addToList(mApi.getCachedMovieById(card.dataset.id));
-  console.log(mApi.getCachedMovieById(card.dataset.id));
+  // console.log(mApi.getCachedMovieById(card.dataset.id));
 })
 
 refs.searchForm.addEventListener('submit', async evt => {
@@ -88,6 +97,7 @@ refs.pagination.addEventListener('click', async evt => {
     evt.target.innerHTML = formMarkup;
     const form = evt.target.querySelector("form");
     form.elements.page.focus();
+    form.elements.page.select()
     form.addEventListener('submit', async e => {
       e.preventDefault();
       gotoPage(e.target.elements.page.value);

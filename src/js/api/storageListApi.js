@@ -60,11 +60,8 @@ export default class StorageListApi {
 
   fetchNext(page = -1) {
     const list = this.getList();
-    console.log(page)
-    // console.log(!list || list.length === 0)
     if (!list || list.length === 0) return null;
     const totalPages = Math.ceil(list.length / this.perPage);
-    // const emptyObject = { page: 0, totalPages, result: [] };
 
     if (~page && page <= totalPages) {
       this.page = page;
@@ -76,7 +73,7 @@ export default class StorageListApi {
     }
     const from = (this.page - 1) * this.perPage;
     // console.log(this.page, from, from + this.perPage);
-    console.log({ page: this.page, total_pages: totalPages, results: list.slice(from, from + this.perPage) })
+    // console.log({ page: this.page, total_pages: totalPages, results: list.slice(from, from + this.perPage) })
     return { page: Number(this.page), total_pages: totalPages, results: list.slice(from, from + this.perPage) };
   }
 }

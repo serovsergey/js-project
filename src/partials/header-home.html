@@ -1,7 +1,7 @@
 <header class="header">
   <div class="container">
     <nav class="header-nav">
-      <a href="./index.html" class="logo">
+      <a href="./index.html" class="logo js-home">
         <img class="logo__icon" src="./images/film-icon.svg" alt="Icon logo" />
         <span class="logo__label">Filmoteka</span>
       </a>
@@ -9,19 +9,21 @@
         <li class="header-nav__item">
           <a
             href="./index.html"
-            class="header-nav__link header-nav__link--current-header"
+            class="header-nav__link header-nav__link--current-header js-home"
             >HOME</a
           >
         </li>
         <li class="header-nav__item">
-          <a href="./library.html" class="header-nav__link">MY LIBRARY</a>
+          <a href="./library.html" class="header-nav__link js-library"
+            >MY LIBRARY</a
+          >
         </li>
       </ul>
     </nav>
-          <label id="switch" class="theme-switcher__switch">
-    <input type="checkbox" id="slider" />
-    <span class="theme-switcher__slider theme-switcher__slider--round"></span>
-  </label>
+    <label id="switch" class="theme-switcher__switch">
+      <input type="checkbox" id="slider" />
+      <span class="theme-switcher__slider theme-switcher__slider--round"></span>
+    </label>
   </div>
 
   <div class="hero-home">
@@ -42,7 +44,5 @@
     <p class="notification notify-is-hidden">
       Something is going wrong... Enter the correct movie name and try again
     </p>
-
   </div>
-
 </header>

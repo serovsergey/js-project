@@ -83,7 +83,7 @@ export default class MovieApi {
       query: query || this.query,
     }).toString();
     const data = await this.getProcessedResult(await axios.get(`${MovieApi.BASE_URL}/search/movie?${params}`));
-    console.log(data)
+    // console.log(data)
     if (query && data.results.length) {
       this.query = query;
     }

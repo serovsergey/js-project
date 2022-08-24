@@ -48,6 +48,7 @@ refs.pagination.addEventListener('click', async evt => {
     evt.target.innerHTML = formMarkup;
     const form = evt.target.querySelector("form");
     form.elements.page.focus();
+    form.elements.page.select()
     form.addEventListener('submit', async e => {
       e.preventDefault();
       gotoPage(e.target.elements.page.value);

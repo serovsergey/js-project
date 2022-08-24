@@ -5,8 +5,7 @@ footer {
   padding-top: 30px;
   padding-bottom: 30px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+ 
   color: var(--footer-color);
 
   width: 100%;
@@ -25,27 +24,52 @@ footer {
 .footer__div {
   display: flex;
   flex-direction: column;
+  
+justify-content: center;
   align-items: center;
-
   @include breakpointFrom(tablet) {
     flex-direction: row;
   }
 }
 
-.footer__list {
-  display: flex;
-  margin-top: 10px;
 
+@include breakpointFrom(mobile) {
+  #footer-list br {
+    display: initial;
+  }
+}
+@include breakpointFrom(tablet) {
+  #footer-list br {
+    display: none;
+  }
+}
+@include breakpointFrom(desktop) {
+  #footer-list br {
+    display: none;
+  }
+}
+
+
+.footer__list {
+  margin-top: 10px;
+text-align: center;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.14;
   color: var(--footer-color);
+  
 
   @include breakpointFrom(tablet) {
     font-size: 16px;
     line-height: 1.17;
     margin-top: 0;
   }
+  @include breakpointFrom(desktop) {
+    font-size: 16px;
+    line-height: 1.17;
+    margin-top: 0;
+    }
+
 }
 
 .footer__list-icon {
@@ -54,7 +78,7 @@ footer {
   margin-right: 10px;
   margin-left: 10px;
   margin-top: 3px;
-  fill: var(--color-accent);
+  fill: var(--btn-color);
 }
 
 .open-team-modal {
@@ -62,6 +86,7 @@ footer {
   text-decoration: underline var(--footer-color);
   background-color: var(--color-secondary);
   margin-left: 5px;
+    color: var(--footer-color);
 }
 
 .open-team-modal:hover,

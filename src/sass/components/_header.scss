@@ -93,9 +93,11 @@
 }
 
 .theme-switcher__switch {
-  position: absolute;
-  right: 30px;
-  top: 15px;
+  position: relative;
+      right: -1150px;
+      top: 50px;
+  background-color: var(--bg-modal-color);
+  border-radius: 20px;
 }
 
 .header-nav__item {

@@ -24,6 +24,7 @@
     background: url(../images/header-library/header-library-img-768.png)
       var(--bg-color);
     background-size: cover;
+  }
 
     @include breakpointDPR(2) {
         height: 216px;

@@ -1,4 +1,4 @@
-{{#each movies}}
+{{#each results}}
   <li class="gallery__item film-card" data-id="{{id}}">
     <a class="gallery__link" href="#">
         {{#if poster_path}}
@@ -44,7 +44,12 @@
       <div class="film-card__group">
         <p class="film-card__title" title="{{title}}">{{title}}</p>
         {{!-- <div class="film-card__info"> --}}
-          <p class="film-card__genre">{{info}} </p>
+          <p class="film-card__genre">
+            {{info}}
+            {{#if ../showRating}}
+              <span class="film-card__rating">{{vote_average}}</span>
+            {{/if}}
+          </p>
           {{!-- <p class="film-card__genre">{{genres}} | {{year}}</p> --}}
           {{!-- <p class="film-card__year">{{year}}</p> --}}
           {{!-- <p class="film-card__rate">10.0</p> --}}

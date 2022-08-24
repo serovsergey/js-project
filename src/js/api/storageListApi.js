@@ -5,13 +5,21 @@ export default class StorageListApi {
   }
 
   addToList(value) {
-    console.log(value)
-    const list = this.getList();
-    if (list) {
-      const length = list.push(value);
+    if (this.inList(value.id)) return false;
+    let list = this.getList();
+    if (!list) list = [];
+    const length = list.push(value);
+    try { //in case of storage overflow
       localStorage.setItem(this.key, JSON.stringify(list));
-      return length;
     }
+    catch (e) { console.error(e.message); }
+    return length;
+  }
+
+  getTotalPages() {
+    const list = this.getList();
+    if (!list) return 0;
+    return Math.ceil(list.length / this.perPage);
   }
 
   removeFromList(id) {
@@ -22,8 +30,11 @@ export default class StorageListApi {
         console.error("Something gone wrong, guys!");
         return false;
       }
-      list.splice(idx);
-      localStorage.setItem(this.key, JSON.stringify(list));
+      list.splice(idx, 1);
+      if (list.length)
+        localStorage.setItem(this.key, JSON.stringify(list));
+      else
+        localStorage.removeItem(this.key);
       return true;
     }
     return false;
@@ -49,12 +60,23 @@ export default class StorageListApi {
 
   fetchNext(page = -1) {
     const list = this.getList();
-    if (!list) return null;
-    if (~page)
+    console.log(page)
+    // console.log(!list || list.length === 0)
+    if (!list || list.length === 0) return null;
+    const totalPages = Math.ceil(list.length / this.perPage);
+    // const emptyObject = { page: 0, totalPages, result: [] };
+
+    if (~page && page <= totalPages) {
       this.page = page;
-    else
-      this.page += 1;
-    const from = (page - 1) * this.perPage;
-    return list.slice(from, from + this.perPage);
+    }
+    else {
+      if (this.page < totalPages)
+        this.page += 1;
+      else this.page = totalPages;
+    }
+    const from = (this.page - 1) * this.perPage;
+    // console.log(this.page, from, from + this.perPage);
+    console.log({ page: this.page, total_pages: totalPages, results: list.slice(from, from + this.perPage) })
+    return { page: Number(this.page), total_pages: totalPages, results: list.slice(from, from + this.perPage) };
   }
 }

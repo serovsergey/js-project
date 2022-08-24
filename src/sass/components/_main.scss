@@ -33,13 +33,15 @@ main {
 
   &__link {
     font-style: normal;
-    color: var(--primary-text-color);
+    // color: var(--primary-text-color);
     cursor: pointer;
   }
   &__pagination {
     display: flex;
     margin-top: 60px;
     justify-content: center;
+    color: var(--primary-text-color);
+
     & li {
       &:not(:last-child) {
         margin-right: 1px;
@@ -49,7 +51,7 @@ main {
 
   &__pag-button {
     cursor: pointer;
-
+    color: var(--primary-text-color);
     min-width: 40px;
     height: 40px;
     border: none;
@@ -66,20 +68,20 @@ main {
     }
     &--arrow-left {
       background-image: url('../images/arrow-left.svg');
-      background-color: var(--color-secondary);
+      background-color: var(--pag-nav-button);
       background-repeat: no-repeat;
       background-position: center;
     }
     &--arrow-right {
       background-image: url('../images/arrow-left.svg');
       transform: scaleX(-1);
-      background-color: var(--color-secondary);
+      background-color: var(--pag-nav-button);
       background-repeat: no-repeat;
       background-position: center;
     }
     &--disabled {
       cursor: not-allowed;
-      color: #ccc;
+      // color: #ccc;
     }
   }
   &__elipsis {
@@ -91,6 +93,10 @@ main {
     font-weight: 500;
     font-size: 12px;
     line-height: 1.33;
+  }
+  &__no-entries {
+    margin: 0 auto;
+    font-weight: 500;
   }
 }
 
@@ -129,6 +135,25 @@ main {
   }
   &__genre {
     color: var(--btn-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &__rating {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 16px;
+    font-weight: 500;
+    line-height: 1.17;
+    color: var(--text-color);
+    background-color: var(--btn-color);
+    border-radius: 5px;
+    @include breakpointFrom(desktop) {
+      min-width: 40px;
+      height: 20px;
+    }
   }
   &__group {
     margin-top: 10px;

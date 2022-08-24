@@ -1,6 +1,7 @@
 .modal2 {
   // opacity: 0;
   outline: 1px solid tomato;
+
   position: absolute;
   left: 50%;
   top: 50%;
@@ -12,13 +13,13 @@
     width: 704px;
     padding: 38px 104px 42px 4px;
     display: flex;
-      background-color: var(--bg-modal-color);
+
+    background-color: var(--bg-modal-color);
 
     @include breakpointFrom(desktop) {
       width: 806px;
       padding: 40px 12px;
-        background-color: var(--bg-modal-color);
-
+      background-color: var(--bg-modal-color);
     }
   }
 }
@@ -73,7 +74,7 @@
 .modal__title {
   font-size: 20px;
   line-height: 1.15;
-  color: var(--font-color);
+  color: var(--primary-text-color);
   margin-bottom: 20px;
   text-transform: uppercase;
 }
@@ -86,7 +87,7 @@
 .modal__tr {
   font-size: 12px;
   line-height: 16px;
-  color: #8c8c8c;
+  color: var(--text-color-accent);
   display: flex;
   margin-bottom: 8px;
 }
@@ -103,10 +104,11 @@
   width: 36px;
   height: 16px;
   padding: 1px 9px;
-  background-color: #ff6b01;
+  background-color: var(--btn-color);
   border-radius: 5px;
-  color: #fff;
+  color: var(--text-color);
 }
+
 .modal__td-text--slash {
   color: #8c8c8c;
 }
@@ -121,6 +123,7 @@
   padding: 1px 4px;
   background-color: #f7f7f7;
   color: #000;
+
   border-radius: 5px;
 }
 
@@ -156,8 +159,8 @@
   height: 44px;
   border-radius: 5px;
   border: solid 1px;
-  background-color: #fff;
-  color: var(--font-color);
+  background-color: var(--bg-color);
+  color: var(--primary-text-color);
   font-size: 12px;
   line-height: 1.33;
   font-size: 12px;
@@ -190,6 +193,6 @@
   }
 }
 .modal__button--accent {
-  background-color: #ff6b01;
-  color: #fff;
+  background-color: var(--btn-color);
+  color: var(--text-color);
 }

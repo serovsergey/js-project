@@ -40,6 +40,7 @@ main {
     display: flex;
     margin-top: 60px;
     justify-content: center;
+    color: var(--primary-text-color);
     & li {
       &:not(:last-child) {
         margin-right: 1px;
@@ -55,6 +56,7 @@ main {
     border: none;
     border-radius: 5px;
     background-color: transparent;
+    color: var(--primary-text-color);
     &:hover,
     &:focus {
       outline: 1px solid var(--btn-color);
@@ -66,14 +68,15 @@ main {
     }
     &--arrow-left {
       background-image: url('../images/arrow-left.svg');
-      background-color: var(--color-secondary);
+      background-color: var(--color-btn-secondary);
       background-repeat: no-repeat;
       background-position: center;
+      
     }
     &--arrow-right {
       background-image: url('../images/arrow-left.svg');
       transform: scaleX(-1);
-      background-color: var(--color-secondary);
+      background-color: var(--color-btn-secondary);
       background-repeat: no-repeat;
       background-position: center;
     }

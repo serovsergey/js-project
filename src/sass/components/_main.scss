@@ -1,9 +1,12 @@
+main {
+background-color: var(--bg-modal-color);
+}
 .gallery {
   &__list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-
+// background-color: var(--bg-color);
     @include breakpointFrom(tablet) {
       gap: 32px;
     }
@@ -15,6 +18,7 @@
   &__item {
     width: 100%;
     align-self: end;
+    
     @include breakpointFrom(tablet) {
       --width: calc((100% - 32px) / 2);
       width: var(--width);
@@ -30,6 +34,7 @@
   &__link {
     font-style: normal;
     color: inherit;
+        cursor: pointer;
   }
   &__pagination {
     display: flex;
@@ -120,6 +125,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+            // color: var(--text-color);
   }
   &__genre {
     color: var(--btn-color);

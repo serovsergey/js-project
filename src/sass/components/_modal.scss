@@ -1,5 +1,5 @@
-.modal {
-  opacity: 0;
+.modal2 {
+  // opacity: 0;
   outline: 1px solid tomato;
   position: absolute;
   left: 50%;
@@ -7,14 +7,18 @@
   transform: translate(-50%, -50%);
   width: 280px;
   padding: 48px 20px 40px 20px;
+  background-color: var(--bg-modal-color);
   @include breakpointFrom(tablet) {
     width: 704px;
     padding: 38px 104px 42px 4px;
     display: flex;
+      background-color: var(--bg-modal-color);
 
     @include breakpointFrom(desktop) {
       width: 806px;
       padding: 40px 12px;
+        background-color: var(--bg-modal-color);
+
     }
   }
 }

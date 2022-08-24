@@ -1,5 +1,4 @@
 .modal {
-  outline: 1px solid tomato;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -10,7 +9,7 @@
     width: 704px;
     padding: 38px 104px 42px 4px;
     display: flex;
-
+  }
   @include breakpointFrom (desktop) {
     width: 806px;
     padding: 40px 12px ;
@@ -69,7 +68,7 @@ margin-bottom: 0;
 .modal__title {
   font-size: 20px;
   line-height: 1.15;
-  color: var(--font-color);
+  color: var(--primary-text-color);
   margin-bottom: 20px;
   text-transform: uppercase;
 }
@@ -81,7 +80,7 @@ margin-bottom: 0;
 
   font-size: 12px;
   line-height: 16px;
-  color: #8c8c8c;
+  color: var(--text-color-accent);
   display: flex;
   margin-bottom: 8px;
 }
@@ -99,26 +98,22 @@ margin-bottom: 0;
   width: 36px;
   height: 16px;
   padding: 1px 9px;
-  background-color: #ff6b01;
+  background-color: var(--btn-color);
   border-radius: 5px;
-  color: #fff;
+  color: var(--text-color);
 }
 .modal__item-slash {
-  color: #8c8c8c;
+  color: var(--text-color-accent);
 }
 .modal__item-text {
   font-size: 12px;
   line-height: 14px;
-
-  color: #000;
-  // margin-left: ;
+  color:  var(--primary-text-color);
 }
 .modal__item-all {
-
   padding: 1px 4px;
-
-  background-color: #f7f7f7;
-  color: #000;
+  background-color: var(--color-secondary);
+  color: var(--primary-text-color);
   border-radius: 5px;
 }
 
@@ -154,8 +149,8 @@ justify-content: flex-start;
   height: 44px;
   border-radius: 5px;
   border: solid 1px;
-  background-color: #fff;
-  color: var(--font-color);
+  background-color: var(--bg-color);
+  color: var(--primary-text-color);
   font-size: 12px;
   line-height: 1.33;
   font-size: 12px;
@@ -188,7 +183,7 @@ margin-right: 15px;
   }
 }
 .modal__button--accent {
-  background-color: #ff6b01;
-  color: #fff;
+  background-color: var(--btn-color);
+  color: var(--text-color);
   
 }

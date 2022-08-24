@@ -93,11 +93,21 @@
 }
 
 .theme-switcher__switch {
-  position: relative;
-      right: -1150px;
-      top: 50px;
+    
   background-color: var(--bg-modal-color);
   border-radius: 20px;
+  @include breakpointFrom(mobile) {
+      right: -215px;
+      top: -50px;
+      }
+  @include breakpointFrom(tablet){
+      right: -640px;
+        top: 20px;
+  }
+  @include breakpointFrom(desktop) {
+        right: -1150px;
+          top: 30px;
+        }
 }
 
 .header-nav__item {

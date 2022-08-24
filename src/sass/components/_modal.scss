@@ -12,16 +12,11 @@
     padding: 38px 104px 42px 4px;
     display: flex;
 
-  @include breakpointFrom (desktop) {
-    width: 806px;
-    padding: 40px 12px ;
-
+    @include breakpointFrom(desktop) {
+      width: 806px;
+      padding: 40px 12px;
+    }
   }
-}}
-
-.modal--hidden {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .modal__btn-close {
@@ -41,12 +36,11 @@
   @include breakpointFrom(tablet) {
     top: 6px;
     right: 40px;
-}
-@include breakpointFrom (desktop) {
+  }
+  @include breakpointFrom(desktop) {
     top: 8px;
     right: 8px;
-}
-
+  }
 }
 .modal__img {
   height: 357px;
@@ -55,20 +49,20 @@
   margin-bottom: 20px;
   @include breakpointFrom(tablet) {
     width: 264px;
-  height: 374px;
-margin-bottom: 0;
+    height: 374px;
+    margin-bottom: 0;
   }
   @include breakpointFrom(desktop) {
     width: 375px;
     height: 478px;
-margin-bottom: 0;
+    margin-bottom: 0;
   }
 }
 .modal__description {
   @include breakpointFrom(tablet) {
     margin-left: 68px;
   }
-  @include breakpointFrom (desktop) {
+  @include breakpointFrom(desktop) {
     margin-left: 16px;
   }
 }
@@ -79,29 +73,29 @@ margin-bottom: 0;
   margin-bottom: 20px;
   text-transform: uppercase;
 }
-.modal__list {
+.modal__table {
   margin-bottom: 12px;
   margin-right: 25px;
+  min-width: 100%;
 }
-.modal__item {
 
+.modal__tr {
   font-size: 12px;
   line-height: 16px;
   color: #8c8c8c;
   display: flex;
   margin-bottom: 8px;
 }
-.modal__lable {
+.modal__td-lable {
   min-width: 108px;
   @include breakpointFrom(tablet) {
     min-width: 152px;
   }
-  @include breakpointFrom (desktop) {
+  @include breakpointFrom(desktop) {
     min-width: 152px;
-
   }
 }
-.modal__item-accent {
+.modal__td-text--accent {
   width: 36px;
   height: 16px;
   padding: 1px 9px;
@@ -109,20 +103,18 @@ margin-bottom: 0;
   border-radius: 5px;
   color: #fff;
 }
-.modal__item-slash {
+.modal__td-text--slash {
   color: #8c8c8c;
 }
-.modal__item-text {
+.modal__td-text {
   font-size: 12px;
   line-height: 14px;
 
   color: #000;
-  // margin-left: ;
 }
-.modal__item-all {
 
+.modal__td-text--all {
   padding: 1px 4px;
-
   background-color: #f7f7f7;
   color: #000;
   border-radius: 5px;
@@ -142,17 +134,17 @@ margin-bottom: 0;
   @include breakpointFrom(tablet) {
     width: 264px;
   }
-  @include breakpointFrom (desktop) {
-width: 391px;  
-}
+  @include breakpointFrom(desktop) {
+    width: 391px;
+  }
 }
 .modal__button-list {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @include breakpointFrom (desktop) {
-justify-content: flex-start;
-}
+  @include breakpointFrom(desktop) {
+    justify-content: flex-start;
+  }
 }
 
 .modal__button {
@@ -170,9 +162,9 @@ justify-content: flex-start;
   @include breakpointFrom(tablet) {
     width: 125px;
   }
-  @include breakpointFrom (desktop) {
-width: 136px;  
-}
+  @include breakpointFrom(desktop) {
+    width: 136px;
+  }
 }
 .modal__button-item:not(:last-child) {
   margin-right: 20px;
@@ -182,13 +174,13 @@ width: 136px;
   align-items: center;
 
   @include breakpointFrom(tablet) {
-margin-right: 15px;
+    margin-right: 15px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
   }
-  @include breakpointFrom (desktop) {
+  @include breakpointFrom(desktop) {
     margin-right: 15px;
     margin-left: 8px;
   }
@@ -196,8 +188,4 @@ margin-right: 15px;
 .modal__button--accent {
   background-color: #ff6b01;
   color: #fff;
-  
 }
-
-
-

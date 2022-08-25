@@ -77,7 +77,17 @@ body {
 
 header {
   width: 100%;
+  min-height: 230px;
+
+  @include breakpointFrom(tablet) {
+    height: 219px;
+  }
+
+  @include breakpointFrom(desktop) {
+    height: 216px;
+  }
 }
+
 footer {
   width: 100%;
   margin-top: auto;

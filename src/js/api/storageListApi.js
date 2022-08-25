@@ -47,7 +47,13 @@ export default class StorageListApi {
     }
     return false;
   }
-
+  getItemById(id) {
+    const list = this.getList();
+    if (list) {
+      return list.find(el => el.id === Number(id));
+    }
+    return null;
+  }
   getList() {
     const stored = localStorage.getItem(this.key);
     let list = null;

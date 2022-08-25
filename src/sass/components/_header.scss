@@ -41,12 +41,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .logo__icon {
   display: block;
   width: 24px;
   height: 24px;
+  
 }
 
 .logo__label {
@@ -58,6 +60,12 @@
   display: flex;
   align-items: center;
   text-align: center;
+  transform: scale(1);
+    transition: transform ease 1s;
+  
+    &:hover {
+      transform: scale(1.10);
+    }
   @include breakpointTo(tablet) {
     display: none;
   }
@@ -74,6 +82,12 @@
 
     color: var(--text-color);
   }
+
+    &:hover,
+    &:focus {
+      color: var(--current-link-color);
+      transition: makeTransition((color));
+    }
 }
 
 .header-nav {
@@ -114,6 +128,13 @@
   &:not(:last-child) {
     margin-right: 40px;
   }
+     transform: scale(1);
+     transition: transform ease 1s;
+     transition: makeTransition((transform));
+     &:hover {
+       transform: scale(1.30);
+            transition: makeTransition((transform));
+     }
 }
 
 .header-nav__link {
@@ -133,6 +154,7 @@
     color: var(--current-link-color);
     transition: makeTransition((color));
   }
+  
 }
 
 .header-nav__link--current-header {
@@ -151,10 +173,9 @@
     background-color: var(--current-link-color);
   }
 }
-
-.hero-home {
+.hero__home {
+  cursor: pointer;
 }
-
 .hero-home__container {
   position: relative;
   width: 100%;
@@ -164,6 +185,7 @@
   @include breakpointFrom(tablet) {
     height: 220px;
   }
+    cursor: pointer;
 }
 
 .hero-home__form {
@@ -171,7 +193,7 @@
   display: flex;
   align-items: center;
   height: 44px;
-
+  cursor: pointer;
   width: 280px;
   margin: 0 auto 16px auto;
 
@@ -183,15 +205,18 @@
     width: 394px;
     margin: 0 auto 20px auto;
   }
-
   border-bottom: 0.5px solid var(--text-color);
-  transition: makeTransition((box-shadow border-bottom));
+  transition: makeTransition((box-shadow border-bottom transform));
+        transform: scale(1.0);
+        animation: transition 0.2s ease-out;
   &:hover,
   &:focus-within {
     border-bottom: 3px solid var(--btn-color);
     box-shadow: inset 0 -8px 15px -8px var(--btn-color);
     background: transparent;
-    transition: makeTransition((box-shadow border-bottom));
+    transition: makeTransition((box-shadow border-bottom transform));
+      transform: scale(1.1);
+        animation: transition 0.2s ease-out;
   }
 }
 
@@ -202,7 +227,7 @@
   padding: 4px;
   background: transparent;
   border: none;
-
+  cursor: pointer;
   color: var(--secondary-text-color);
 
   &::placeholder {

@@ -5,6 +5,7 @@ const THROTTLE_DELAY = 250;
 // const throttle = require("lodash.throttle");
 
 export const calcScrollValue = throttle(() => {
+
     const scrollProgress = document.getElementById("progress");
     const progressValue = document.getElementById("progress-value");
     const position = document.documentElement.scrollTop;
@@ -25,6 +26,7 @@ export const calcScrollValue = throttle(() => {
   
     scrollProgress.style.background = `conic-gradient(#545454 ${scrollValue}%, #bbbbbb ${scrollValue}%)`
 },THROTTLE_DELAY);
+
 
 window.onscroll = calcScrollValue;
 window.onload = calcScrollValue;

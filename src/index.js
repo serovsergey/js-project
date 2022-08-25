@@ -4,14 +4,16 @@ import ThemeSwitcher from "./js/theme-switcher";
 import MovieApi from "./js/api/movieApi";
 import StorageListApi from "./js/api/storageListApi";
 import makePagination from "./js/pagination";
-import Modal from "./js/modal2";
+import Modal from "./js/modals/BaseModal";
 
 import cardsHbs from './templates/cards.hbs';
 
-import movieDetailsHbs from './templates/movie-details.hbs';
-import teamHbs from './templates/team.hbs';
+// import movieDetailsHbs from './templates/movie-details.hbs';
+// import teamHbs from './templates/team.hbs';
 
 import { teamMembers } from "./js/team-data";
+import TeamModal from "./js/modals/TeamModal";
+import MovieModal from "./js/modals/MovieModal";
 
 
 
@@ -49,7 +51,9 @@ const clearFailMessage = throttle(() => {
 
 refs.teamLink.addEventListener('click', evt => {
   evt.preventDefault();
-  const teamModal = new Modal(teamHbs(teamMembers), { containerClass: 'team-container' });
+  // const teamModal = new Modal(teamHbs(teamMembers), { containerClass: 'team-container' });
+  // teamModal.show();
+  const teamModal = new TeamModal(teamMembers);
   teamModal.show();
 });
 
@@ -67,15 +71,8 @@ refs.cardsUl.addEventListener('click', evt => {
   if (!card)
     return;
   console.log(mApi.getCachedMovieById(card.dataset.id))
-  const modal = new Modal(movieDetailsHbs(mApi.getCachedMovieById(card.dataset.id)), { containerClass: 'movie-info' });
-  modal.show();
-  const btnWatched = document.querySelector("[data-action=watched]");
-
-  if (queueList.inList(card.dataset.id))
-    queueList.removeFromList(card.dataset.id);
-  else
-    queueList.addToList(mApi.getCachedMovieById(card.dataset.id));
-  // console.log(mApi.getCachedMovieById(card.dataset.id));
+  const movieModal = new MovieModal(mApi.getCachedMovieById(card.dataset.id), { onClose: null, onChange: null });
+  movieModal.show();
 })
 
 refs.searchForm.addEventListener('submit', async evt => {

@@ -1,14 +1,18 @@
-export default class Modal {
-  constructor(markup, options) {
+export default class BaseModal {
+  constructor(markup, options = {}) {
     this.markup = markup;
     if (options.containerClass)
       this.containerClass = options.containerClass;
-    console.log(this.containerClass)
   }
 
   #onBackdropClick(evt) {
     // if (evt.target.classList.contains('backdrop'))
     if (evt.target === evt.currentTarget)
+      this.close();
+  }
+
+  onKeyPress = (evt) => {
+    if (evt.key === "Escape")
       this.close();
   }
 
@@ -26,20 +30,22 @@ export default class Modal {
     `;
     document.body.insertAdjacentHTML('beforeend', markup);
     const backdropRef = document.querySelector(".backdrop");
-    // setTimeout(() => {
-    backdropRef.classList.remove('is-hidden');
-    // }, 0);
+    setTimeout(() => {
+      backdropRef.classList.remove('is-hidden');
+    }, 0);
     const closeBtn = document.querySelector(".modal__btn-close");
     closeBtn.addEventListener('click', this.close);
     backdropRef.addEventListener('click', this.#onBackdropClick.bind(this));
+    window.addEventListener('keydown', this.onKeyPress);
   }
 
   close() {
+    window.removeEventListener('keydown', this.onKeyPress);
     document.body.style.overflow = 'initial';
-    const backdropRef = document.querySelector(".backdrop");
-    backdropRef.classList.add('is-hidden');
+    const backdropRefs = document.querySelectorAll(".backdrop");
+    backdropRefs.forEach((el) => el.classList.add('is-hidden'));
     setTimeout(() => {
-      backdropRef.remove();
-    }, 500);
+      backdropRefs.forEach((el) => el.remove());
+    }, 250);
   }
 }

@@ -10,22 +10,22 @@
         <tr class="modal__tr">
           <td class="modal__td-lable">Vote / Votes</td>
           <td class="modal__td-text">
-            <span class="modal__td-text--accent">7.3</span>
+            <span class="modal__td-text--accent">{{vote_average}}</span>
             <span class="modal__td-text--slash">/</span>
-            <span class="modal__td-text--all">1260</span>
+            <span class="modal__td-text--all">{{vote_count}}</span>
           </td>
         </tr>
         <tr class="modal__tr">
           <td class="modal__td-lable">Popularity</td>
-          <td class="modal__td-text">100.2</td>
+          <td class="modal__td-text">{{popularity}}</td>
         </tr>
         <tr class="modal__tr">
           <td class="modal__td-lable">Original Title</td>
-          <td class="modal__td-text">A FISTFUL OF LEAD</td>
+          <td class="modal__td-text">{{original_title}}</td>
         </tr>
         <tr class="modal__tr">
           <td class="modal__td-lable">Genre</td>
-          <td class="modal__td-text">{{info}}</td>
+          <td class="modal__td-text">{{genres}}</td>
         </tr>
       </table>
 
@@ -41,14 +41,14 @@
             type="button"
             data-action="watched"
           >
-            add to <span> watched</span>
+            add to watched
           </button>
         </li>
         <li>
           <button
             class="modal__button  modal__button--queued"
             type="button"
-            data-action="queued"
+            data-action="queue"
           >
             add to queue
           </button>

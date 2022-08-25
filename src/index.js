@@ -48,7 +48,8 @@ const clearFailMessage = throttle(() => {
 }, THROTTLE_DELAY);
 
 refs.teamLink.addEventListener('click', evt => {
-  teamModal = new Modal(teamHbs(teamMembers));
+  evt.preventDefault();
+  const teamModal = new Modal(teamHbs(teamMembers), { containerClass: 'team-container' });
   teamModal.show();
 });
 
@@ -68,6 +69,7 @@ refs.cardsUl.addEventListener('click', evt => {
   console.log(mApi.getCachedMovieById(card.dataset.id))
   const modal = new Modal(movieDetailsHbs(mApi.getCachedMovieById(card.dataset.id)), { containerClass: 'movie-info' });
   modal.show();
+  const btnWatched = document.querySelector("[data-action=watched]");
 
   if (queueList.inList(card.dataset.id))
     queueList.removeFromList(card.dataset.id);
@@ -132,10 +134,10 @@ refs.pagination.addEventListener('click', async evt => {
   const page = evt.target.dataset.page;
   if (page) {
     gotoPage(page);
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: "smooth"
-    // });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   }
 });
 

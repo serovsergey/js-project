@@ -7,8 +7,8 @@ export default class Modal {
   }
 
   #onBackdropClick(evt) {
-    console.log(this)
-    if (evt.target.classList.contains('backdrop'))
+    // if (evt.target.classList.contains('backdrop'))
+    if (evt.target === evt.currentTarget)
       this.close();
   }
 
@@ -26,7 +26,9 @@ export default class Modal {
     `;
     document.body.insertAdjacentHTML('beforeend', markup);
     const backdropRef = document.querySelector(".backdrop");
+    // setTimeout(() => {
     backdropRef.classList.remove('is-hidden');
+    // }, 0);
     const closeBtn = document.querySelector(".modal__btn-close");
     closeBtn.addEventListener('click', this.close);
     backdropRef.addEventListener('click', this.#onBackdropClick.bind(this));

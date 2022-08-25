@@ -5,6 +5,8 @@ import MovieApi from "./js/api/movieApi";
 import makePagination from "./js/pagination";
 import cardsHbs from './templates/cards.hbs';
 import MovieModal from './js/modals/MovieModal';
+import TeamModal from './js/modals/TeamModal';
+import { teamMembers } from "./js/team-data";
 
 const LIBRARY_MODE_KEY = 'library_mode';
 const WATCHED_PAGE_KEY = 'watched_page';
@@ -24,7 +26,14 @@ const refs = {
   queueBtn: document.querySelector('header [data-action="queue"]'),
   cardsUl: document.querySelector(".gallery__list"),
   pagination: document.querySelector(".gallery__pagination"),
+  teamLink: document.querySelector(".open-team-modal"),
 }
+
+refs.teamLink.addEventListener('click', evt => {
+  evt.preventDefault();
+  const teamModal = new TeamModal(teamMembers);
+  teamModal.show();
+});
 
 refs.watchedBtn.closest('UL').addEventListener('click', evt => {
   const el = evt.target;
@@ -71,6 +80,10 @@ refs.pagination.addEventListener('click', async evt => {
   const page = evt.target.dataset.page;
   if (page) {
     gotoPage(page);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   }
 });
 

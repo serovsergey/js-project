@@ -20,14 +20,19 @@
         </li>
       </ul>
     </nav>
-    <label id="switch" class="theme-switcher__switch">
-      <input type="checkbox" id="slider" />
+    <label id="switch" for="slider" class="theme-switcher__switch">
+      <input
+        role="switch"
+        aria-label="theme slider"
+        type="checkbox"
+        id="slider"
+      />
       <span class="theme-switcher__slider theme-switcher__slider--round"></span>
     </label>
   </div>
 
   <div class="hero-home">
-    <form class="hero-home__form" name="hero-home">
+    <form class="hero-home__form" name="hero-home" role="search">
       <input
         class="form_input"
         type="text"
@@ -35,14 +40,14 @@
         autocomplete="off"
         placeholder="Movie search"
       />
-      <button class="form_search-button" type="submit">
+      <button class="form_search-button" aria-label="search" type="submit">
         <svg class="form_search-icon" width="12" height="12">
           <use href="./images/symbol-sprite.svg#search"></use>
         </svg>
       </button>
     </form>
-    <p class="notification notify-is-hidden">
+    <!-- <p class="notification notify-is-hidden">
       Something is going wrong... Enter the correct movie name and try again
-    </p>
+    </p> -->
   </div>
 </header>

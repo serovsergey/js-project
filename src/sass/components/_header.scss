@@ -60,8 +60,7 @@
   display: flex;
   align-items: center;
   text-align: center;
-  transform: scale(1);
-    transition: transform ease 1s;
+ 
   
     &:hover {
       transform: scale(1.10);
@@ -82,7 +81,7 @@
 
     color: var(--text-color);
   }
-
+    transition: makeTransition((color transform));
     &:hover,
     &:focus {
       color: var(--current-link-color);

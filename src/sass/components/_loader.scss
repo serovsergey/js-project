@@ -1,78 +1,80 @@
 .loader {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(250, 247, 247, 0.7);
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(250, 247, 247, 0.7);
 
-    z-index: 1;
+  z-index: 1;
 
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
+  transition: makeTransition((visibility opacity));
 }
 
 .pop {
-    display: inline-block;
+  display: inline-block;
 }
 
 .pop:not(:last-child) {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 @keyframes jump-up {
-    50% {
-        transform: translate(0, 15px);
-    }
+  50% {
+    transform: translate(0, 15px);
+  }
 }
 
 .pop1 {
-    width: 30px;
-    height: 30px;
-    animation: jump-up 0.6s 0.1s linear infinite;
-    border-radius: 30%;
+  width: 30px;
+  height: 30px;
+  animation: jump-up 0.6s 0.1s linear infinite;
+  border-radius: 30%;
 
-    @include breakpointFrom(tablet) {
-        width: 40px;
-        height: 40px;
-    }
+  @include breakpointFrom(tablet) {
+    width: 40px;
+    height: 40px;
+  }
 
-    @include breakpointFrom(desktop) {
-        width: 50px;
-        height: 50px;
-    }
+  @include breakpointFrom(desktop) {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .pop2 {
-    width: 30px;
-    height: 30px;
-    animation: jump-up 0.6s 0.2s linear infinite;
-    border-radius: 30%;
+  width: 30px;
+  height: 30px;
+  animation: jump-up 0.6s 0.2s linear infinite;
+  border-radius: 30%;
 
-    @include breakpointFrom(tablet) {
-        width: 40px;
-        height: 40px;
-    }
+  @include breakpointFrom(tablet) {
+    width: 40px;
+    height: 40px;
+  }
 
-    @include breakpointFrom(desktop) {
-        width: 50px;
-        height: 50px;
-    }
+  @include breakpointFrom(desktop) {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .pop3 {
-    width: 30px;
-    height: 30px;
-    animation: jump-up 0.6s 0.3s linear infinite;
-    border-radius: 30%;
+  width: 30px;
+  height: 30px;
+  animation: jump-up 0.6s 0.3s linear infinite;
+  border-radius: 30%;
 
-    @include breakpointFrom(tablet) {
-        width: 40px;
-        height: 40px;
-    }
+  @include breakpointFrom(tablet) {
+    width: 40px;
+    height: 40px;
+  }
 
-    @include breakpointFrom(desktop) {
-        width: 50px;
-        height: 50px;
-    }
+  @include breakpointFrom(desktop) {
+    width: 50px;
+    height: 50px;
+  }
 }

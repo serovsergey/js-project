@@ -1,0 +1,18 @@
+<h2 class="modal__title">Team BAVOVNA</h2>
+  <ul class="team-pics ">
+{{#each this}}
+  <li class="team-item">
+    <img
+    class="team-image"
+    src={{photo}}
+    alt={{name}}
+    />
+    <div class="overlay">
+                  <p class="overlay__text">{{quote}}
+                </p></div>
+    <div class="member-description">
+    <h3 class="team-member">{{name}}</h3>
+    <p lang="en" class="team-member-text ">{{role}}</p></div>
+    </li>
+{{/each}}
+  </ul>

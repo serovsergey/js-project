@@ -82,6 +82,12 @@
 
     color: var(--text-color);
   }
+
+    &:hover,
+    &:focus {
+      color: var(--current-link-color);
+      transition: makeTransition((color));
+    }
 }
 
 .header-nav {

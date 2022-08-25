@@ -1,3 +1,4 @@
+import './js/scroll-to-top';
 import ThemeSwitcher from './js/theme-switcher';
 import StorageListApi from './js/api/storageListApi';
 import MovieApi from "./js/api/movieApi";

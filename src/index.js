@@ -5,7 +5,7 @@ import ThemeSwitcher from "./js/theme-switcher";
 import MovieApi from "./js/api/movieApi";
 import StorageListApi from "./js/api/storageListApi";
 import makePagination from "./js/pagination";
-import Modal from "./js/modals/BaseModal";
+// import Modal from "./js/modals/BaseModal";
 
 import cardsHbs from './templates/cards.hbs';
 

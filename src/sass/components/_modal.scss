@@ -31,10 +31,12 @@
   border: none;
   width: 30px;
   height: 30px;
+      transition: makeTransition((background-color));
   &:hover {
     mask-image: url(../images/btn-close.svg);
     -webkit-mask-image: url(../images/btn-close.svg);
     background-color: var(--btn-color);
+          transition: makeTransition((background-color));
   }
 
   @include breakpointFrom(tablet) {
@@ -106,6 +108,7 @@
   background-color: var(--btn-color);
   border-radius: 5px;
   color: var(--text-color);
+  transition: makeTransition((color, background-color));
 }
 
 .modal__td-text--slash {

@@ -41,12 +41,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .logo__icon {
   display: block;
   width: 24px;
   height: 24px;
+  
 }
 
 .logo__label {
@@ -58,6 +60,12 @@
   display: flex;
   align-items: center;
   text-align: center;
+  transform: scale(1);
+    transition: transform ease 1s;
+  
+    &:hover {
+      transform: scale(1.10);
+    }
   @include breakpointTo(tablet) {
     display: none;
   }
@@ -114,6 +122,13 @@
   &:not(:last-child) {
     margin-right: 40px;
   }
+     transform: scale(1);
+     transition: transform ease 1s;
+     transition: makeTransition((transform));
+     &:hover {
+       transform: scale(1.30);
+            transition: makeTransition((transform));
+     }
 }
 
 .header-nav__link {
@@ -133,6 +148,7 @@
     color: var(--current-link-color);
     transition: makeTransition((color));
   }
+  
 }
 
 .header-nav__link--current-header {
@@ -150,9 +166,6 @@
 
     background-color: var(--current-link-color);
   }
-}
-
-.hero-home {
 }
 
 .hero-home__container {

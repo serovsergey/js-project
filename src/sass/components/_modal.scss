@@ -181,6 +181,11 @@
   line-height: 1.33;
   text-transform: uppercase;
   cursor: pointer;
+    transition: makeTransition((transform));
+  &:hover {
+      transform: scale(1.10);
+          transition: makeTransition((transform));
+    }
   @include breakpointFrom(tablet) {
     width: 125px;
   }

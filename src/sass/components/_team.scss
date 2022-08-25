@@ -3,8 +3,8 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 1.6;
-  color: black;
-  text-align: center;
+  color: var(--primary-text-color);
+    text-align: center;
   margin: 0;
   padding: 10px;
 }
@@ -34,10 +34,11 @@
 
 .team-item {
   position: relative;
-  margin: 2px;
-  padding: 2px;
+  // margin: 1px;
+  // padding: 1px;
   // width: 250px;
   height: 400px;
+  transition: makeTransition((transform));
 }
 
 .team-container .modal__btn-close {
@@ -67,8 +68,7 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 1.6;
-  color: black;
-  //padding: 63px 24px;
+  color: var(--primary-text-color);  //padding: 63px 24px;
   background-color: aqua;
   height: 100%;
   text-align: center;
@@ -78,6 +78,7 @@
 .team-item:hover .overlay,
 .team-item:focus .overlay {
   transform: translateY(0);
+  transition: makeTransition((transform));
 }
 
 .member-description {
@@ -86,8 +87,8 @@
   font-weight: 700;
   font-size: 16px;
   line-height: 1.6;
-  color: black;
-  text-align: center;
+  color: var(--primary-text-color);
+    text-align: center;
   // padding-top: 10px;
   // padding-bottom: 10px;
   // text-align: center;

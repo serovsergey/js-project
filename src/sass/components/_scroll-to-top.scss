@@ -28,7 +28,7 @@ html {
     display: grid;
     place-items: center;
     font-size: 35px;
-    color: #bbbbbb;
+    color:var(--input-hover);
 
     font-weight: bold;
 }

@@ -61,3 +61,4 @@ export default class ThemeSwitcher {
 //   sliderRef.checked = true;
 // }
 // // })();
+

@@ -1,9 +1,7 @@
-<section class="section">
-  <div class="modal2">
-    <button type="button" class="modal__btn-close"></button>
-    <img class="modal__img" src="./images/modal.png" alt="image-film" />
+
+    <img class="modal__img" src="{{full_path}}" alt="image-film" />
     <div class="modal__description">
-      <h2 class="modal__title">A FISTFUL OF LEAD</h2>
+      <h2 class="modal__title">{{title}}</h2>
 
       <!-- <ul class="modal__list">
         <li class="modal__item"> -->
@@ -26,21 +24,14 @@
         </tr>
         <tr class="modal__tr">
           <td class="modal__td-lable">Genre</td>
-          <td class="modal__td-text">Western</td>
+          <td class="modal__td-text">{{info}}</td>
         </tr>
       </table>
 
       <h2 class="modal__subtitle">About</h2>
 
       <p class="modal__text">
-        Four of the Wests most infamous outlaws assemble to steal a huge stash
-        of gold from the most corrupt settlement of the gold rush towns. But not
-        all goes to plan one is killed and the other three escapes with bags of
-        gold hide out in the abandoned gold mine where they happen across
-        another gang of three – who themselves were planning to hit the very
-        same bank! As tensions rise, things go from bad to worse as they realise
-        the bags of gold are filled with lead... theyve been double crossed –
-        but by who and how?
+        {{overview}}
       </p>
       <ul class="modal__button-list">
         <li class="modal__button-item">
@@ -63,5 +54,3 @@
         </li>
       </ul>
     </div>
-  </div>
-</section>

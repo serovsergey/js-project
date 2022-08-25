@@ -1,3 +1,4 @@
+import './js/scroll-to-top';
 import throttle from "lodash.throttle";
 
 import ThemeSwitcher from "./js/theme-switcher";
@@ -51,8 +52,6 @@ const clearFailMessage = throttle(() => {
 
 refs.teamLink.addEventListener('click', evt => {
   evt.preventDefault();
-  // const teamModal = new Modal(teamHbs(teamMembers), { containerClass: 'team-container' });
-  // teamModal.show();
   const teamModal = new TeamModal(teamMembers);
   teamModal.show();
 });

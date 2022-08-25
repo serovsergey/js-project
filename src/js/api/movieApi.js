@@ -9,6 +9,25 @@ export default class MovieApi {
   // https://api.themoviedb.org/3/configuration?api_key=d211d18bbdd8eeb23b9914a8b27a6ac5
   // constructor() {
 
+  // adult: false
+  // backdrop_path: "/jILeJ60zPpIjjJHGSmIeY4eO30t.jpg"
+  // full_path: "https://image.tmdb.org/t/p/w400/xUuHj3CgmZQ9P2cMaqQs4J0d4Zc.jpg"
+  // genre_ids: (2)[28, 18]
+  // genres: "Action, Drama"
+  // id: 744
+  // info: "Action, Drama | 1986"
+  // media_type: "movie"
+  // original_language: "en"
+  // original_title: "Top Gun"
+  // overview: "For Lieutenant Pete 'Maverick' Mitchell and his friend and co-pilot Nick 'Goose' Bradshaw, being accepted into an elite training school for fighter pilots is a dream come true. But a tragedy, as well as personal demons, will threaten Pete's dreams of becoming an ace pilot."
+  // popularity: 335.613
+  // poster_path: "/xUuHj3CgmZQ9P2cMaqQs4J0d4Zc.jpg"
+  // release_date: "1986-05-16"
+  // title: "Top Gun"
+  // video: false
+  // vote_average: "7.0"
+  // vote_count: 6282
+
   // }
   async getProcessedResult(data) {
     const genresList = await this.getCachedGenres();
@@ -16,8 +35,9 @@ export default class MovieApi {
       page: data.data.page,
       total_pages: data.data.total_pages,
       results: data.data.results.map(el => {
-        const genres = el.genre_ids.map(genreId => genresList.find(el => el.id === genreId).name);
-        if (genres.length > 2)
+        const genresFull = el.genre_ids.map(genreId => genresList.find(el => el.id === genreId).name);
+        const genres = [...genresFull];
+        if (genresFull.length > 2)
           genres.splice(2, genres.length - 2, 'Other');
         const strGenres = genres.join(', ');
         const info = [];
@@ -31,6 +51,8 @@ export default class MovieApi {
           ...el,
           title: el.title || el.name,
           info: strInfo,
+          popularity: Number(el.popularity).toFixed(1),
+          genres: genresFull.join(', '),
           full_path: MovieApi.IMAGES_BASE_URL + 'w400' + el.poster_path,
           vote_average: Number(el.vote_average).toFixed(1),
         }

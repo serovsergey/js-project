@@ -55,6 +55,7 @@ footer {
   font-size: 14px;
   line-height: 1.14;
   color: var(--footer-color);
+  
 
   @include breakpointFrom(tablet) {
     font-size: 16px;
@@ -75,6 +76,11 @@ footer {
   margin-left: 10px;
   margin-top: 3px;
   fill: var(--btn-color);
+transform: scale(1);
+  transition: transform ease 1s;
+  &:hover {
+      transform: scale(1.99);
+    }
 }
 
 .open-team-modal {
@@ -83,15 +89,22 @@ footer {
   background-color: var(--color-secondary);
   margin-left: 5px;
   color: var(--footer-color);
-}
+  transform: scale(1.1);
+
+    transition: makeTransition((color, background-color, text-decoration, transform));
+ }
 
 .open-team-modal:hover,
 .open-team-modal:focus {
   color: var(--btn-color);
   text-decoration: underline 2px var(--btn-color);
+  
+  transition: makeTransition((color, background-color, text-decoration));
+  
 }
 
 .open-team-modal:hover .footer__list-icon {
   width: 200px;
   height: 200px;
+    transition: makeTransition((color, background-color, text-decoration));
 }

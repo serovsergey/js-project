@@ -7,10 +7,14 @@ import makePagination from "./js/pagination";
 import Modal from "./js/modal2";
 
 import cardsHbs from './templates/cards.hbs';
+
 import movieDetailsHbs from './templates/movie-details.hbs';
 import teamHbs from './templates/team.hbs';
 
 import { teamMembers } from "./js/team-data";
+
+import { calcScrollValue } from './js/scroll-to-top';
+
 
 const TRENDING_PAGE_KEY = 'trending_current_page';
 const SEARCH_PAGE_KEY = 'search_current_page';

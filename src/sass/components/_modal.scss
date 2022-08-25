@@ -1,12 +1,9 @@
-
-
 .flex {
   @include breakpointFrom(tablet) {
     display: flex;
   }
   @include breakpointFrom(desktop) {
     display: flex;
-  
   }
 }
 .movie-info {
@@ -16,14 +13,14 @@
   background-color: var(--bg-modal-color);
   @include breakpointFrom(tablet) {
     width: 704px;
-    height: 552px;
+    max-height: 80vh;
     padding: 38px 104px 42px 4px;
     // display: flex;
     background-color: var(--bg-modal-color);
 
     @include breakpointFrom(desktop) {
       width: 806px;
-      height: 558px;
+      // max-height: 558px;
       padding: 40px 12px;
       background-color: var(--bg-modal-color);
     }
@@ -180,6 +177,7 @@
   font-size: 12px;
   line-height: 1.33;
   text-transform: uppercase;
+  cursor: pointer;
   @include breakpointFrom(tablet) {
     width: 125px;
   }
@@ -220,11 +218,12 @@
   overflow-y: auto;
   overflow-x: hidden;
   background-color: rgba(0, 0, 0, 0.8);
-  transition: makeTransition((opacity visibility transform), 250ms);
+  transition: makeTransition((opacity visibility transform));
 }
 
 .is-hidden .modal-wrapper {
-  transform: perspective(400px) translate(0px, -100%) rotateX(45deg);
+  // transform: translate(-50%, 50%) scale(1.5);
+  transform: perspective(100px) translate(-50%, -250%) rotateX(45deg);
 }
 
 .modal-wrapper {
@@ -238,6 +237,7 @@
   // pointer-events: none;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
+  transition: makeTransition((transform));
 }
 
 .btn-close {

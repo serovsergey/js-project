@@ -3,6 +3,7 @@ import StorageListApi from './js/api/storageListApi';
 import MovieApi from "./js/api/movieApi";
 import makePagination from "./js/pagination";
 import cardsHbs from './templates/cards.hbs';
+import MovieModal from './js/modals/MovieModal';
 
 const LIBRARY_MODE_KEY = 'library_mode';
 const WATCHED_PAGE_KEY = 'watched_page';
@@ -15,11 +16,11 @@ const ts = new ThemeSwitcher('#slider');
 document.querySelectorAll(".modal").forEach(el => el.style.display = 'none');
 
 const queueList = new StorageListApi('queue');
-const watchedList = new StorageListApi('watch');
+const watchedList = new StorageListApi('watched');
 
 const refs = {
-  watchedBtn: document.querySelector('[data-action="watched"]'),
-  queueBtn: document.querySelector('[data-action="queue"]'),
+  watchedBtn: document.querySelector('header [data-action="watched"]'),
+  queueBtn: document.querySelector('header [data-action="queue"]'),
   cardsUl: document.querySelector(".gallery__list"),
   pagination: document.querySelector(".gallery__pagination"),
 }
@@ -36,9 +37,15 @@ refs.cardsUl.addEventListener('click', evt => {
   const card = evt.target.closest('LI');
   if (!card)
     return;
-  if (queueList.inList(card.dataset.id))
-    queueList.removeFromList(card.dataset.id);
-  gotoPage(queueList.page);
+  // if (queueList.inList(card.dataset.id))
+  //   queueList.removeFromList(card.dataset.id);
+  const movieModal = new MovieModal(gMode === 'watched' ? watchedList.getItemById(card.dataset.id) : queueList.getItemById(card.dataset.id), {
+    onClose: null, onChange: (whatChanged) => {
+      if (whatChanged === gMode)
+        gotoPage(queueList.page);
+    }
+  });
+  movieModal.show();
 })
 
 refs.pagination.addEventListener('click', async evt => {

@@ -70,7 +70,7 @@ refs.cardsUl.addEventListener('click', evt => {
   const card = evt.target.closest('LI');
   if (!card)
     return;
-  console.log(mApi.getCachedMovieById(card.dataset.id))
+  // console.log(mApi.getCachedMovieById(card.dataset.id))
   const movieModal = new MovieModal(mApi.getCachedMovieById(card.dataset.id), { onClose: null, onChange: null });
   movieModal.show();
 })

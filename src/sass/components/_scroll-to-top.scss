@@ -28,8 +28,7 @@ html {
     display: grid;
     place-items: center;
     font-size: 35px;
-    color:var(--input-hover);
-
+    color: var(--input-hover);
     font-weight: bold;
 }
 
@@ -46,8 +45,8 @@ html {
     place-items: center;
 
     cursor: pointer;
-    border: 1px solid darkgreen;
-    background-color: rgba(0, 100, 0, 0.2);
+    border: 1px solid var(--bg-color);
+    background-color: var(--input-hover);
     border-radius: 4px;
 
     writing-mode: vertical-lr;
@@ -70,7 +69,7 @@ html {
 }
 
 .donate-link {
-    color: darkgreen;
+    color: var(--first-color-title-card);
     font-weight: 700;
     font-size: 15px;
     display: block;
@@ -79,13 +78,13 @@ html {
 }
 
 .progress__scroll {
-        transition-duration: 500ms;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-&:hover {
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
         bottom: 80px;
         transform: scale(1.3);
         transition-duration: 500ms;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }}
-    
-
+    }
+}

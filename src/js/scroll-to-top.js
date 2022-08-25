@@ -1,6 +1,6 @@
-// import throttle from "lodash.throttle";
+import throttle from "lodash.throttle";
 
-// const THROTTLE_DELAY = 250;
+const THROTTLE_DELAY = 250;
 
 // const throttle = require("lodash.throttle");
 

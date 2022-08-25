@@ -11,25 +11,24 @@
     --bg-color
   ); //need to to change for dark one!!! for case if img will not load
   background: url(../images/header-library/header-library-img-320.png)
-    var(--bg-color);
+    var(--dark-bg-color);
 
   background-size: cover;
 
   @include breakpointDPR(2) {
     background: url(../images/header-library/header-library-img-320-2x.png)
-      var(--bg-color);
+      var(--dark-bg-color);
     background-size: cover;
   }
 
   @include breakpointFrom(tablet) {
     height: 219px;
     background: url(../images/header-library/header-library-img-768.png)
-      var(--bg-color);
+      var(--dark-bg-color);
     background-size: cover;
   }
 
   @include breakpointDPR(2) {
-    height: 216px;
     background-image: url(../images/header-library/header-library-img-768-2x.png)
       //for some reason - don't upload!!!
       var(--bg-color);
@@ -37,6 +36,7 @@
   }
 
   @include breakpointFrom(desktop) {
+        height: 216px;
     background: url(../images/header-library/header-library-img-1280.png)
       var(--bg-color);
     background-size: cover;

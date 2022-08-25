@@ -131,7 +131,7 @@ main {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    // color: var(--text-color);
+    color: var(--primary-text-color);
   }
   &__genre {
     color: var(--btn-color);
@@ -145,8 +145,10 @@ main {
     justify-content: center;
     min-width: 36px;
     height: 16px;
+    font-size: 12px;
     font-weight: 500;
     line-height: 1.17;
+    vertical-align: middle;
     color: var(--text-color);
     background-color: var(--btn-color);
     border-radius: 5px;

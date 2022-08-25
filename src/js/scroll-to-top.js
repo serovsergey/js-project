@@ -10,7 +10,7 @@ export const calcScrollValue = throttle(() => {
     const position = document.documentElement.scrollTop;
     const calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrollValue = Math.round((position * 100) / calcHeight);
-    console.log(scrollValue);
+    //console.log(scrollValue);
   
     if (position > 100) {
         scrollProgress.style.display = "grid";

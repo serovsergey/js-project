@@ -31,3 +31,47 @@ html {
 
     font-weight: bold;
 }
+
+// Підтримати ЗСУ
+.donate {
+
+    padding: 2px;
+    position: fixed;
+
+    bottom: 0px;
+    left: 0px;
+    opacity: 1;
+    place-items: center;
+
+    cursor: pointer;
+    border: 1px solid darkgreen;
+    background-color: rgba(0, 100, 0, 0.2);
+    border-radius: 4px;
+
+    writing-mode: vertical-lr;
+    //transform: rotate(-180deg);
+    text-orientation: upright;
+
+    @include breakpointFrom(tablet) {
+        bottom: 35px;
+        left: 50px;
+        writing-mode: horizontal-tb;
+        text-orientation: upright;
+    }
+
+    @include breakpointFrom(desktop) {
+        bottom: 35px;
+        left: 50px;
+        writing-mode: horizontal-tb;
+        text-orientation: upright;
+    }
+}
+
+.donate-link {
+    color: darkgreen;
+    font-weight: 700;
+    font-size: 15px;
+    display: block;
+    position: relative;
+    place-items: center;
+}

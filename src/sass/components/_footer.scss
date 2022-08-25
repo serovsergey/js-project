@@ -27,6 +27,7 @@ footer {
 
   justify-content: center;
   align-items: center;
+
   @include breakpointFrom(tablet) {
     flex-direction: row;
   }
@@ -37,11 +38,13 @@ footer {
     display: initial;
   }
 }
+
 @include breakpointFrom(tablet) {
   #footer-list br {
     display: none;
   }
 }
+
 @include breakpointFrom(desktop) {
   #footer-list br {
     display: none;
@@ -61,6 +64,7 @@ footer {
     line-height: 1.17;
     margin-top: 0;
   }
+
   @include breakpointFrom(desktop) {
     font-size: 16px;
     line-height: 1.17;
@@ -94,4 +98,6 @@ footer {
 .open-team-modal:hover .footer__list-icon {
   width: 200px;
   height: 200px;
+  background-color: rgba(0, 100, 0, 0.9);
+
 }

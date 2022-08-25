@@ -7,15 +7,17 @@
   text-align: center;
   margin: 0;
   padding: 10px;
+  color: var(--primary-text-color);
 }
 
 
 .team-container {
   width: 400px;
   height: 600px;
-  background-color: var(--bg-color);
+  background-color: var(--input-hover);
   padding: 8px;
   // max-height: 50vh;
+
 }
 
 .team-image {
@@ -47,8 +49,10 @@
   position: absolute;
   top: 10px;
   right: 30px;
-
+  background-color: var(--btn-color);
+  border-radius: 50%;
 }
+
 
 .overlay {
   position: absolute;
@@ -88,6 +92,7 @@
   line-height: 1.6;
   color: black;
   text-align: center;
+  color: var(--dark-bg-color);
   // padding-top: 10px;
   // padding-bottom: 10px;
   // text-align: center;

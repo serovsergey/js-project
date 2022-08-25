@@ -13,7 +13,7 @@ import teamHbs from './templates/team.hbs';
 
 import { teamMembers } from "./js/team-data";
 
-import { calcScrollValue } from './js/scroll-to-top';
+
 
 
 const TRENDING_PAGE_KEY = 'trending_current_page';

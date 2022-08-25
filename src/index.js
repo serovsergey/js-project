@@ -4,7 +4,13 @@ import ThemeSwitcher from "./js/theme-switcher";
 import MovieApi from "./js/api/movieApi";
 import StorageListApi from "./js/api/storageListApi";
 import makePagination from "./js/pagination";
+import Modal from "./js/modal2";
+
 import cardsHbs from './templates/cards.hbs';
+import movieDetailsHbs from './templates/movie-details.hbs';
+import teamHbs from './templates/team.hbs';
+
+import { teamMembers } from "./js/team-data";
 
 const TRENDING_PAGE_KEY = 'trending_current_page';
 const SEARCH_PAGE_KEY = 'search_current_page';
@@ -26,6 +32,7 @@ const refs = {
   searchForm: document.querySelector(".hero-home__form"),
   loader: document.querySelector(".loader"),
   homeLinks: document.querySelectorAll(".js-home"),
+  teamLink: document.querySelector(".open-team-modal"),
 }
 
 const clearFailMessage = throttle(() => {
@@ -35,6 +42,11 @@ const clearFailMessage = throttle(() => {
     refs.searchForm.removeEventListener('input', clearFailMessage);
   }
 }, THROTTLE_DELAY);
+
+refs.teamLink.addEventListener('click', evt => {
+  teamModal = new Modal(teamHbs(teamMembers));
+  teamModal.show();
+});
 
 refs.homeLinks.forEach(el => {
   el.addEventListener('click', evt => {
@@ -49,6 +61,10 @@ refs.cardsUl.addEventListener('click', evt => {
   const card = evt.target.closest('LI');
   if (!card)
     return;
+  console.log(mApi.getCachedMovieById(card.dataset.id))
+  const modal = new Modal(movieDetailsHbs(mApi.getCachedMovieById(card.dataset.id)), { containerClass: 'movie-info' });
+  modal.show();
+
   if (queueList.inList(card.dataset.id))
     queueList.removeFromList(card.dataset.id);
   else
@@ -112,13 +128,16 @@ refs.pagination.addEventListener('click', async evt => {
   const page = evt.target.dataset.page;
   if (page) {
     gotoPage(page);
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: "smooth"
+    // });
   }
 });
 
 function renderCards(data) {
   refs.cardsUl.innerHTML = cardsHbs({ results: data.results, base_path: MovieApi.IMAGES_BASE_URL }); //makeCardsMarkup(data);
   refs.pagination.innerHTML = makePagination(data);
-  // console.log(queueList.getList());
 }
 
 async function gotoPage(page) {

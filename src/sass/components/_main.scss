@@ -2,6 +2,7 @@ main {
   background-color: var(--bg-modal-color);
 }
 .gallery {
+  position: relative;
   &__list {
     display: flex;
     flex-wrap: wrap;
@@ -187,7 +188,8 @@ main {
   text-align: center;
 }
 
-.loader {
-  display: flex;
-  justify-content: center;
-}
+// .loader {
+//   display: flex;
+//   justify-content: center;
+//   position: absolute;
+// }

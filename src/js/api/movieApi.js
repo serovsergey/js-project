@@ -31,6 +31,7 @@ export default class MovieApi {
           ...el,
           title: el.title || el.name,
           info: strInfo,
+          full_path: MovieApi.IMAGES_BASE_URL + 'w400' + el.poster_path,
           vote_average: Number(el.vote_average).toFixed(1),
         }
       })

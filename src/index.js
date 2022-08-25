@@ -5,6 +5,7 @@ import MovieApi from "./js/api/movieApi";
 import StorageListApi from "./js/api/storageListApi";
 import makePagination from "./js/pagination";
 import cardsHbs from './templates/cards.hbs';
+import { calcScrollValue } from './js/scroll-to-top';
 
 const TRENDING_PAGE_KEY = 'trending_current_page';
 const SEARCH_PAGE_KEY = 'search_current_page';

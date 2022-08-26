@@ -63,7 +63,11 @@ export default class StorageListApi {
     catch (e) { console.error(e.message) }
     return list;
   }
-
+  /**
+   *
+   * @param {number} page number of page to fetch, if not passed fetches next page
+   * @returns {object} object with stored data
+   */
   fetchNext(page = -1) {
     const list = this.getList();
     if (!list || list.length === 0) return null;

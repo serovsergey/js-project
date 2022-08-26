@@ -42,7 +42,7 @@ main {
     margin-top: 60px;
     justify-content: center;
     color: var(--primary-text-color);
-                    transition: 0.8s ease 0.01s;
+    transition: 0.8s ease 0.01s;
 
     & li {
       &:not(:last-child) {
@@ -62,15 +62,14 @@ main {
     &:hover,
     &:focus {
       outline: 1px solid var(--btn-color);
-      
-          transition: 0.8s ease 0.1s;
-      
+
+      transition: 0.8s ease 0.1s;
     }
 
     &--current {
       background-color: var(--btn-color);
       position: relative;
-                transition: 0.8s ease 0.01s;
+      transition: 0.8s ease 0.01s;
     }
     &--arrow-left {
       background-image: url('../images/arrow-left.svg');
@@ -105,9 +104,11 @@ main {
     font-weight: 500;
   }
 }
-
+.gallery__link:focus .film-card__image {
+  transform: scale(1.02);
+}
 .film-card {
-          transition: makeTransition((transform));
+  transition: makeTransition((transform));
   &__image {
     object-fit: cover;
     border-radius: 5px;
@@ -115,11 +116,10 @@ main {
     box-shadow: 1px 1px 4px -1px var(--footer-color);
     width: 100%;
     height: 402px;
-            transition: makeTransition((transform));
-    &:hover,
-    &:focus {
-      transform: scale(1.01);
-        transition: makeTransition((transform));
+    transition: makeTransition((transform));
+    &:hover {
+      transform: scale(1.02);
+      // transition: makeTransition((transform));
     }
     @include breakpointFrom(tablet) {
       height: 455px;

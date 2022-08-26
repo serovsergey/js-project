@@ -49,6 +49,30 @@
   height: 24px;
 }
 
+.logo__label {
+  transition: makeTransition((color transform));
+  &:hover,
+  &:focus {
+    color: var(--current-link-color);
+    // transition: makeTransition((color));
+  }
+  @include breakpointTo(tablet) {
+    display: none;
+  }
+
+  @include breakpointFrom(tablet) {
+    color: var(--text-color);
+    margin-left: 10px;
+    // font-family: 'Roboto';
+    // font-style: normal;
+    // font-weight: 500;
+    // font-size: 30px;
+    line-height: 1.16;
+
+    text-align: center;
+  }
+}
+
 .logo {
   font-family: 'Roboto';
   font-style: normal;
@@ -65,7 +89,7 @@
     transform: scale(1.1);
   }
   @include breakpointTo(tablet) {
-    display: none;
+    // display: none;
   }
 
   @include breakpointFrom(tablet) {
@@ -84,7 +108,7 @@
   &:hover,
   &:focus {
     color: var(--current-link-color);
-    transition: makeTransition((color));
+    // transition: makeTransition((color));
   }
 }
 

@@ -27,7 +27,7 @@ const ts = new ThemeSwitcher('#slider');
 const mApi = new MovieApi();
 const queueList = new StorageListApi('queue');
 
-document.querySelectorAll(".modal").forEach(el => el.style.display = 'none');
+// document.querySelectorAll(".modal").forEach(el => el.style.display = 'none');
 
 const refs = {
   cardsUl: document.querySelector(".gallery__list"),

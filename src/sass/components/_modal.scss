@@ -11,7 +11,7 @@
   padding: 48px 20px 40px 20px;
   font-weight: 500;
   background-color: var(--bg-modal-color);
-  
+
   @include breakpointFrom(tablet) {
     width: 704px;
     max-height: 100vh;
@@ -43,9 +43,8 @@
   border: none;
   width: 30px;
   height: 30px;
-      transition: makeTransition((background-color border-radius color));
+  transition: makeTransition((background-color border-radius color));
   &:hover {
- 
     background-color: var(--btn-color);
     border-radius: 3px;
     color: var(--primary-text-color);
@@ -153,14 +152,14 @@
   line-height: 1.33;
   margin-bottom: 8px;
   text-transform: uppercase;
-    color: var(--primary-text-color);
+  color: var(--primary-text-color);
 }
 .modal__text {
   width: 240px;
   line-height: 1.67;
   font-size: 12px;
   margin-bottom: 20px;
-    color: var(--primary-text-color);
+  color: var(--primary-text-color);
   @include breakpointFrom(tablet) {
     width: 264px;
   }
@@ -172,7 +171,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-    color: var(--primary-text-color);
+  color: var(--primary-text-color);
 
   @include breakpointFrom(desktop) {
     justify-content: flex-start;
@@ -193,11 +192,11 @@
   text-transform: uppercase;
   animation: bounce 1s;
   cursor: pointer;
-    transition: makeTransition((border-color));
+  transition: makeTransition((border-color));
   &:hover {
-  border-color: var(--btn-color);  
-      transition: makeTransition((border-color));
-    }
+    border-color: var(--btn-color);
+    transition: makeTransition((border-color));
+  }
   @include breakpointFrom(tablet) {
     width: 125px;
   }
@@ -249,12 +248,15 @@
 .modal-wrapper {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 60%;
   transform: translate(-50%, -50%);
- 
+
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
   transition: makeTransition((transform));
+  @include breakpointFrom(tablet) {
+    top: 50%;
+  }
 }
 
 .btn-close {
@@ -273,5 +275,4 @@
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
-  
 }

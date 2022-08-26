@@ -1,31 +1,203 @@
+main {
+  background-color: var(--bg-modal-color);
+}
 .gallery {
+  position: relative;
   &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    // background-color: var(--bg-color);
     @include breakpointFrom(tablet) {
-      display: flex;
-      flex-wrap: wrap;
       gap: 32px;
     }
     @include breakpointFrom(desktop) {
-      gap: 16px;
+      gap: 32px 16px;
     }
   }
 
   &__item {
+    width: 100%;
+    align-self: end;
+
     @include breakpointFrom(tablet) {
       --width: calc((100% - 32px) / 2);
       width: var(--width);
-      height: calc(var(--width) / 2 * 3);
+      // height: calc(var(--width) / 2 * 3);
     }
     @include breakpointFrom(desktop) {
       --width: calc((100% - 32px) / 3);
       width: var(--width);
-      height: calc(var(--width) / 2 * 3);
+      // height: calc(var(--width) / 2 * 3);
     }
+  }
+
+  &__link {
+    font-style: normal;
+    // color: var(--primary-text-color);
+    cursor: pointer;
+  }
+  &__pagination {
+    display: flex;
+    margin-top: 60px;
+    justify-content: center;
+    color: var(--primary-text-color);
+                    transition: 0.8s ease 0.01s;
+
+    & li {
+      &:not(:last-child) {
+        margin-right: 3px;
+      }
+    }
+  }
+
+  &__pag-button {
+    cursor: pointer;
+    color: var(--primary-text-color);
+    min-width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    &:hover,
+    &:focus {
+      outline: 1px solid var(--btn-color);
+      
+          transition: 0.8s ease 0.1s;
+      
+    }
+
+    &--current {
+      background-color: var(--btn-color);
+      position: relative;
+                transition: 0.8s ease 0.01s;
+    }
+    &--arrow-left {
+      background-image: url('../images/arrow-left.svg');
+      background-color: var(--pag-nav-button);
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    &--arrow-right {
+      background-image: url('../images/arrow-left.svg');
+      transform: scaleX(-1);
+      background-color: var(--pag-nav-button);
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    &--disabled {
+      cursor: not-allowed;
+      // color: #ccc;
+    }
+  }
+  &__elipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+  }
+  &__no-entries {
+    margin: 0 auto;
+    font-weight: 500;
   }
 }
 
 .film-card {
+          transition: makeTransition((transform));
   &__image {
+    object-fit: cover;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 1px 1px 4px -1px var(--footer-color);
     width: 100%;
+    height: 402px;
+            transition: makeTransition((transform));
+    &:hover,
+    &:focus {
+      transform: scale(1.01);
+        transition: makeTransition((transform));
+    }
+    @include breakpointFrom(tablet) {
+      height: 455px;
+    }
+    @include breakpointFrom(desktop) {
+      height: 574px;
+    }
+
+    &--no-image {
+      background-image: url('../images/no-image.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  &__title {
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: var(--primary-text-color);
+  }
+  &__genre {
+    color: var(--btn-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &__rating {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.17;
+    vertical-align: middle;
+    color: var(--text-color);
+    background-color: var(--btn-color);
+    border-radius: 5px;
+    @include breakpointFrom(desktop) {
+      min-width: 40px;
+      height: 20px;
+    }
+  }
+  &__group {
+    margin-top: 10px;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 12px;
+    line-height: 1.33;
+    @include breakpointFrom(tablet) {
+      margin-top: 8px;
+    }
+    @include breakpointFrom(desktop) {
+      margin-top: 12px;
+      font-size: 20px;
+      line-height: 1.2;
+    }
   }
 }
+
+.search-fail {
+  color: var(--current-link-color);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.14;
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+}
+
+// .loader {
+//   display: flex;
+//   justify-content: center;
+//   position: absolute;
+// }

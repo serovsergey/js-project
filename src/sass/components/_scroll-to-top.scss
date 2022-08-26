@@ -1,0 +1,90 @@
+// Scroll-to-TOP with progress
+
+html {
+    scroll-behavior: smooth;
+}
+
+#progress {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    height: 70px;
+    width: 70px;
+    display: none;
+    place-items: center;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+
+}
+
+#progress-value {
+    display: block;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background-color: var(--btn-color);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 35px;
+    color: var(--input-hover);
+    font-weight: bold;
+}
+
+
+// Підтримати ЗСУ
+.donate {
+
+    padding: 2px;
+    position: fixed;
+
+    bottom: 0px;
+    left: 0px;
+    opacity: 1;
+    place-items: center;
+
+    cursor: pointer;
+    border: 1px solid var(--bg-color);
+    background-color: var(--input-hover);
+    border-radius: 4px;
+
+    writing-mode: vertical-lr;
+    //transform: rotate(-180deg);
+    text-orientation: upright;
+
+    @include breakpointFrom(tablet) {
+        bottom: 35px;
+        left: 50px;
+        writing-mode: horizontal-tb;
+        text-orientation: upright;
+    }
+
+    @include breakpointFrom(desktop) {
+        bottom: 35px;
+        left: 50px;
+        writing-mode: horizontal-tb;
+        text-orientation: upright;
+    }
+}
+
+.donate-link {
+    color: var(--first-color-title-card);
+    font-weight: 700;
+    font-size: 15px;
+    display: block;
+    position: relative;
+    place-items: center;
+}
+
+.progress__scroll {
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        bottom: 80px;
+        transform: scale(1.3);
+        transition-duration: 500ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}

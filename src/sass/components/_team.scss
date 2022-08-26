@@ -1,0 +1,99 @@
+.modal__title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--primary-text-color);
+  text-align: center;
+  margin: 0;
+  color: var(--primary-text-color);
+}
+
+.team-container {
+  width: 400px;
+  height: 600px;
+  background-color: var(--input-hover);
+  padding: 50px 8px 8px 8px;
+}
+
+.team-image {
+  display: block;
+  width: 100%;
+  height: 300px;
+}
+
+.team-pics {
+  margin: 15px 30px;
+  padding: 2px;
+}
+
+.team-item {
+  //position: relative;
+  margin: 2px;
+  padding: 2px;
+  border: 2px solid var(--btn-color);
+}
+
+.team-item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.team-container .modal__btn-close {
+  background-position: center;
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  background-color: var(--btn-color);
+  border-radius: 50%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%) scale(1);
+  //background-color: var(--color-accent);
+  display: block;
+}
+
+.box-overlay {
+  // width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay__text {
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--bkg-color);
+  height: 100%;
+  text-align: center;
+  padding: 200px 20px;
+  display: block;
+}
+
+.box-overlay:hover .overlay,
+.box-overlay:focus .overlay {
+  transform: translateY(0);
+  transition: makeTransition((transform));
+}
+
+.member-description {
+  background-color: var(--input-hover);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--primary-text-color);
+}
+
+.git-icon {}

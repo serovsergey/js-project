@@ -1,67 +1,92 @@
-.modal {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 280px;
-  padding: 48px 20px 40px 20px;
+.flex {
   @include breakpointFrom(tablet) {
-    width: 704px;
-    padding: 38px 104px 42px 4px;
     display: flex;
   }
-  @include breakpointFrom (desktop) {
-    width: 806px;
-    padding: 40px 12px ;
+  @include breakpointFrom(desktop) {
+    display: flex;
+  }
+}
+.movie-info {
+  width: 280px;
+  padding: 48px 20px 40px 20px;
+  font-weight: 500;
+  background-color: var(--bg-modal-color);
+  
+  @include breakpointFrom(tablet) {
+    width: 704px;
+    max-height: 100vh;
+    padding: 38px 104px 42px 4px;
+    // display: flex;
+    background-color: var(--bg-modal-color);
 
+    @include breakpointFrom(desktop) {
+      width: 806px;
+      // max-height: 558px;
+      padding: 40px 12px;
+      background-color: var(--bg-modal-color);
+    }
   }
 }
 
 .modal__btn-close {
   background-image: url(../images/btn-close.svg);
-
   background-position: center;
   padding: 0;
-
+  cursor: pointer;
   top: 8px;
+  // top: 16px;
   right: 8px;
   position: absolute;
+  // transform: translate(-50%, -50%);
+
   background-color: transparent;
   border: none;
   width: 30px;
   height: 30px;
+  transition: makeTransition((background-color));
+  &:hover {
+    mask-image: url(../images/btn-close.svg);
+    -webkit-mask-image: url(../images/btn-close.svg);
+    background-color: var(--btn-color);
+    transition: makeTransition((background-color));
+  }
 
   @include breakpointFrom(tablet) {
-    top: 6px;
-    right: 40px;
-}
-@include breakpointFrom (desktop) {
-    top: 8px;
-    right: 8px;
+    // top: 6px;
+    // right: 40px;
+  }
+  @include breakpointFrom(desktop) {
+    // top: 8px;
+    // right: 8px;
+  }
 }
 
-}
-.modal__img {
-  height: 357px;
+.modal__img--wrapper {
   width: 240px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  height: 357px;
   @include breakpointFrom(tablet) {
     width: 264px;
-  height: 374px;
-margin-bottom: 0;
+    height: 374px;
+    margin-bottom: 0;
   }
   @include breakpointFrom(desktop) {
     width: 375px;
     height: 478px;
-margin-bottom: 0;
+    margin-bottom: 0;
   }
+}
+.modal__img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 .modal__description {
   @include breakpointFrom(tablet) {
     margin-left: 68px;
   }
-  @include breakpointFrom (desktop) {
+  @include breakpointFrom(desktop) {
     margin-left: 16px;
   }
 }
@@ -72,48 +97,54 @@ margin-bottom: 0;
   margin-bottom: 20px;
   text-transform: uppercase;
 }
-.modal__list {
+.modal__table {
   margin-bottom: 12px;
   margin-right: 25px;
+  min-width: 100%;
 }
-.modal__item {
 
+.modal__tr {
   font-size: 12px;
   line-height: 16px;
-  color: var(--text-color-accent);
+  color: var(--primary-text-color);
   display: flex;
   margin-bottom: 8px;
 }
-.modal__lable {
+.modal__td-lable {
   min-width: 108px;
+  color: var(--input-hover);
   @include breakpointFrom(tablet) {
     min-width: 152px;
   }
-  @include breakpointFrom (desktop) {
+  @include breakpointFrom(desktop) {
     min-width: 152px;
-
   }
 }
-.modal__item-accent {
+.modal__td-text--accent {
   width: 36px;
   height: 16px;
   padding: 1px 9px;
   background-color: var(--btn-color);
   border-radius: 5px;
-  color: var(--text-color);
+  color: var(--primary-text-color);
+  transition: makeTransition((color, background-color));
 }
-.modal__item-slash {
-  color: var(--text-color-accent);
+
+.modal__td-text--slash {
+  color: var(--input-hover);
 }
-.modal__item-text {
+.modal__td-text {
   font-size: 12px;
   line-height: 14px;
-  color:  var(--primary-text-color);
+
+  color: var(--primary-text-color);
 }
-.modal__item-all {
+
+.modal__td-text--all {
   padding: 1px 4px;
   background-color: var(--color-secondary);
   color: var(--primary-text-color);
+
   border-radius: 5px;
 }
 
@@ -122,26 +153,30 @@ margin-bottom: 0;
   line-height: 1.33;
   margin-bottom: 8px;
   text-transform: uppercase;
+    color: var(--primary-text-color);
 }
 .modal__text {
   width: 240px;
   line-height: 1.67;
   font-size: 12px;
   margin-bottom: 20px;
+    color: var(--primary-text-color);
   @include breakpointFrom(tablet) {
     width: 264px;
   }
-  @include breakpointFrom (desktop) {
-width: 391px;  
-}
+  @include breakpointFrom(desktop) {
+    width: 391px;
+  }
 }
 .modal__button-list {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @include breakpointFrom (desktop) {
-justify-content: flex-start;
-}
+    color: var(--primary-text-color);
+
+  @include breakpointFrom(desktop) {
+    justify-content: flex-start;
+  }
 }
 
 .modal__button {
@@ -156,12 +191,18 @@ justify-content: flex-start;
   font-size: 12px;
   line-height: 1.33;
   text-transform: uppercase;
+  cursor: pointer;
+  transition: makeTransition((transform));
+  &:hover {
+    transform: scale(1.1);
+    transition: makeTransition((transform));
+  }
   @include breakpointFrom(tablet) {
     width: 125px;
   }
-  @include breakpointFrom (desktop) {
-width: 136px;  
-}
+  @include breakpointFrom(desktop) {
+    width: 136px;
+  }
 }
 .modal__button-item:not(:last-child) {
   margin-right: 20px;
@@ -171,13 +212,13 @@ width: 136px;
   align-items: center;
 
   @include breakpointFrom(tablet) {
-margin-right: 15px;
+    margin-right: 15px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
   }
-  @include breakpointFrom (desktop) {
+  @include breakpointFrom(desktop) {
     margin-right: 15px;
     margin-left: 8px;
   }
@@ -185,5 +226,51 @@ margin-right: 15px;
 .modal__button--accent {
   background-color: var(--btn-color);
   color: var(--text-color);
+}
+
+.backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: makeTransition((opacity visibility transform));
+}
+
+.is-hidden .modal-wrapper {
+  // transform: translate(-50%, 50%) scale(1.5);
+  transform: perspective(100px) translate(-50%, -250%) rotateX(45deg);
+}
+
+.modal-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+ 
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  transition: makeTransition((transform));
+}
+
+.btn-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 0;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    color: #c78890;
+  }
+}
+
+.modal-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
   
 }

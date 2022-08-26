@@ -1,41 +1,39 @@
-
 .header {
-
   padding-top: 40px;
   min-width: 320px;
-    margin-left: auto;
-    margin-right: auto;
-    // position: relative;
-    background-repeat: no-repeat;
-    background-position: center;
-  
-    background: url(../images/header/header-320.png) var(--bg-color);
+  margin-left: auto;
+  margin-right: auto;
+  // position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  background: url(../images/header/header-320.png) var(--bg-color);
+  background-size: cover;
+
+  @include breakpointDPR(2) {
+    background: url(../images/header/header-320-2x.png) var(--bg-color);
     background-size: cover;
-  
-    @include breakpointDPR (2) {
-      background: url(../images/header/header-320-2x.png) var(--bg-color);
+  }
+
+  @include breakpointFrom(tablet) {
+    background: url(../images/header/header-768.png) var(--bg-color);
+    background-size: cover;
+
+    @include breakpointDPR(2) {
+      background: url(../images/header/header-768-2x.png) var(--bg-color);
       background-size: cover;
     }
-  
-    @include breakpointFrom(tablet) {
-      background: url(../images/header/header-768.png) var(--bg-color);
+  }
+
+  @include breakpointFrom(desktop) {
+    background: url(../images/header/header-1280.png) var(--bg-color);
+    background-size: cover;
+
+    @include breakpointDPR(2) {
+      background: url(../images/header/header-1280-2x.png) var(--bg-color);
       background-size: cover;
-  
-      @include breakpointDPR(2) {
-        background: url(../images/header/header-768-2x.png) var(--bg-color);
-        background-size: cover;
-      }
     }
-  
-    @include breakpointFrom (desktop) {
-      background: url(../images/header/header-1280.png) var(--bg-color);
-      background-size: cover;
-  
-      @include breakpointDPR(2) {
-        background: url(../images/header/header-1280-2x.png) var(--bg-color);
-        background-size: cover;
-      }
-    }
+  }
   background-color: transparent;
 }
 
@@ -43,16 +41,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .logo__icon {
   display: block;
   width: 24px;
   height: 24px;
+  
 }
 
 .logo__label {
-font-family: 'Roboto';
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
@@ -60,6 +60,11 @@ font-family: 'Roboto';
   display: flex;
   align-items: center;
   text-align: center;
+ 
+  
+    &:hover {
+      transform: scale(1.10);
+    }
   @include breakpointTo(tablet) {
     display: none;
   }
@@ -76,37 +81,59 @@ font-family: 'Roboto';
 
     color: var(--text-color);
   }
+    transition: makeTransition((color transform));
+    &:hover,
+    &:focus {
+      color: var(--current-link-color);
+      transition: makeTransition((color));
+    }
 }
 
 .header-nav {
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
 
+  &__list {
+    display: flex;
+    margin-left: auto;
+  }
 
-&__list {
-  display: flex;
-  margin-left: auto;
-}
-
-&__end {
-  display: flex;
+  &__end {
+    display: flex;
     justify-content: space-between;
-}
-
-
+  }
 }
 
 .theme-switcher__switch {
-position: absolute;
-right: 30px;
-top: 15px;
+    
+  background-color: var(--bg-modal-color);
+  border-radius: 20px;
+  @include breakpointFrom(mobile) {
+      right: -215px;
+      top: -50px;
+      }
+  @include breakpointFrom(tablet){
+      right: -640px;
+        top: 20px;
+  }
+  @include breakpointFrom(desktop) {
+        right: -1150px;
+          top: 30px;
+        }
 }
 
 .header-nav__item {
   &:not(:last-child) {
     margin-right: 40px;
   }
+     transform: scale(1);
+     transition: transform ease 1s;
+     transition: makeTransition((transform));
+     &:hover {
+       transform: scale(1.30);
+            transition: makeTransition((transform));
+     }
 }
 
 .header-nav__link {
@@ -117,15 +144,16 @@ top: 15px;
   padding-bottom: 22px;
   text-transform: uppercase;
 
-transition: makeTransition((color));
+  transition: makeTransition((color));
   & {
     padding-bottom: 3px;
   }
   &:hover,
   &:focus {
     color: var(--current-link-color);
-transition: makeTransition((color));
+    transition: makeTransition((color));
   }
+  
 }
 
 .header-nav__link--current-header {
@@ -144,11 +172,9 @@ transition: makeTransition((color));
     background-color: var(--current-link-color);
   }
 }
-
-.hero-home {
- 
+.hero__home {
+  cursor: pointer;
 }
-
 .hero-home__container {
   position: relative;
   width: 100%;
@@ -158,19 +184,19 @@ transition: makeTransition((color));
   @include breakpointFrom(tablet) {
     height: 220px;
   }
-  
+    cursor: pointer;
 }
 
 .hero-home__form {
-  // position: relative;
+  position: relative;
   display: flex;
   align-items: center;
   height: 44px;
-
+  cursor: pointer;
   width: 280px;
   margin: 0 auto 16px auto;
 
-  @include breakpointFrom(tablet){
+  @include breakpointFrom(tablet) {
     width: 336px;
     margin: 0 auto 20px auto;
   }
@@ -178,16 +204,18 @@ transition: makeTransition((color));
     width: 394px;
     margin: 0 auto 20px auto;
   }
-
   border-bottom: 0.5px solid var(--text-color);
-transition: makeTransition((box-shadow border-bottom));
+  transition: makeTransition((box-shadow border-bottom transform));
+        transform: scale(1.0);
+        animation: transition 0.2s ease-out;
   &:hover,
   &:focus-within {
     border-bottom: 3px solid var(--btn-color);
     box-shadow: inset 0 -8px 15px -8px var(--btn-color);
     background: transparent;
-transition: makeTransition((box-shadow border-bottom));
-    
+    transition: makeTransition((box-shadow border-bottom transform));
+      transform: scale(1.1);
+        animation: transition 0.2s ease-out;
   }
 }
 
@@ -198,7 +226,7 @@ transition: makeTransition((box-shadow border-bottom));
   padding: 4px;
   background: transparent;
   border: none;
-
+  cursor: pointer;
   color: var(--secondary-text-color);
 
   &::placeholder {
@@ -248,6 +276,4 @@ transition: makeTransition((box-shadow border-bottom));
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
 // HEADER-LIBRARY
-

@@ -4,17 +4,82 @@ export default class StorageListApi {
     this.perPage = perPage;
   }
 
-  fetchNext(page = -1) {
-    if (~page)
-      this.page = page;
-    else
-      this.page += 1;
-    const stored = localStorage.getItem(this.key);
-    let data = null;
-    try {
-      data = JSON.parse(stored);
+  addToList(value) {
+    if (this.inList(value.id)) return false;
+    let list = this.getList();
+    if (!list) list = [];
+    const length = list.push(value);
+    try { //in case of storage overflow
+      localStorage.setItem(this.key, JSON.stringify(list));
     }
-    catch { }
-    if (!data) return null;
+    catch (e) { console.error(e.message); }
+    return length;
+  }
+
+  getTotalPages() {
+    const list = this.getList();
+    if (!list) return 0;
+    return Math.ceil(list.length / this.perPage);
+  }
+
+  removeFromList(id) {
+    const list = this.getList();
+    if (list) {
+      const idx = list.findIndex(el => el.id === Number(id));
+      if (!~idx) {
+        console.error("Something gone wrong, guys!");
+        return false;
+      }
+      list.splice(idx, 1);
+      if (list.length)
+        localStorage.setItem(this.key, JSON.stringify(list));
+      else
+        localStorage.removeItem(this.key);
+      return true;
+    }
+    return false;
+  }
+
+  inList(id) {
+    const list = this.getList();
+    if (list) {
+      return list.some(el => el.id === Number(id));
+    }
+    return false;
+  }
+  getItemById(id) {
+    const list = this.getList();
+    if (list) {
+      return list.find(el => el.id === Number(id));
+    }
+    return null;
+  }
+  getList() {
+    const stored = localStorage.getItem(this.key);
+    let list = null;
+    try {
+      list = JSON.parse(stored);
+    }
+    catch (e) { console.error(e.message) }
+    return list;
+  }
+
+  fetchNext(page = -1) {
+    const list = this.getList();
+    if (!list || list.length === 0) return null;
+    const totalPages = Math.ceil(list.length / this.perPage);
+
+    if (~page && page <= totalPages) {
+      this.page = page;
+    }
+    else {
+      if (this.page < totalPages)
+        this.page += 1;
+      else this.page = totalPages;
+    }
+    const from = (this.page - 1) * this.perPage;
+    // console.log(this.page, from, from + this.perPage);
+    // console.log({ page: this.page, total_pages: totalPages, results: list.slice(from, from + this.perPage) })
+    return { page: Number(this.page), total_pages: totalPages, results: list.slice(from, from + this.perPage) };
   }
 }

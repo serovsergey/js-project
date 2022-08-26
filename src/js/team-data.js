@@ -32,6 +32,6 @@ export const teamMembers = [
     photo: 'https://avatars.githubusercontent.com/u/94764038?v=4',//'./images/team/Sam.jpg',
     name: 'Самуїл Семченко',
     role: 'Developer',
-    quote: `«Не говори:” Я помилився ». Краще скажи: «Треба ж як цікаво вийшло». («Льодовиковий період»). `,
+    quote: `«Мартіні. Збовтати але не змішувати.». («Джеймс Бонд»). `,
   },
 ];

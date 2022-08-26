@@ -3,8 +3,8 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 1.6;
-  color: black;
-  text-align: center;
+  color: var(--primary-text-color);
+    text-align: center;
   margin: 0;
   color: var(--primary-text-color);
 }
@@ -72,7 +72,6 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 1.6;
-
   color: var(--text-color);
   background-color: var(--bkg-color);
   height: 100%;
@@ -84,6 +83,7 @@
 .box-overlay:hover .overlay,
 .box-overlay:focus .overlay {
   transform: translateY(0);
+  transition: makeTransition((transform));
 }
 
 .member-description {
@@ -93,5 +93,5 @@
   font-size: 16px;
   line-height: 1.6;
   text-align: center;
-  color: var(--primary-text-colo);
+  color: var(--primary-text-color);
 }

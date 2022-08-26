@@ -184,7 +184,7 @@ main {
 }
 
 .search-fail {
-  color: #ff001b;
+  color: var(--current-link-color);
   font-size: 14px;
   font-weight: 400;
   line-height: 1.14;

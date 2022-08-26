@@ -1,10 +1,11 @@
 import axios from "axios";
+
+const NO_INFO = 'No info';
 export default class MovieApi {
   static API_KEY = 'd211d18bbdd8eeb23b9914a8b27a6ac5';
   static BASE_URL = 'https://api.themoviedb.org/3';
   static IMAGES_BASE_URL = 'https://image.tmdb.org/t/p/';
   static GENRES_CACHE_KEY = 'genres_cache';
-
   static GENRES_VALID_TIME = 1000 * 60 * 60 * 24 * 30;
   // https://api.themoviedb.org/3/configuration?api_key=d211d18bbdd8eeb23b9914a8b27a6ac5
   // constructor() {
@@ -46,13 +47,15 @@ export default class MovieApi {
         const releaseDate = el.release_date || el.first_air_date;
         if (releaseDate)
           info.push(new Date(releaseDate).getFullYear());
-        const strInfo = info.join(' | ') || 'No info';
+        const strInfo = info.join(' | ') || NO_INFO;
         return {
           ...el,
           title: el.title || el.name,
           info: strInfo,
-          popularity: Number(el.popularity).toFixed(1),
-          genres: genresFull.join(', '),
+          overview: el.overview || NO_INFO,
+          original_title: el.original_title || NO_INFO,
+          popularity: Number(el.popularity).toFixed(1) || NO_INFO,
+          genres: genresFull.join(', ') || NO_INFO,
           full_path: MovieApi.IMAGES_BASE_URL + 'w400' + el.poster_path,
           vote_average: Number(el.vote_average).toFixed(1),
         }

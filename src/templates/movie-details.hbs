@@ -1,6 +1,19 @@
 <div class='flex'>
   <div class='modal__img--wrapper'>
-    <img class='modal__img' src='{{full_path}}' alt='image-film' />
+
+{{#if poster_path}}
+          <img
+          onerror="this.onerror=null; this.classList.add('film-card__image--no-image');"
+          src="{{full_path}}"
+          class="modal__img"
+          loading="lazy"
+          alt="{{original_title}}"
+          >
+        {{else}}
+          <div class="modal__img film-card__image--no-image"></div>
+        {{/if}}
+
+    {{!-- <img class='modal__img' src='{{full_path}}' alt='image-film' /> --}}
   </div>
   <div class='modal__description'>
     <h2 class='modal__title'>{{title}}</h2>

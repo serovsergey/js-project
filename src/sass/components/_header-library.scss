@@ -4,7 +4,6 @@
   height: 230px;
   margin-left: auto;
   margin-right: auto;
-  // position: relative;
   background-repeat: no-repeat;
   background-position: center;
   background-color: var(
@@ -25,13 +24,6 @@
     height: 219px;
     background: url(../images/header-library/header-library-img-768.png)
       var(--dark-bg-color);
-    background-size: cover;
-  }
-
-  @include breakpointDPR(2) {
-    background-image: url(../images/header-library/header-library-img-768-2x.png)
-      //for some reason - don't upload!!!
-      var(--bg-color);
     background-size: cover;
   }
 
@@ -58,9 +50,6 @@
     padding-top: 20px;
   }
 
-  //   @media screen and (min-width: 767px) {
-  //     height: 220px;
-  //   }
 }
 
 .hero-lib-buttons__list {

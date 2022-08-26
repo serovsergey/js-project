@@ -41,17 +41,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .logo__icon {
   display: block;
   width: 24px;
   height: 24px;
-  
 }
 
-.logo__label {
+.logo {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
@@ -60,33 +58,34 @@
   display: flex;
   align-items: center;
   text-align: center;
- 
-  
-    &:hover {
-      transform: scale(1.10);
-    }
+  stroke: #fff;
+
+  &:hover {
+    stroke: red;
+    transform: scale(1.1);
+  }
   @include breakpointTo(tablet) {
     display: none;
   }
 
   @include breakpointFrom(tablet) {
     margin-left: 10px;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 30px;
+    // font-family: 'Roboto';
+    // font-style: normal;
+    // font-weight: 500;
+    // font-size: 30px;
     line-height: 1.16;
 
     text-align: center;
 
     color: var(--text-color);
   }
-    transition: makeTransition((color transform));
-    &:hover,
-    &:focus {
-      color: var(--current-link-color);
-      transition: makeTransition((color));
-    }
+  transition: makeTransition((color transform));
+  &:hover,
+  &:focus {
+    color: var(--current-link-color);
+    transition: makeTransition((color));
+  }
 }
 
 .header-nav {
@@ -106,34 +105,33 @@
 }
 
 .theme-switcher__switch {
-    
   background-color: var(--bg-modal-color);
   border-radius: 20px;
   @include breakpointFrom(mobile) {
-      right: -215px;
-      top: -50px;
-      }
-  @include breakpointFrom(tablet){
-      right: -640px;
-        top: 20px;
+    right: -215px;
+    top: -50px;
+  }
+  @include breakpointFrom(tablet) {
+    right: -640px;
+    top: 20px;
   }
   @include breakpointFrom(desktop) {
-        right: -1150px;
-          top: 30px;
-        }
+    right: -1150px;
+    top: 30px;
+  }
 }
 
 .header-nav__item {
   &:not(:last-child) {
     margin-right: 40px;
   }
-     transform: scale(1);
-     transition: transform ease 1s;
-     transition: makeTransition((transform));
-     &:hover {
-       transform: scale(1.30);
-            transition: makeTransition((transform));
-     }
+  transform: scale(1);
+  transition: transform ease 1s;
+  transition: makeTransition((transform));
+  &:hover {
+    transform: scale(1.3);
+    transition: makeTransition((transform));
+  }
 }
 
 .header-nav__link {
@@ -153,7 +151,6 @@
     color: var(--current-link-color);
     transition: makeTransition((color));
   }
-  
 }
 
 .header-nav__link--current-header {
@@ -184,7 +181,7 @@
   @include breakpointFrom(tablet) {
     height: 220px;
   }
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .hero-home__form {
@@ -206,16 +203,16 @@
   }
   border-bottom: 0.5px solid var(--text-color);
   transition: makeTransition((box-shadow border-bottom transform));
-        transform: scale(1.0);
-        animation: transition 0.2s ease-out;
+  transform: scale(1);
+  animation: transition 0.2s ease-out;
   &:hover,
   &:focus-within {
     border-bottom: 3px solid var(--btn-color);
     box-shadow: inset 0 -8px 15px -8px var(--btn-color);
     background: transparent;
     transition: makeTransition((box-shadow border-bottom transform));
-      transform: scale(1.1);
-        animation: transition 0.2s ease-out;
+    transform: scale(1.1);
+    animation: transition 0.2s ease-out;
   }
 }
 

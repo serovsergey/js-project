@@ -14,7 +14,7 @@
   
   @include breakpointFrom(tablet) {
     width: 704px;
-    max-height: 80vh;
+    max-height: 100vh;
     padding: 38px 104px 42px 4px;
     // display: flex;
     background-color: var(--bg-modal-color);
@@ -60,11 +60,10 @@
     // right: 8px;
   }
 }
-.modal__img {
-  height: 357px;
+
+.modal__img--wrapper {
   width: 240px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  height: 357px;
   @include breakpointFrom(tablet) {
     width: 264px;
     height: 374px;
@@ -75,6 +74,13 @@
     height: 478px;
     margin-bottom: 0;
   }
+}
+.modal__img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 .modal__description {
   @include breakpointFrom(tablet) {

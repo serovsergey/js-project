@@ -1,8 +1,11 @@
 <header class="header">
   <div class="container">
     <nav class="header-nav">
-      <a href="./index.html" class="logo js-home">
-        <img class="logo__icon" src="./images/film-icon.svg" alt="Icon logo" />
+      <a href="./index.html" class="logo">
+        <!-- <img class="logo__icon" src="./images/film-icon.svg" alt="Icon logo" /> -->
+        <svg class="logo__icon">
+          <use href="./images/symbol-sprite.svg#film-icon"></use>
+        </svg>
         <span class="logo__label">Filmoteka</span>
       </a>
       <ul class="header-nav__end">

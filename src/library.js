@@ -42,6 +42,23 @@ refs.watchedBtn.closest('UL').addEventListener('click', evt => {
     updateBtnsState(action);
 });
 
+let movieModal;
+
+function onMovieModalClose() {
+  if (movieModal)
+    movieModal = null;
+}
+
+function updateCurrentList() {
+  console.log('updateCurrentList');
+  let page = gMode === WATCHED
+    ? sessionStorage.getItem(WATCHED_PAGE_KEY) || 1
+    : sessionStorage.getItem(QUEUE_PAGE_KEY) || 1;
+  page = Math.min(page, gMode === WATCHED ? watchedList.getTotalPages() : queueList.getTotalPages());
+  console.log(page, watchedList.getList(), queueList.getList());
+  gotoPage(page);
+}
+
 refs.cardsUl.addEventListener('click', evt => {
   evt.preventDefault();
   const card = evt.target.closest('LI');
@@ -49,16 +66,11 @@ refs.cardsUl.addEventListener('click', evt => {
     return;
   // if (queueList.inList(card.dataset.id))
   //   queueList.removeFromList(card.dataset.id);
-  const movieModal = new MovieModal(gMode === 'watched' ? watchedList.getItemById(card.dataset.id) : queueList.getItemById(card.dataset.id), {
-    onClose: null, onChange: (whatChanged) => {
+  movieModal = new MovieModal(gMode === 'watched' ? watchedList.getItemById(card.dataset.id) : queueList.getItemById(card.dataset.id), {
+    onClose: onMovieModalClose, onChange: (whatChanged) => {
       // console.dir(queueList)
-      if (whatChanged === gMode) {
-        let page = gMode === WATCHED
-          ? sessionStorage.getItem(WATCHED_PAGE_KEY) || 1
-          : sessionStorage.getItem(QUEUE_PAGE_KEY) || 1;
-        page = Math.min(page, gMode === WATCHED ? watchedList.getTotalPages() : queueList.getTotalPages());
-        gotoPage(page);
-      }
+      if (whatChanged === gMode)
+        updateCurrentList();
     }
   });
   movieModal.show();
@@ -125,7 +137,7 @@ function renderCards(data) {
 }
 
 function gotoPage(page) {
-  console.log(page)
+  // console.log(page)
   let data;
   switch (gMode) {
     case WATCHED:
@@ -142,3 +154,11 @@ function gotoPage(page) {
   }
   renderCards(data);
 }
+
+addEventListener('storage', (evt) => {
+  if (evt.key === WATCHED || evt.key === QUEUE) {
+    if (movieModal)
+      movieModal.updateButtonsState();
+    updateCurrentList();
+  }
+});

@@ -16,7 +16,7 @@ export default class MovieModal extends BaseModal {
     super.show();
     this.watchedBtn = document.querySelector('.backdrop [data-action="watched"]');
     this.queueBtn = document.querySelector('.backdrop [data-action="queue"]');
-    this.#updateButtonsState();
+    this.updateButtonsState();
     this.watchedBtn.addEventListener('click', this.#onWatchedClick.bind(this));
     this.queueBtn.addEventListener('click', this.#onQueueClick.bind(this));
   }
@@ -26,6 +26,7 @@ export default class MovieModal extends BaseModal {
     if ((typeof this.onClose) === 'function')
       this.onClose();
   }
+
   #setBtnWatchedState(inList) {
     if (inList)
       this.watchedBtn.textContent = 'REMOVE FROM WATCHED';
@@ -40,7 +41,7 @@ export default class MovieModal extends BaseModal {
       this.queueBtn.textContent = 'ADD TO QUEUE';
   }
 
-  #updateButtonsState() {
+  updateButtonsState() {
     this.#setBtnWatchedState(this.watchedList.inList(this.movieData.id));
     this.#setBtnQueueState(this.queueList.inList(this.movieData.id));
   }

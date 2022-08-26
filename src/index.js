@@ -232,6 +232,5 @@ addEventListener('storage', (evt) => {
   if (evt.key === WATCHED || evt.key === QUEUE) {
     if (movieModal)
       movieModal.updateButtonsState();
-    updateCurrentList();
   }
 });

@@ -50,12 +50,10 @@ function onMovieModalClose() {
 }
 
 function updateCurrentList() {
-  console.log('updateCurrentList');
   let page = gMode === WATCHED
     ? sessionStorage.getItem(WATCHED_PAGE_KEY) || 1
     : sessionStorage.getItem(QUEUE_PAGE_KEY) || 1;
   page = Math.min(page, gMode === WATCHED ? watchedList.getTotalPages() : queueList.getTotalPages());
-  console.log(page, watchedList.getList(), queueList.getList());
   gotoPage(page);
 }
 

@@ -14,7 +14,7 @@
   
   @include breakpointFrom(tablet) {
     width: 704px;
-    max-height: 80vh;
+    max-height: 100vh;
     padding: 38px 104px 42px 4px;
     // display: flex;
     background-color: var(--bg-modal-color);
@@ -43,12 +43,12 @@
   border: none;
   width: 30px;
   height: 30px;
-      transition: makeTransition((background-color));
+  transition: makeTransition((background-color));
   &:hover {
     mask-image: url(../images/btn-close.svg);
     -webkit-mask-image: url(../images/btn-close.svg);
     background-color: var(--btn-color);
-          transition: makeTransition((background-color));
+    transition: makeTransition((background-color));
   }
 
   @include breakpointFrom(tablet) {
@@ -60,11 +60,10 @@
     // right: 8px;
   }
 }
-.modal__img {
-  height: 357px;
+
+.modal__img--wrapper {
   width: 240px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  height: 357px;
   @include breakpointFrom(tablet) {
     width: 264px;
     height: 374px;
@@ -75,6 +74,13 @@
     height: 478px;
     margin-bottom: 0;
   }
+}
+.modal__img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 .modal__description {
   @include breakpointFrom(tablet) {
@@ -186,11 +192,11 @@
   line-height: 1.33;
   text-transform: uppercase;
   cursor: pointer;
-    transition: makeTransition((transform));
+  transition: makeTransition((transform));
   &:hover {
-      transform: scale(1.10);
-          transition: makeTransition((transform));
-    }
+    transform: scale(1.1);
+    transition: makeTransition((transform));
+  }
   @include breakpointFrom(tablet) {
     width: 125px;
   }

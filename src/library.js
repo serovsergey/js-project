@@ -16,7 +16,7 @@ const QUEUE = 'queue';
 
 const ts = new ThemeSwitcher('#slider');
 
-document.querySelectorAll(".modal").forEach(el => el.style.display = 'none');
+// document.querySelectorAll(".modal").forEach(el => el.style.display = 'none');
 
 const queueList = new StorageListApi('queue');
 const watchedList = new StorageListApi('watched');
@@ -51,8 +51,14 @@ refs.cardsUl.addEventListener('click', evt => {
   //   queueList.removeFromList(card.dataset.id);
   const movieModal = new MovieModal(gMode === 'watched' ? watchedList.getItemById(card.dataset.id) : queueList.getItemById(card.dataset.id), {
     onClose: null, onChange: (whatChanged) => {
-      if (whatChanged === gMode)
-        gotoPage(queueList.page);
+      // console.dir(queueList)
+      if (whatChanged === gMode) {
+        let page = gMode === WATCHED
+          ? sessionStorage.getItem(WATCHED_PAGE_KEY) || 1
+          : sessionStorage.getItem(QUEUE_PAGE_KEY) || 1;
+        page = Math.min(page, gMode === WATCHED ? watchedList.getTotalPages() : queueList.getTotalPages());
+        gotoPage(page);
+      }
     }
   });
   movieModal.show();
@@ -119,6 +125,7 @@ function renderCards(data) {
 }
 
 function gotoPage(page) {
+  console.log(page)
   let data;
   switch (gMode) {
     case WATCHED:

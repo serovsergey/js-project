@@ -96,4 +96,7 @@
   color: var(--primary-text-color);
 }
 
-.git-icon {}
+.git-icon {
+  color: var(--btn-color);
+  font-weight: 600;
+}

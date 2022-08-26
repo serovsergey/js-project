@@ -16,13 +16,12 @@ import { teamMembers } from "./js/team-data";
 import TeamModal from "./js/modals/TeamModal";
 import MovieModal from "./js/modals/MovieModal";
 
-
-
-
 const TRENDING_PAGE_KEY = 'trending_current_page';
 const SEARCH_PAGE_KEY = 'search_current_page';
 const SEARCH_QUERY_KEY = 'search_query';
 const THROTTLE_DELAY = 250;
+const WATCHED = 'watched';
+const QUEUE = 'queue';
 
 const ts = new ThemeSwitcher('#slider');
 const mApi = new MovieApi();
@@ -63,14 +62,19 @@ refs.homeLinks.forEach(el => {
     sessionStorage.removeItem(TRENDING_PAGE_KEY);
   })
 })
+let movieModal;
+
+function onMovieModalClose() {
+  if (movieModal)
+    movieModal = null;
+}
 
 refs.cardsUl.addEventListener('click', evt => {
   evt.preventDefault();
   const card = evt.target.closest('LI');
   if (!card)
     return;
-  // console.log(mApi.getCachedMovieById(card.dataset.id))
-  const movieModal = new MovieModal(mApi.getCachedMovieById(card.dataset.id), { onClose: null, onChange: null });
+  movieModal = new MovieModal(mApi.getCachedMovieById(card.dataset.id), { onClose: onMovieModalClose, onChange: null });
   movieModal.show();
 })
 
@@ -223,3 +227,11 @@ async function gotoPage(page) {
     renderCards(data);
   }
 })();
+
+addEventListener('storage', (evt) => {
+  if (evt.key === WATCHED || evt.key === QUEUE) {
+    if (movieModal)
+      movieModal.updateButtonsState();
+    updateCurrentList();
+  }
+});

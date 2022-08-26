@@ -43,12 +43,12 @@
   border: none;
   width: 30px;
   height: 30px;
-      transition: makeTransition((background-color));
+      transition: makeTransition((background-color border-radius color));
   &:hover {
-    mask-image: url(../images/btn-close.svg);
-    -webkit-mask-image: url(../images/btn-close.svg);
+ 
     background-color: var(--btn-color);
-          transition: makeTransition((background-color));
+    border-radius: 3px;
+    color: var(--primary-text-color);
   }
 
   @include breakpointFrom(tablet) {
@@ -185,11 +185,12 @@
   font-size: 12px;
   line-height: 1.33;
   text-transform: uppercase;
+  animation: bounce 1s;
   cursor: pointer;
-    transition: makeTransition((transform));
+    transition: makeTransition((border-color));
   &:hover {
-      transform: scale(1.10);
-          transition: makeTransition((transform));
+  border-color: var(--btn-color);  
+      transition: makeTransition((border-color));
     }
   @include breakpointFrom(tablet) {
     width: 125px;

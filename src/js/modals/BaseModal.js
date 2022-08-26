@@ -22,7 +22,7 @@ export default class BaseModal {
     <div class="backdrop is-hidden">
       <div class="modal-wrapper ${this.containerClass || ''}">
         <button class="modal__btn-close"></button>
-        <div class="modal-content">
+        <div class="modal-content modal-contentfoot">
           ${this.markup}
         </div>
       </div>

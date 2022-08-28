@@ -58,7 +58,7 @@ footer {
   font-size: 14px;
   line-height: 1.14;
   color: var(--footer-color);
-  
+
 
   @include breakpointFrom(tablet) {
     font-size: 16px;
@@ -81,12 +81,13 @@ footer {
   margin-top: 3px;
   fill: var(--btn-color);
   animation-name: 'anime';
-    animation-duration: 300ms;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-timing-function: ease-in;
+  animation-duration: 300ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in;
 
 }
+
 @keyframes anime {
   from {
     transform: scale(1) rotate(1deg);
@@ -96,6 +97,7 @@ footer {
     transform: scale(1.5) rotate(1deg);
   }
 }
+
 .open-team-modal {
   border-color: transparent;
   text-decoration: underline var(--footer-color);
@@ -104,16 +106,16 @@ footer {
   color: var(--footer-color);
   transform: scale(1.1);
 
-    transition: makeTransition((color, background-color, text-decoration, transform));
- }
+  transition: makeTransition((color, background-color, text-decoration, transform));
+}
 
 .open-team-modal:hover,
 .open-team-modal:focus {
   color: var(--btn-color);
   text-decoration: underline 2px var(--btn-color);
-  
+
   transition: makeTransition((color, background-color, text-decoration));
-  
+
 }
 
 .open-team-modal:hover .footer__list-icon {
@@ -123,6 +125,41 @@ footer {
   background-color: rgba(0, 100, 0, 0.9);
 
 
-    transition: makeTransition((color background-color text-decoration));
+  transition: makeTransition((color background-color text-decoration));
 }
 
+// QUOTE
+
+.quote-container {
+
+  @include breakpointFrom(desktop) {
+    top: 290px;
+    left: 20px;
+    position: fixed;
+    background-color: var(--input-hover);
+    border-radius: 4px;
+    border: 2px solid var(--btn-color);
+    height: 250px;
+    width: 200px;
+    margin: 0px auto;
+    padding-top: 10px;
+    text-align: center;
+  }
+}
+
+.quote-btn {
+  margin: 15px auto;
+  height: 30px;
+  width: 150px;
+  font-size: 18px;
+  background-color: var(--btn-color);
+  cursor: pointer;
+  color: var(--primary-text-color);
+  border-radius: 5px;
+}
+
+.qoute-output {
+  margin: 5px auto;
+  font-size: 16px;
+  color: var(--primary-text-color);
+}

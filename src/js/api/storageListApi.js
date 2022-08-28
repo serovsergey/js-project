@@ -1,13 +1,27 @@
 import MovieApi from "./movieApi";
 
+/**
+ * Fetching Api for local stored lists (with update from remote Api and caching feature)
+ * @class StorageListApi
+ */
 export default class StorageListApi {
-  static DATA_TTL = 1000// * 60 * 60 * 24 * 30;
+  static DATA_TTL = 1000 * 60 * 60 * 24 * 30;
 
+  /**
+   * @constructor
+   * @param {string} key LocalStorage key to store list
+   * @param {number} perPage - count of movies per page
+   */
   constructor(key, perPage = 20) {
     this.key = key;
     this.perPage = perPage;
   }
 
+  /**
+   * Add movie data entry to stored list
+   * @param {object} value movie data object
+   * @returns {number} length of list after adding
+   */
   addToList(value) {
     if (this.inList(value.id)) return false;
     let list = this.getList();
@@ -20,12 +34,21 @@ export default class StorageListApi {
     return length;
   }
 
+  /**
+   * Return page count of stored list
+   * @returns {number} count of pages
+   */
   getTotalPages() {
     const list = this.getList();
     if (!list) return 0;
     return Math.ceil(list.length / this.perPage);
   }
 
+  /**
+   * Removes movie data entry from list
+   * @param {number} id - movie id
+   * @returns {boolean} false if opeartion fails
+   */
   removeFromList(id) {
     const list = this.getList();
     if (list) {
@@ -43,7 +66,11 @@ export default class StorageListApi {
     }
     return false;
   }
-
+  /**
+   * Updates movie data entry in list
+   * @param {obj} newData - new object
+   * @returns {boolean} false if opeartion fails
+   */
   updateItem(newData) {
     const list = this.getList();
     if (list) {
@@ -59,6 +86,11 @@ export default class StorageListApi {
     return false;
   }
 
+  /**
+   * Checks if data for movie with specified id present in stored list
+   * @param {number} id
+   * @returns {boolean}
+   */
   inList(id) {
     const list = this.getList();
     if (list) {
@@ -66,6 +98,12 @@ export default class StorageListApi {
     }
     return false;
   }
+
+  /**
+   * Returns movie data from stored list by id
+   * @param {number} id - identifier of movie
+   * @returns {object} object with movie data
+   */
   getItemById(id) {
     const list = this.getList();
     if (list) {
@@ -73,6 +111,11 @@ export default class StorageListApi {
     }
     return null;
   }
+
+  /**
+   * Returns strored in LocalStorage movie list
+   * @returns {array} Array of movies
+   */
   getList() {
     const stored = localStorage.getItem(this.key);
     let list = null;
@@ -82,7 +125,12 @@ export default class StorageListApi {
     catch (e) { console.error(e.message) }
     return list;
   }
-
+  /**
+   * Checks stored in LocalStorage portion of movie data for relevance for specified page,
+   * and updates outdated items in LocalStorage
+   * @param {number} from - page number to update
+   * @returns {Promise} Promise (nothing)
+   */
   async updateOutdatedItems(from) {
     const mApi = new MovieApi();
     const list = this.getList();
@@ -95,11 +143,12 @@ export default class StorageListApi {
   }
 
   /**
-   *
+   * Retrieves movies data from LocalStorage. Controls TTL of data (if movie data is outdated, fetches
+   * new one only for outdated on page)
    * @param {number} page number of page to fetch, if not passed fetches next page
-   * @returns {object} object with stored data
+   * @returns {Promise} Promise for object with movies data
    */
-  async fetchNext(page = -1, movieApi = null) {
+  async fetchNext(page = -1) {
     const list = this.getList();
     if (!list || list.length === 0) return null;
     const totalPages = Math.ceil(list.length / this.perPage);

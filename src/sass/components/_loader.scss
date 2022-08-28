@@ -29,52 +29,58 @@
 }
 
 .pop1 {
-  width: 30px;
-  height: 30px;
+  // width: 32px;
+  // height: 39px;
+  width: 64px;
+  height: 77px;
   animation: jump-up 0.6s 0.1s linear infinite;
-  border-radius: 30%;
+  // border-radius: 30%;
 
-  @include breakpointFrom(tablet) {
-    width: 40px;
-    height: 40px;
-  }
+  // @include breakpointFrom(tablet) {
+  //   width: 48px;
+  //   height: 58px;
+  // }
 
-  @include breakpointFrom(desktop) {
-    width: 50px;
-    height: 50px;
-  }
+  // @include breakpointFrom(desktop) {
+  //   width: 64px;
+  //   height: 77px;
+  // }
 }
 
 .pop2 {
-  width: 30px;
-  height: 30px;
+  // width: 32px;
+  // height: 39px;
+  width: 64px;
+  height: 77px;
   animation: jump-up 0.6s 0.2s linear infinite;
-  border-radius: 30%;
+  // border-radius: 30%;
 
-  @include breakpointFrom(tablet) {
-    width: 40px;
-    height: 40px;
-  }
+  // @include breakpointFrom(tablet) {
+  //   width: 48px;
+  //   height: 58px;
+  // }
 
-  @include breakpointFrom(desktop) {
-    width: 50px;
-    height: 50px;
-  }
+  // @include breakpointFrom(desktop) {
+  //   width: 64px;
+  //   height: 77px;
+  // }
 }
 
 .pop3 {
-  width: 30px;
-  height: 30px;
+  // width: 32px;
+  // height: 39px;
+  width: 64px;
+  height: 77px;
   animation: jump-up 0.6s 0.3s linear infinite;
-  border-radius: 30%;
+  // border-radius: 30%;
 
-  @include breakpointFrom(tablet) {
-    width: 40px;
-    height: 40px;
-  }
+  // @include breakpointFrom(tablet) {
+  //   width: 48px;
+  //   height: 58px;
+  // }
 
-  @include breakpointFrom(desktop) {
-    width: 50px;
-    height: 50px;
-  }
+  // @include breakpointFrom(desktop) {
+  //   width: 64px;
+  //   height: 77px;
+  // }
 }

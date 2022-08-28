@@ -34,6 +34,7 @@
       background-size: cover;
     }
   }
+
   background-color: transparent;
 }
 
@@ -51,11 +52,13 @@
 
 .logo__label {
   transition: makeTransition((color transform));
+
   &:hover,
   &:focus {
     color: var(--current-link-color);
     // transition: makeTransition((color));
   }
+
   @include breakpointTo(tablet) {
     display: none;
   }
@@ -88,6 +91,7 @@
     stroke: red;
     transform: scale(1.1);
   }
+
   @include breakpointTo(tablet) {
     // display: none;
   }
@@ -104,7 +108,9 @@
 
     color: var(--text-color);
   }
+
   transition: makeTransition((color transform));
+
   &:hover,
   &:focus {
     color: var(--current-link-color);
@@ -131,14 +137,17 @@
 .theme-switcher__switch {
   background-color: var(--bg-modal-color);
   border-radius: 20px;
+
   @include breakpointFrom(mobile) {
     right: -215px;
     top: -50px;
   }
+
   @include breakpointFrom(tablet) {
     right: -640px;
     top: 20px;
   }
+
   @include breakpointFrom(desktop) {
     right: -1150px;
     top: 30px;
@@ -149,9 +158,11 @@
   &:not(:last-child) {
     margin-right: 40px;
   }
+
   transform: scale(1);
   transition: transform ease 1s;
   transition: makeTransition((transform));
+
   &:hover {
     transform: scale(1.3);
     transition: makeTransition((transform));
@@ -167,9 +178,11 @@
   text-transform: uppercase;
 
   transition: makeTransition((color));
+
   & {
     padding-bottom: 3px;
   }
+
   &:hover,
   &:focus {
     color: var(--current-link-color);
@@ -193,9 +206,11 @@
     background-color: var(--current-link-color);
   }
 }
+
 .hero__home {
   cursor: pointer;
 }
+
 .hero-home__container {
   position: relative;
   width: 100%;
@@ -205,6 +220,7 @@
   @include breakpointFrom(tablet) {
     height: 220px;
   }
+
   cursor: pointer;
 }
 
@@ -221,14 +237,17 @@
     width: 336px;
     margin: 0 auto 20px auto;
   }
+
   @include breakpointFrom(desktop) {
     width: 394px;
     margin: 0 auto 20px auto;
   }
+
   border-bottom: 0.5px solid var(--text-color);
   transition: makeTransition((box-shadow border-bottom transform));
   transform: scale(1);
   animation: transition 0.2s ease-out;
+
   &:hover,
   &:focus-within {
     border-bottom: 3px solid var(--btn-color);
@@ -256,6 +275,7 @@
     line-height: 1.14;
     color: var(--text-color);
   }
+
   &:hover,
   &:focus {
     &::placeholder {
@@ -285,13 +305,16 @@
   font-size: 14px;
   color: var(--current-link-color);
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
   @include breakpointFrom(tablet) {
     width: 395px;
   }
+
   @include breakpointFrom(desktop) {
     width: 395px;
   }
 }
+
 .notify-is-hidden {
   opacity: 0;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);

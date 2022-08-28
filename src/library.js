@@ -16,8 +16,6 @@ const QUEUE = 'queue';
 
 const ts = new ThemeSwitcher('#slider');
 
-// document.querySelectorAll(".modal").forEach(el => el.style.display = 'none');
-
 const queueList = new StorageListApi('queue');
 const watchedList = new StorageListApi('watched');
 
@@ -62,11 +60,8 @@ refs.cardsUl.addEventListener('click', evt => {
   const card = evt.target.closest('LI');
   if (!card)
     return;
-  // if (queueList.inList(card.dataset.id))
-  //   queueList.removeFromList(card.dataset.id);
   movieModal = new MovieModal(gMode === 'watched' ? watchedList.getItemById(card.dataset.id) : queueList.getItemById(card.dataset.id), {
     onClose: onMovieModalClose, onChange: (whatChanged) => {
-      // console.dir(queueList)
       if (whatChanged === gMode)
         updateCurrentList();
     }
@@ -134,17 +129,16 @@ function renderCards(data) {
   refs.pagination.innerHTML = data ? makePagination(data) : '';
 }
 
-function gotoPage(page) {
-  // console.log(page)
+async function gotoPage(page) {
   let data;
   switch (gMode) {
     case WATCHED:
-      data = watchedList.fetchNext(page);
+      data = await watchedList.fetchNext(page);
       if (data)
         sessionStorage.setItem(WATCHED_PAGE_KEY, data.page);
       break;
     case QUEUE:
-      data = queueList.fetchNext(page);
+      data = await queueList.fetchNext(page);
       if (data)
         sessionStorage.setItem(QUEUE_PAGE_KEY, data.page);
       break;

@@ -1,4 +1,8 @@
+import MovieApi from "./movieApi";
+
 export default class StorageListApi {
+  static DATA_TTL = 1000// * 60 * 60 * 24 * 30;
+
   constructor(key, perPage = 20) {
     this.key = key;
     this.perPage = perPage;
@@ -27,7 +31,7 @@ export default class StorageListApi {
     if (list) {
       const idx = list.findIndex(el => el.id === Number(id));
       if (!~idx) {
-        console.error("Something gone wrong, guys!");
+        console.error("Item not found in list, but it must be there!");
         return false;
       }
       list.splice(idx, 1);
@@ -35,6 +39,21 @@ export default class StorageListApi {
         localStorage.setItem(this.key, JSON.stringify(list));
       else
         localStorage.removeItem(this.key);
+      return true;
+    }
+    return false;
+  }
+
+  updateItem(newData) {
+    const list = this.getList();
+    if (list) {
+      const idx = list.findIndex(el => el.id === Number(newData.id));
+      if (!~idx) {
+        console.error("Item not found in list, but it must be there!");
+        return false;
+      }
+      list.splice(idx, 1, newData);
+      localStorage.setItem(this.key, JSON.stringify(list));
       return true;
     }
     return false;
@@ -63,12 +82,24 @@ export default class StorageListApi {
     catch (e) { console.error(e.message) }
     return list;
   }
+
+  async updateOutdatedItems(from) {
+    const mApi = new MovieApi();
+    const list = this.getList();
+    if (!list || list.length === 0) return null;
+    const itemsToUpdate = list.slice(from, from + this.perPage)
+      .filter(el => !el.timestamp || el.timestamp + StorageListApi.DATA_TTL < Date.now())
+      .map(async el => { return await mApi.fetchMovieDetails(el.id) });
+    const updatedItems = await Promise.all(itemsToUpdate);
+    updatedItems.forEach(el => this.updateItem(el));
+  }
+
   /**
    *
    * @param {number} page number of page to fetch, if not passed fetches next page
    * @returns {object} object with stored data
    */
-  fetchNext(page = -1) {
+  async fetchNext(page = -1, movieApi = null) {
     const list = this.getList();
     if (!list || list.length === 0) return null;
     const totalPages = Math.ceil(list.length / this.perPage);
@@ -82,8 +113,7 @@ export default class StorageListApi {
       else this.page = totalPages;
     }
     const from = (this.page - 1) * this.perPage;
-    // console.log(this.page, from, from + this.perPage);
-    // console.log({ page: this.page, total_pages: totalPages, results: list.slice(from, from + this.perPage) })
+    await this.updateOutdatedItems(from);
     return { page: Number(this.page), total_pages: totalPages, results: list.slice(from, from + this.perPage) };
   }
 }

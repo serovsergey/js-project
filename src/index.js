@@ -27,8 +27,6 @@ const ts = new ThemeSwitcher('#slider');
 const mApi = new MovieApi();
 const queueList = new StorageListApi('queue');
 
-// document.querySelectorAll(".modal").forEach(el => el.style.display = 'none');
-
 const refs = {
   cardsUl: document.querySelector(".gallery__list"),
   pagination: document.querySelector(".gallery__pagination"),
@@ -62,19 +60,15 @@ refs.homeLinks.forEach(el => {
     sessionStorage.removeItem(TRENDING_PAGE_KEY);
   })
 })
-let movieModal;
 
-function onMovieModalClose() {
-  if (movieModal)
-    movieModal = null;
-}
+let movieModal;
 
 refs.cardsUl.addEventListener('click', evt => {
   evt.preventDefault();
   const card = evt.target.closest('LI');
   if (!card)
     return;
-  movieModal = new MovieModal(mApi.getCachedMovieById(card.dataset.id), { onClose: onMovieModalClose, onChange: null });
+  movieModal = new MovieModal(mApi.getCachedMovieById(card.dataset.id), { onClose: () => { if (movieModal) movieModal = null; }, onChange: null });
   movieModal.show();
 })
 
@@ -142,6 +136,7 @@ refs.pagination.addEventListener('click', async evt => {
 });
 
 function renderCards(data) {
+  // console.log(data.results)
   refs.cardsUl.innerHTML = cardsHbs({ results: data.results, base_path: MovieApi.IMAGES_BASE_URL }); //makeCardsMarkup(data);
   refs.pagination.innerHTML = makePagination(data);
 }
@@ -213,7 +208,6 @@ async function gotoPage(page) {
     let data;
     try {
       data = await mApi.fetchNextTrending(trendingPage || 1);
-      // console.log(data)
     }
     catch (e) {
       console.error(e.message)

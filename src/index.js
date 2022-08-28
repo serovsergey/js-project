@@ -1,16 +1,11 @@
 import './js/scroll-to-top';
 import throttle from "lodash.throttle";
-
 import ThemeSwitcher from "./js/theme-switcher";
+
 import MovieApi from "./js/api/movieApi";
 import StorageListApi from "./js/api/storageListApi";
 import makePagination from "./js/pagination";
-// import Modal from "./js/modals/BaseModal";
-
 import cardsHbs from './templates/cards.hbs';
-
-// import movieDetailsHbs from './templates/movie-details.hbs';
-// import teamHbs from './templates/team.hbs';
 
 import { teamMembers } from "./js/team-data";
 import TeamModal from "./js/modals/TeamModal";
@@ -25,7 +20,7 @@ const QUEUE = 'queue';
 
 const ts = new ThemeSwitcher('#slider');
 const mApi = new MovieApi();
-const queueList = new StorageListApi('queue');
+// const queueList = new StorageListApi('queue');
 
 const refs = {
   cardsUl: document.querySelector(".gallery__list"),
@@ -135,9 +130,16 @@ refs.pagination.addEventListener('click', async evt => {
   }
 });
 
+window.addEventListener('storage', (evt) => {
+  if (evt.key === WATCHED || evt.key === QUEUE) {
+    if (movieModal)
+      movieModal.updateButtonsState();
+  }
+});
+
 function renderCards(data) {
   // console.log(data.results)
-  refs.cardsUl.innerHTML = cardsHbs({ results: data.results, base_path: MovieApi.IMAGES_BASE_URL }); //makeCardsMarkup(data);
+  refs.cardsUl.innerHTML = cardsHbs({ results: data.results.map((el, idx) => ({ ...el, lazy: idx > 2 })), base_path: MovieApi.IMAGES_BASE_URL }); //makeCardsMarkup(data);
   refs.pagination.innerHTML = makePagination(data);
 }
 
@@ -158,7 +160,7 @@ async function gotoPage(page) {
       renderCards(data);
     }
     catch (e) {
-      console.log(e.message)
+      console.error(e.message)
     } finally {
       refs.loader.classList.add('is-hidden');
     }
@@ -175,7 +177,7 @@ async function gotoPage(page) {
       renderCards(data);
     }
     catch (e) {
-      console.log(e.message)
+      console.error(e.message)
     } finally {
       refs.loader.classList.add('is-hidden');
     }
@@ -221,10 +223,3 @@ async function gotoPage(page) {
     renderCards(data);
   }
 })();
-
-addEventListener('storage', (evt) => {
-  if (evt.key === WATCHED || evt.key === QUEUE) {
-    if (movieModal)
-      movieModal.updateButtonsState();
-  }
-});

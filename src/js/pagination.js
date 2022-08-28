@@ -1,3 +1,8 @@
+/**
+ * Generates markup for pagination
+ * @param {object} data - object with movies data (property "results" - array of movies)
+ * @returns {string} string with markup
+ */
 export default function makePagination(data) {
   let pagination = '';
   if (!data.results.length)

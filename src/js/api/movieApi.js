@@ -1,6 +1,10 @@
 import axios from "axios";
 
 const NO_INFO = 'No info';
+/**
+ * Fetching Api for 'The Movie Database'
+ * @class MovieApi
+ */
 export default class MovieApi {
   static API_KEY = 'd211d18bbdd8eeb23b9914a8b27a6ac5';
   static BASE_URL = 'https://api.themoviedb.org/3';
@@ -8,28 +12,15 @@ export default class MovieApi {
   static GENRES_CACHE_KEY = 'genres_cache';
   static GENRES_TTL = 1000 * 60 * 60 * 24 * 30;
   // https://api.themoviedb.org/3/configuration?api_key=d211d18bbdd8eeb23b9914a8b27a6ac5
-  // constructor() {
+  // constructor() {}
 
-  // adult: false
-  // backdrop_path: "/jILeJ60zPpIjjJHGSmIeY4eO30t.jpg"
-  // full_path: "https://image.tmdb.org/t/p/w400/xUuHj3CgmZQ9P2cMaqQs4J0d4Zc.jpg"
-  // genre_ids: (2)[28, 18]
-  // genres: "Action, Drama"
-  // id: 744
-  // info: "Action, Drama | 1986"
-  // media_type: "movie"
-  // original_language: "en"
-  // original_title: "Top Gun"
-  // overview: "For Lieutenant Pete 'Maverick' Mitchell and his friend and co-pilot Nick 'Goose' Bradshaw, being accepted into an elite training school for fighter pilots is a dream come true. But a tragedy, as well as personal demons, will threaten Pete's dreams of becoming an ace pilot."
-  // popularity: 335.613
-  // poster_path: "/xUuHj3CgmZQ9P2cMaqQs4J0d4Zc.jpg"
-  // release_date: "1986-05-16"
-  // title: "Top Gun"
-  // video: false
-  // vote_average: "7.0"
-  // vote_count: 6282
-
-  getProcessedItem(movieItem, genresList) {
+  /**
+   * Transforms properties to appropriate content
+   * @param {object} movieItem - object with recieved movie data
+   * @param {array} genresList - array with genres (id, name), if not passed, supposed, that 'movieItem' has this data in 'genres'
+   * @returns {object} object with apropriate properties
+   */
+  getProcessedItem(movieItem, genresList = null) {
     let genres;
     let genresFull;
     if (genresList)
@@ -49,7 +40,6 @@ export default class MovieApi {
       info.push(new Date(releaseDate).getFullYear());
     const strInfo = info.join(' | ') || NO_INFO;
     return {
-      // ...el,
       id: movieItem.id,
       poster_path: movieItem.poster_path,
       title: movieItem.title || movieItem.name,
@@ -65,6 +55,11 @@ export default class MovieApi {
     }
   }
 
+  /**
+   * Processes array of movies to appropriate content (fetches cached genres list)
+   * @param {array} data - array with movies data
+   * @returns {Promise} Promise for movies array
+   */
   async getProcessedResult(data) {
     const genresList = await this.getCachedGenres();
     return {
@@ -74,6 +69,11 @@ export default class MovieApi {
     };
   }
 
+  /**
+   * Fetches trending movies
+   * @param {number} page - page number to fetch, if not passed, fetches next page
+   * @returns {Promise} Promise for object with movies array
+   */
   async fetchNextTrending(page = -1) {
     if (~page)
       this.trendingPage = page;
@@ -95,6 +95,11 @@ export default class MovieApi {
     return this.cache = data;
   }
 
+  /**
+   * Retrieves movie data object from cache by id
+   * @param {number} id - identificator of movie
+   * @returns {object} object with movie data
+   */
   getCachedMovieById(id) {
     if (!this.cache) {
       console.error('No cache!');
@@ -103,14 +108,27 @@ export default class MovieApi {
     return this.cache.results.find(el => el.id === Number(id));
   }
 
+  /**
+   * Retrieves cached object with array of movies
+   * @returns {object} object
+   */
   getCache() {
     return this.cache;
   }
 
+  /**
+   * Clears cache with array of movies
+   */
   clearCache() {
     this.cache = null;
   }
 
+  /**
+   *Fetches search results with array of movies
+   * @param {string} query - search string, if not passed assumes previous search string
+   * @param {number} page - page number to fetch, if not passed, fetches next page
+   * @returns {Promise} Promise for object with array of movies
+   */
   async fetchNextSearch(query = '', page = -1) {
     if (query) {
       this.searchPage = 1;
@@ -139,15 +157,32 @@ export default class MovieApi {
     return this.cache = data;
   }
 
+  /**
+   * Fetches movie details by id
+   * @param {number} movie_id - identifier of movie to fetch
+   * @returns {Promise} Promise for object with movie data
+   */
   async fetchMovieDetails(movie_id) {
     const params = new URLSearchParams({
       api_key: MovieApi.API_KEY,
     }).toString();
-    const data = await axios.get(`${MovieApi.BASE_URL}/movie/${movie_id}?${params}`);
+    let data;
+    try {
+      data = await axios.get(`${MovieApi.BASE_URL}/movie/${movie_id}?${params}`);
+    }
+    catch (e) {
+      console.error(e.message);
+      return;
+    }
     return this.getProcessedItem(data.data);
-    return this.getProcessedItem({ ...data.data, id_: movie_id/* , genre_ids: data.data.genres.map(el => el.id) } */ });
   }
 
+  /**
+   * Retrieves Genres list from LocalStorage, controls TTL of data. If data not present in LocalStorage,
+   * or data outdated, fetches updated list from API
+   * @param {boolean} forceUpdate - if true, forces fetching from API
+   * @returns {Promise} Promise for array of genres
+   */
   async getCachedGenres(forceUpdate = false) {
     let genres_cache = localStorage.getItem(MovieApi.GENRES_CACHE_KEY);
     try {

@@ -3,12 +3,13 @@ import throttle from "lodash.throttle";
 
 const THROTTLE_DELAY = 250;
 
-// const throttle = require("lodash.throttle");
-
+/**
+ * Event handler for scroll event
+ */
 export const calcScrollValue = throttle(() => {
 
   const scrollProgress = document.getElementById("progress");
-  const progressValue = document.getElementById("progress-value");
+  // const progressValue = document.getElementById("progress-value");
   const position = document.documentElement.scrollTop;
   const calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   const scrollValue = Math.round((position * 100) / calcHeight);

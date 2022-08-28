@@ -24,6 +24,7 @@ const refs = {
   queueBtn: document.querySelector('header [data-action="queue"]'),
   cardsUl: document.querySelector(".gallery__list"),
   pagination: document.querySelector(".gallery__pagination"),
+  loader: document.querySelector(".loader"),
   teamLink: document.querySelector(".open-team-modal"),
 }
 
@@ -98,6 +99,14 @@ refs.pagination.addEventListener('click', async evt => {
   }
 });
 
+addEventListener('storage', (evt) => {
+  if (evt.key === WATCHED || evt.key === QUEUE) {
+    if (movieModal)
+      movieModal.updateButtonsState();
+    updateCurrentList();
+  }
+});
+
 let gMode = sessionStorage.getItem(LIBRARY_MODE_KEY);
 if (!gMode) gMode = WATCHED;
 updateBtnsState(gMode);
@@ -124,13 +133,14 @@ function updateBtnsState(mode) {
 
 function renderCards(data) {
   refs.cardsUl.innerHTML = data
-    ? cardsHbs({ results: data.results, base_path: MovieApi.IMAGES_BASE_URL, showRating: 1 })
+    ? cardsHbs({ results: data.results.map((el, idx) => ({ ...el, lazy: idx > 2 })), base_path: MovieApi.IMAGES_BASE_URL, showRating: 1 })
     : `<li class="gallery__no-entries">There are no entries in the ${gMode} list yet</li>`; //makeCardsMarkup(data);
   refs.pagination.innerHTML = data ? makePagination(data) : '';
 }
 
 async function gotoPage(page) {
   let data;
+  refs.loader.classList.remove('is-hidden');
   switch (gMode) {
     case WATCHED:
       data = await watchedList.fetchNext(page);
@@ -142,15 +152,9 @@ async function gotoPage(page) {
       if (data)
         sessionStorage.setItem(QUEUE_PAGE_KEY, data.page);
       break;
-    default: return;
+    default: refs.loader.classList.add('is-hidden');
+      return;
   }
   renderCards(data);
+  refs.loader.classList.add('is-hidden');
 }
-
-addEventListener('storage', (evt) => {
-  if (evt.key === WATCHED || evt.key === QUEUE) {
-    if (movieModal)
-      movieModal.updateButtonsState();
-    updateCurrentList();
-  }
-});

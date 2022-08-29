@@ -127,39 +127,3 @@ footer {
 
   transition: makeTransition((color background-color text-decoration));
 }
-
-// QUOTE
-
-.quote-container {
-
-  @include breakpointFrom(desktop) {
-    top: 290px;
-    left: 20px;
-    position: fixed;
-    background-color: var(--input-hover);
-    border-radius: 4px;
-    border: 2px solid var(--btn-color);
-    height: 250px;
-    width: 200px;
-    margin: 0px auto;
-    padding-top: 10px;
-    text-align: center;
-  }
-}
-
-.quote-btn {
-  margin: 15px auto;
-  height: 30px;
-  width: 150px;
-  font-size: 18px;
-  background-color: var(--btn-color);
-  cursor: pointer;
-  color: var(--primary-text-color);
-  border-radius: 5px;
-}
-
-.qoute-output {
-  margin: 5px auto;
-  font-size: 16px;
-  color: var(--primary-text-color);
-}

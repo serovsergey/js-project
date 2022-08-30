@@ -59,7 +59,7 @@ function updateCurrentList() {
 refs.cardsUl.addEventListener('click', evt => {
   evt.preventDefault();
   const card = evt.target.closest('LI');
-  if (!card)
+  if (!card || card.classList.contains('gallery__no-entries'))
     return;
   movieModal = new MovieModal(gMode === 'watched' ? watchedList.getItemById(card.dataset.id) : queueList.getItemById(card.dataset.id), {
     onClose: onMovieModalClose, onChange: (whatChanged) => {

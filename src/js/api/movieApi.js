@@ -151,10 +151,13 @@ export default class MovieApi {
       console.error(e.message);
       return;
     }
-    if (query && data.results.length) {
-      this.query = query;
+    if (data.results.length) {
+      this.cache = data;
+      if (query) {
+        this.query = query;
+      }
     }
-    return this.cache = data;
+    return data;
   }
 
   /**
